@@ -1,0 +1,17 @@
+body {
+  background-color: red !important;
+}
+
+.min-h-screen {
+  background-color: red !important;
+}
+
+main {
+  background-color: red !important;
+}
+
+.dark body,
+.dark .min-h-screen,
+.dark main {
+  background-color: red !important;
+}
