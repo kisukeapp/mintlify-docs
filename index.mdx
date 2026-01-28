@@ -1,97 +1,85 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "Getting Started"
+description: "Welcome to Kisuke - Mobile coding, anywhere"
 ---
 
-## Setting up
+## What is Kisuke?
 
-Get your documentation site up and running in minutes.
+Kisuke is a mobile coding app that brings a full development environment to your phone or tablet. With built-in AI chat, terminal, and code editor, you can code from anywhere.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+<CardGroup cols={2}>
+  <Card title="What is Kisuke?" icon="circle-question" href="/what-is-kisuke">
+    Learn about Kisuke and its core features.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Install on Mobile" icon="mobile" href="/installation/mobile">
+    Get Kisuke on iOS or Android.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Install on Desktop" icon="desktop" href="/installation/mac">
+    Set up Kisuke Connect on your computer.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="AI Chat" icon="message-bot" href="/features/ai-chat">
+    Code with Claude, GPT, and more.
   </Card>
-</Columns>
+</CardGroup>
 
-## Create beautiful pages
+## Quick Install
 
-Everything you need to create world-class documentation.
+<Tabs>
+  <Tab title="iOS / Android">
+    Download Kisuke from the App Store or Google Play.
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+    <CardGroup cols={2}>
+      <Card title="App Store" icon="apple" href="https://apps.apple.com/app/kisuke">
+        Download for iOS
+      </Card>
+      <Card title="Google Play" icon="google-play" href="https://play.google.com/store/apps/details?id=app.kisuke">
+        Download for Android
+      </Card>
+    </CardGroup>
+  </Tab>
+  <Tab title="Desktop">
+    Install Kisuke Connect to link your mobile device with your computer.
 
-## Need inspiration?
+    - [Mac Installation](/installation/mac)
+    - [Windows Installation](/installation/windows)
+    - [Linux Installation](/installation/linux)
+  </Tab>
+  <Tab title="CLI / Docker">
+    For advanced users and server deployments.
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+    ```bash
+    # Install via CLI
+    curl -fsSL https://kisuke.app/install.sh | sh
+
+    # Or use Docker
+    docker pull kisuke/kisuke-connect
+    ```
+
+    [Learn more about CLI & Docker](/installation/cli-docker)
+  </Tab>
+</Tabs>
+
+## Sign In Options
+
+Kisuke supports multiple authentication providers:
+
+- **Claude** - Sign in with your Anthropic account
+- **Google** - Sign in with Google
+- **OpenAI** - Sign in with your OpenAI account
+
+## Core Features
+
+<CardGroup cols={2}>
+  <Card title="Terminal & Shell" icon="terminal" href="/features/terminal-shell">
+    Full terminal access on your mobile device.
+  </Card>
+  <Card title="Code Editor" icon="code" href="/features/editor">
+    Edit files with syntax highlighting and more.
+  </Card>
+  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
+    Connect your phone to your development machine.
+  </Card>
+  <Card title="Spaces" icon="folder-tree" href="/features/spaces">
+    Organize your projects and workspaces.
+  </Card>
+</CardGroup>

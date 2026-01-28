@@ -1,0 +1,211 @@
+---
+title: "Self-Hosting KJS"
+description: "Run your own Kisuke infrastructure"
+---
+
+## Overview
+
+For organizations that need complete control over their infrastructure, Kisuke can be self-hosted. This guide covers deploying Kisuke's coordination server (KJS - Kisuke Join Server).
+
+## Why Self-Host?
+
+- **Data sovereignty** - Keep all data within your infrastructure
+- **Compliance** - Meet regulatory requirements
+- **Air-gapped networks** - Deploy in isolated environments
+- **Custom policies** - Full control over access and routing
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────┐
+│                  Your Infrastructure                │
+│                                                     │
+│   ┌─────────────┐    ┌─────────────┐               │
+│   │   Kisuke    │    │   Relay     │               │
+│   │   Server    │    │   Server    │               │
+│   │   (KJS)     │    │   (DERP)    │               │
+│   └──────┬──────┘    └──────┬──────┘               │
+│          │                   │                      │
+│          └───────────────────┘                      │
+│                    │                                │
+└────────────────────┼────────────────────────────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+   ┌────▼────┐  ┌────▼────┐  ┌────▼────┐
+   │  Phone  │  │  Laptop │  │  Server │
+   └─────────┘  └─────────┘  └─────────┘
+```
+
+## Requirements
+
+### Hardware
+
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| CPU | 2 cores | 4 cores |
+| RAM | 2 GB | 4 GB |
+| Disk | 10 GB | 50 GB |
+
+### Software
+
+- Linux (Ubuntu 22.04+, Debian 12+, or similar)
+- Docker and Docker Compose, or
+- PostgreSQL 14+ (for non-Docker deployments)
+
+### Network
+
+- Public IP address (or NAT with port forwarding)
+- Domain name (optional but recommended)
+- TLS certificate (Let's Encrypt works great)
+
+## Docker Deployment
+
+### Quick Start
+
+```bash
+# Clone the deployment repo
+git clone https://github.com/kisuke/kjs-deploy
+cd kjs-deploy
+
+# Configure
+cp .env.example .env
+# Edit .env with your settings
+
+# Start
+docker compose up -d
+```
+
+### Configuration (.env)
+
+```bash
+# Domain for the coordination server
+KJS_DOMAIN=kjs.yourcompany.com
+
+# Database
+POSTGRES_PASSWORD=secure-random-password
+
+# TLS (use "auto" for Let's Encrypt)
+KJS_TLS=auto
+KJS_ACME_EMAIL=admin@yourcompany.com
+
+# Admin credentials
+KJS_ADMIN_USER=admin
+KJS_ADMIN_PASSWORD=secure-admin-password
+```
+
+### Docker Compose
+
+```yaml
+version: '3.8'
+
+services:
+  kjs:
+    image: kisuke/kjs:latest
+    ports:
+      - "443:443"
+      - "80:80"
+    environment:
+      - KJS_DOMAIN=${KJS_DOMAIN}
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@db/kjs
+    volumes:
+      - kjs-data:/var/lib/kjs
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=kjs
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  derp:
+    image: kisuke/derp:latest
+    ports:
+      - "3478:3478/udp"
+      - "41641:41641/udp"
+    environment:
+      - DERP_DOMAIN=${KJS_DOMAIN}
+
+volumes:
+  kjs-data:
+  postgres-data:
+```
+
+## Configuring Clients
+
+Point your Kisuke apps to your self-hosted server:
+
+### Mobile App
+
+1. Open Kisuke
+2. Go to **Settings** > **Advanced**
+3. Enter your KJS URL: `https://kjs.yourcompany.com`
+
+### Desktop / CLI
+
+```bash
+kisuke-connect up --login-server=https://kjs.yourcompany.com
+```
+
+## Authentication
+
+Self-hosted KJS supports:
+
+### OIDC (Recommended)
+
+Configure any OIDC provider:
+
+```bash
+KJS_OIDC_ISSUER=https://auth.yourcompany.com
+KJS_OIDC_CLIENT_ID=kisuke
+KJS_OIDC_CLIENT_SECRET=your-secret
+```
+
+### Built-in Auth
+
+For testing, use built-in username/password:
+
+```bash
+KJS_AUTH_MODE=builtin
+```
+
+## Maintenance
+
+### Backups
+
+Backup the PostgreSQL database regularly:
+
+```bash
+docker compose exec db pg_dump -U postgres kjs > backup.sql
+```
+
+### Updates
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+### Logs
+
+```bash
+# All services
+docker compose logs -f
+
+# Just KJS
+docker compose logs -f kjs
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Custom Infrastructure" icon="server" href="/advanced/custom-infrastructure">
+    Add custom relay servers.
+  </Card>
+  <Card title="Admin Console" icon="gauge" href="/advanced/admin-console">
+    Manage users and devices.
+  </Card>
+</CardGroup>

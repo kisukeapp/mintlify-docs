@@ -1,0 +1,70 @@
+---
+title: "Windows"
+description: "Install Kisuke Connect on Windows"
+---
+
+## Overview
+
+Kisuke Connect is a desktop companion app that allows your mobile Kisuke app to connect to your Windows PC. It works similarly to Tailscale, creating a secure connection between your devices.
+
+## Installation
+
+### Download
+
+Download Kisuke Connect for Windows:
+
+<Card title="Download for Windows" icon="windows" href="https://kisuke.app/download/windows">
+  Kisuke Connect for Windows (x64)
+</Card>
+
+Or install via winget:
+
+```powershell
+winget install Kisuke.KisukeConnect
+```
+
+### System Requirements
+
+- Windows 10 (1903) or later
+- 64-bit system
+
+## Setup
+
+1. **Run** the installer
+2. **Launch** Kisuke Connect from the Start Menu
+3. **Sign in** with the same account you use on your mobile device
+4. **Approve** the connection when prompted on your phone
+
+## Connecting Your Devices
+
+Once Kisuke Connect is running on your Windows PC:
+
+1. Open Kisuke on your mobile device
+2. Go to **Settings** > **Connections**
+3. Your PC should appear in the list
+4. Tap to connect
+
+<Note>
+Both devices must be signed in with the same account.
+</Note>
+
+## Firewall Configuration
+
+Kisuke Connect may prompt you to allow network access. Click **Allow** when the Windows Firewall dialog appears.
+
+If you need to manually configure the firewall:
+
+1. Open **Windows Defender Firewall**
+2. Click **Allow an app through firewall**
+3. Find **Kisuke Connect** and enable both Private and Public networks
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Connect via PC" icon="link" href="/onboarding/connect-via-pc">
+    Learn more about PC connections.
+  </Card>
+  <Card title="How Connect Works" icon="circle-nodes" href="/concepts/kisuke-connect">
+    Understand Kisuke Connect architecture.
+  </Card>
+</CardGroup>

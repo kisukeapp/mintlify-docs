@@ -1,0 +1,180 @@
+---
+title: "Troubleshooting"
+description: "Common issues and solutions"
+---
+
+## Connection Issues
+
+### Devices Not Appearing
+
+**Problem**: Your devices don't see each other in the Devices list.
+
+**Solutions**:
+
+1. **Check account** - Ensure both devices are signed into the same account
+2. **Check network** - Both devices need internet connectivity
+3. **Check status** - Verify Kisuke Connect is running on your computer
+4. **Restart** - Try restarting Kisuke on both devices
+
+### Connection Drops Frequently
+
+**Problem**: Connections are unstable.
+
+**Solutions**:
+
+1. **Network stability** - Check your internet connection
+2. **Firewall** - Ensure UDP port 41641 isn't blocked
+3. **Battery optimization** - Disable battery optimization for Kisuke on mobile
+4. **Update** - Ensure you're running the latest version
+
+### Slow Connection
+
+**Problem**: Terminal or file operations are slow.
+
+**Solutions**:
+
+1. **Check relay** - You might be using a relay instead of direct connection
+   - Go to **Connect** > **Devices** > tap device > check **Connection Type**
+2. **Open ports** - Allow UDP 41641 for direct connections
+3. **Closer relay** - If relayed, check you're connecting to the nearest relay
+
+## Authentication Issues
+
+### Can't Sign In
+
+**Problem**: Sign in fails or loops.
+
+**Solutions**:
+
+1. **Browser** - Try a different browser
+2. **Clear cache** - Clear browser cookies and cache
+3. **Provider status** - Check if your auth provider (Claude/Google/OpenAI) is having issues
+4. **Try again** - Sometimes OAuth just needs a retry
+
+### Session Expired
+
+**Problem**: You're being asked to sign in repeatedly.
+
+**Solutions**:
+
+1. **Re-authenticate** - Sign out and sign back in
+2. **Check time** - Ensure your device clock is accurate
+3. **Update app** - Update to the latest version
+
+## Terminal Issues
+
+### Terminal Not Connecting
+
+**Problem**: Can't open a terminal session to a connected device.
+
+**Solutions**:
+
+1. **Device online** - Verify the target device is connected
+2. **Shell access** - Check that the user has shell access on the target
+3. **Permissions** - On Linux/Mac, verify your user can access the shell
+
+### Terminal Freezes
+
+**Problem**: Terminal becomes unresponsive.
+
+**Solutions**:
+
+1. **Interrupt** - Try Ctrl+C
+2. **New session** - Close and open a new terminal
+3. **Connection** - Check if the connection is still active
+
+### Keys Not Working
+
+**Problem**: Special keys (Tab, Ctrl, etc.) don't work.
+
+**Solutions**:
+
+1. **Keyboard mode** - Ensure you're using Kisuke's keyboard, not system keyboard
+2. **Gestures** - Try using gestures (swipe for Ctrl+C, etc.)
+3. **External keyboard** - Connect a Bluetooth keyboard
+
+## File/Editor Issues
+
+### Files Not Saving
+
+**Problem**: Changes aren't being saved.
+
+**Solutions**:
+
+1. **Permissions** - Check file permissions on the target device
+2. **Disk space** - Verify there's available disk space
+3. **Connection** - Ensure the connection is active
+
+### Syntax Highlighting Missing
+
+**Problem**: Code isn't highlighted correctly.
+
+**Solutions**:
+
+1. **File extension** - Make sure the file has the correct extension
+2. **Language detection** - Manually set the language in editor settings
+
+## Mobile App Issues
+
+### App Crashes
+
+**Solutions**:
+
+1. **Update** - Install the latest version from App Store/Play Store
+2. **Restart** - Force close and reopen the app
+3. **Reinstall** - Uninstall and reinstall as last resort
+4. **Report** - Send crash reports so we can fix issues
+
+### High Battery Usage
+
+**Solutions**:
+
+1. **Background** - Kisuke maintains connections in background
+2. **Disconnect** - Disconnect from devices when not needed
+3. **WiFi** - Use WiFi instead of cellular when possible
+
+## Desktop Issues
+
+### Kisuke Connect Won't Start
+
+**Solutions**:
+
+1. **Permissions** - Grant necessary permissions (macOS: Security & Privacy)
+2. **Firewall** - Allow Kisuke Connect through your firewall
+3. **Reinstall** - Download fresh from the website
+
+### High CPU Usage
+
+**Solutions**:
+
+1. **Update** - Ensure you're on the latest version
+2. **Restart** - Restart Kisuke Connect
+3. **Report** - File a bug report with your logs
+
+## Getting More Help
+
+### Logs
+
+Collect logs for troubleshooting:
+
+**Mobile**: Settings > Debug > Export Logs
+
+**Desktop (Mac/Linux)**:
+```bash
+kisuke-connect debug
+```
+
+**Windows**:
+```powershell
+kisuke-connect.exe debug
+```
+
+### Contact Support
+
+- **Email**: support@kisuke.app
+- **GitHub**: github.com/kisuke/issues
+
+Include:
+- Device and OS versions
+- Steps to reproduce
+- Logs (with sensitive info removed)

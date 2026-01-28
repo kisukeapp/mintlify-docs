@@ -1,0 +1,147 @@
+---
+title: "AI Chat"
+description: "Code with AI assistance from Claude, GPT, and more"
+---
+
+## Overview
+
+Kisuke includes a built-in AI chat interface that helps you code on the go. Get help with debugging, code generation, explanations, and more.
+
+## Supported Providers
+
+Sign in with your existing account:
+
+<CardGroup cols={3}>
+  <Card title="Claude" icon="sparkles">
+    Anthropic's Claude models
+  </Card>
+  <Card title="OpenAI" icon="brain">
+    GPT-4 and other models
+  </Card>
+  <Card title="Google" icon="google">
+    Gemini models
+  </Card>
+</CardGroup>
+
+## Getting Started
+
+1. Open Kisuke
+2. Tap **Chat**
+3. Sign in with your preferred provider
+4. Start chatting
+
+## Features
+
+### Code Context
+
+When you're in a Space, the AI has access to:
+
+- Your project files
+- Recent terminal output
+- Previous conversation history
+
+This helps it give relevant, contextual answers.
+
+### Code Generation
+
+Ask the AI to write code:
+
+```
+"Write a Python function to parse CSV files"
+"Create a React component for a login form"
+"Generate SQL to find duplicate records"
+```
+
+### Debugging Help
+
+Share errors and get solutions:
+
+```
+"Why am I getting this error: [paste error]"
+"My API call returns 403, what could be wrong?"
+"This function returns undefined, help me debug"
+```
+
+### Code Explanation
+
+Understand unfamiliar code:
+
+```
+"Explain what this regex does: ^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+"Walk me through this algorithm"
+"What does this SQL query do?"
+```
+
+### Quick Actions
+
+- **Refactor** - Improve code structure
+- **Document** - Add comments and docs
+- **Test** - Generate unit tests
+- **Convert** - Translate between languages
+
+## Chat Interface
+
+### Messages
+
+- **You** - Your messages appear on the right
+- **AI** - Responses appear on the left with syntax highlighting
+
+### Code Blocks
+
+AI responses include syntax-highlighted code blocks. Tap to:
+
+- **Copy** - Copy code to clipboard
+- **Insert** - Insert into current file
+- **Run** - Execute in terminal (if appropriate)
+
+### Conversation History
+
+Previous conversations are saved per Space. Access them by:
+
+1. Tap the history icon in chat
+2. Select a previous conversation
+3. Continue where you left off
+
+## Tips
+
+### Be Specific
+
+More detail = better answers:
+
+```
+❌ "Fix my code"
+✅ "My React useEffect runs infinitely. Here's my component: [code]. How do I fix the dependency array?"
+```
+
+### Share Context
+
+Include relevant files or errors:
+
+```
+"Looking at src/utils/parser.js, can you optimize the parse function?"
+```
+
+### Follow Up
+
+Continue the conversation to refine answers:
+
+```
+"That works, but can you make it handle null values?"
+```
+
+## Privacy
+
+- Conversations are sent to your chosen AI provider
+- Kisuke doesn't store your chat content
+- Your API credentials stay on your device
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Terminal" icon="terminal" href="/features/terminal-shell">
+    Run AI-generated code.
+  </Card>
+  <Card title="Editor" icon="code" href="/features/editor">
+    Edit files with AI suggestions.
+  </Card>
+</CardGroup>

@@ -1,0 +1,102 @@
+---
+title: "Linux"
+description: "Install Kisuke Connect on Linux"
+---
+
+## Overview
+
+Kisuke Connect is a desktop companion app that allows your mobile Kisuke app to connect to your Linux machine. It works similarly to Tailscale, creating a secure connection between your devices.
+
+## Installation
+
+### Using the Install Script
+
+The easiest way to install Kisuke Connect on Linux:
+
+```bash
+curl -fsSL https://kisuke.app/install.sh | sh
+```
+
+### Package Managers
+
+<Tabs>
+  <Tab title="Debian/Ubuntu">
+    ```bash
+    # Add the repository
+    curl -fsSL https://kisuke.app/gpg | sudo gpg --dearmor -o /usr/share/keyrings/kisuke.gpg
+    echo "deb [signed-by=/usr/share/keyrings/kisuke.gpg] https://repo.kisuke.app/apt stable main" | sudo tee /etc/apt/sources.list.d/kisuke.list
+
+    # Install
+    sudo apt update
+    sudo apt install kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Fedora/RHEL">
+    ```bash
+    # Add the repository
+    sudo dnf config-manager --add-repo https://repo.kisuke.app/rpm/kisuke.repo
+
+    # Install
+    sudo dnf install kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Arch">
+    ```bash
+    # From AUR
+    yay -S kisuke-connect
+    ```
+  </Tab>
+</Tabs>
+
+### System Requirements
+
+- Linux kernel 4.19 or later
+- systemd (for service management)
+- x86_64 or ARM64
+
+## Setup
+
+1. **Start** the Kisuke Connect service:
+   ```bash
+   sudo systemctl enable --now kisuke-connect
+   ```
+
+2. **Authenticate** your device:
+   ```bash
+   kisuke-connect login
+   ```
+
+3. **Sign in** with the same account you use on your mobile device
+
+## Connecting Your Devices
+
+Once Kisuke Connect is running:
+
+1. Open Kisuke on your mobile device
+2. Go to **Settings** > **Connections**
+3. Your Linux machine should appear in the list
+4. Tap to connect
+
+## Service Management
+
+```bash
+# Check status
+sudo systemctl status kisuke-connect
+
+# View logs
+journalctl -u kisuke-connect -f
+
+# Restart service
+sudo systemctl restart kisuke-connect
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Connect via PC" icon="link" href="/onboarding/connect-via-pc">
+    Learn more about PC connections.
+  </Card>
+  <Card title="Connect via Server" icon="server" href="/onboarding/connect-via-server">
+    Set up server connections.
+  </Card>
+</CardGroup>

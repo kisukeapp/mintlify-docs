@@ -1,0 +1,119 @@
+---
+title: "Kisuke Connect"
+description: "How Kisuke Connect creates secure connections between your devices"
+---
+
+## Overview
+
+Kisuke Connect is a secure networking layer that connects your mobile device to your computers and servers. Think of it like Tailscale - it creates an encrypted mesh network between all your devices.
+
+## How It Works
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Phone     │     │   Laptop    │     │   Server    │
+│   Kisuke    │◄───►│   Kisuke    │◄───►│   Kisuke    │
+│             │     │   Connect   │     │   Connect   │
+└─────────────┘     └─────────────┘     └─────────────┘
+       │                   │                   │
+       └───────────────────┴───────────────────┘
+                    Encrypted Mesh
+```
+
+When you sign in to Kisuke with the same account on multiple devices:
+
+1. Each device gets a unique cryptographic identity
+2. Devices discover each other through Kisuke's coordination servers
+3. Direct encrypted connections are established when possible
+4. Traffic flows directly between devices (no middleman)
+
+## Key Benefits
+
+### Zero Configuration
+
+Just sign in on both devices and they find each other automatically. No port forwarding, no firewall rules, no VPN setup.
+
+### End-to-End Encryption
+
+All traffic between your devices is encrypted. Kisuke servers cannot read your data - they only help devices find each other.
+
+### Works Anywhere
+
+Kisuke Connect works through:
+- Home networks
+- Corporate firewalls
+- Mobile data
+- Coffee shop WiFi
+
+### NAT Traversal
+
+Kisuke Connect uses modern NAT traversal techniques to establish direct connections even when both devices are behind firewalls.
+
+## Connection Types
+
+### Direct Connection
+
+The preferred mode. Devices communicate directly over the internet:
+
+```
+Phone ◄────── Encrypted ──────► Computer
+              Direct Path
+```
+
+### Relayed Connection
+
+When direct connection isn't possible (strict firewalls, carrier-grade NAT), traffic goes through Kisuke relay servers:
+
+```
+Phone ◄──── Encrypted ────► Relay ◄──── Encrypted ────► Computer
+```
+
+<Note>
+Even relayed traffic is end-to-end encrypted. Relay servers can't read your data.
+</Note>
+
+## Device Management
+
+View and manage your connected devices in the Kisuke app:
+
+- **Devices list** - See all devices on your account
+- **Connection status** - Check if devices are online
+- **Remove devices** - Revoke access to old devices
+
+## Authentication
+
+Kisuke Connect uses your identity provider for authentication:
+
+- **Claude** (Anthropic)
+- **Google**
+- **OpenAI**
+
+This means:
+- No separate passwords
+- Your provider's security (2FA, etc.) protects your network
+- Single sign-on across devices
+
+## Use Cases
+
+### Remote Development
+
+Access your development machine from anywhere. Run builds, edit code, and use terminals on your powerful desktop while coding from your phone.
+
+### Server Access
+
+Connect to servers in your home lab, cloud VMs, or office machines without exposing ports to the internet.
+
+### File Transfer
+
+Securely move files between devices without cloud storage.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="The Relay System" icon="arrows-rotate" href="/concepts/relay-system">
+    Learn about relay servers.
+  </Card>
+  <Card title="Security" icon="shield" href="/concepts/security-encryption">
+    Understand Kisuke's security model.
+  </Card>
+</CardGroup>

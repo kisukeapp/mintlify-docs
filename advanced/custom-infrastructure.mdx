@@ -1,0 +1,211 @@
+---
+title: "Custom Infrastructure"
+description: "Configure custom relay servers and network settings"
+---
+
+## Overview
+
+Customize your Kisuke deployment with your own relay servers, custom DNS, and network configurations.
+
+## Custom Relay Servers (DERP)
+
+Run your own relay servers for:
+
+- Lower latency in specific regions
+- Data sovereignty requirements
+- Air-gapped deployments
+
+### Deploying a Relay Server
+
+```bash
+# Docker
+docker run -d \
+  --name kisuke-derp \
+  -p 443:443 \
+  -p 3478:3478/udp \
+  -e DERP_HOSTNAME=derp.yourcompany.com \
+  -e DERP_VERIFY_CLIENTS=true \
+  kisuke/derp:latest
+```
+
+### Configuration
+
+```bash
+# Required
+DERP_HOSTNAME=derp.yourcompany.com
+
+# Optional
+DERP_VERIFY_CLIENTS=true  # Verify client identities
+DERP_STUN_PORT=3478       # STUN port for NAT traversal
+DERP_HTTPS_PORT=443       # HTTPS port for relay
+```
+
+### TLS Certificates
+
+For production, use valid TLS certificates:
+
+```bash
+docker run -d \
+  --name kisuke-derp \
+  -p 443:443 \
+  -p 3478:3478/udp \
+  -v /path/to/certs:/certs:ro \
+  -e DERP_HOSTNAME=derp.yourcompany.com \
+  -e DERP_CERT_FILE=/certs/cert.pem \
+  -e DERP_KEY_FILE=/certs/key.pem \
+  kisuke/derp:latest
+```
+
+## DERP Map Configuration
+
+Tell clients about your custom relay servers using a DERP map:
+
+### JSON Format
+
+```json
+{
+  "Regions": {
+    "900": {
+      "RegionID": 900,
+      "RegionCode": "corp",
+      "RegionName": "Corporate",
+      "Nodes": [
+        {
+          "Name": "corp-derp-1",
+          "RegionID": 900,
+          "HostName": "derp.yourcompany.com",
+          "IPv4": "10.0.1.100",
+          "STUNPort": 3478,
+          "DERPPort": 443
+        }
+      ]
+    }
+  }
+}
+```
+
+### Applying the DERP Map
+
+#### Self-Hosted KJS
+
+Upload via admin console or API:
+
+```bash
+curl -X POST https://kjs.yourcompany.com/api/derp-map \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -d @derp-map.json
+```
+
+#### Client Override
+
+For testing, override on individual clients:
+
+```bash
+kisuke-connect up --derp-map=file:///path/to/derp-map.json
+```
+
+## Network Configuration
+
+### Split DNS
+
+Configure DNS for internal resources:
+
+```json
+{
+  "DNS": {
+    "Routes": {
+      "internal.company.com": ["10.0.0.53"],
+      "corp.local": ["10.0.0.53"]
+    },
+    "FallbackResolvers": ["8.8.8.8", "8.8.4.4"]
+  }
+}
+```
+
+### Subnet Routing
+
+Route traffic to internal subnets through specific devices:
+
+```bash
+# On the gateway device
+kisuke-connect up --advertise-routes=10.0.0.0/8,192.168.0.0/16
+```
+
+### Exit Nodes
+
+Route all traffic through a specific device:
+
+```bash
+# Advertise as exit node (on the exit node)
+kisuke-connect up --advertise-exit-node
+
+# Use exit node (on client)
+kisuke-connect up --exit-node=gateway-hostname
+```
+
+## Access Control
+
+### ACLs
+
+Define access control policies:
+
+```json
+{
+  "ACLs": [
+    {
+      "Action": "accept",
+      "Users": ["group:developers"],
+      "Ports": ["*:22", "*:80", "*:443"]
+    },
+    {
+      "Action": "accept",
+      "Users": ["group:admins"],
+      "Ports": ["*:*"]
+    }
+  ],
+  "Groups": {
+    "group:developers": ["user1@company.com", "user2@company.com"],
+    "group:admins": ["admin@company.com"]
+  }
+}
+```
+
+### Device Authorization
+
+Require admin approval for new devices:
+
+```bash
+KJS_DEVICE_APPROVAL=required
+```
+
+## Monitoring
+
+### Metrics
+
+Enable Prometheus metrics:
+
+```bash
+KJS_METRICS_ENABLED=true
+KJS_METRICS_PORT=9090
+```
+
+### Health Checks
+
+```bash
+# KJS health
+curl https://kjs.yourcompany.com/health
+
+# DERP health
+curl https://derp.yourcompany.com/health
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Admin Console" icon="gauge" href="/advanced/admin-console">
+    Manage your deployment.
+  </Card>
+  <Card title="Security" icon="shield" href="/concepts/security-encryption">
+    Review security settings.
+  </Card>
+</CardGroup>

@@ -1,0 +1,116 @@
+---
+title: "Connect via PC"
+description: "Connect your mobile device to your computer"
+---
+
+## Overview
+
+Kisuke Connect creates a secure tunnel between your phone and computer, allowing you to:
+
+- Access terminal sessions on your PC from your phone
+- Edit files on your computer remotely
+- Run commands on your development machine
+
+## Prerequisites
+
+<Steps>
+  <Step title="Install Kisuke on your phone">
+    Download from [App Store](https://apps.apple.com/app/kisuke) or [Google Play](https://play.google.com/store/apps/details?id=app.kisuke)
+  </Step>
+  <Step title="Install Kisuke Connect on your PC">
+    - [Mac](/installation/mac)
+    - [Windows](/installation/windows)
+    - [Linux](/installation/linux)
+  </Step>
+  <Step title="Sign in to both">
+    Use the same account (Claude, Google, or OpenAI) on both devices
+  </Step>
+</Steps>
+
+## Connection Setup
+
+### On Your Computer
+
+1. Open Kisuke Connect
+2. Ensure you're signed in
+3. Check the status shows "Connected"
+
+### On Your Phone
+
+1. Open Kisuke
+2. Tap the **Connect** tab
+3. Your computer should appear under **Devices**
+4. Tap your computer to connect
+
+<Check>
+Once connected, you'll see a green indicator next to your computer's name.
+</Check>
+
+## Using the Connection
+
+### Terminal Access
+
+1. In Kisuke, tap **Terminal**
+2. Select your connected computer
+3. You now have shell access to your PC
+
+### File Editor
+
+1. Tap **Editor**
+2. Browse files on your connected computer
+3. Open and edit files directly
+
+### AI Chat with Context
+
+When connected, AI chat can:
+
+- Access files on your computer
+- Run commands with your permission
+- Help debug code in your projects
+
+## Troubleshooting
+
+### Devices Not Appearing
+
+- Ensure both devices are signed into the same account
+- Check that Kisuke Connect is running on your PC
+- Verify your PC has internet connectivity
+
+### Connection Drops
+
+- Check your network stability
+- The connection will automatically reconnect
+- Try restarting Kisuke Connect on your PC
+
+### Slow Connection
+
+If direct connection fails, Kisuke falls back to relay servers. For best performance:
+
+- Ensure both devices can establish UDP connections
+- Open port 41641 if behind a restrictive firewall
+
+## Network Diagram
+
+```
+┌─────────────┐                    ┌─────────────┐
+│   Phone     │◄──── Encrypted ───►│  Computer   │
+│   Kisuke    │      Tunnel        │   Kisuke    │
+│             │                    │   Connect   │
+└─────────────┘                    └─────────────┘
+       │                                  │
+       │         ┌─────────────┐         │
+       └────────►│   Kisuke    │◄────────┘
+        Fallback │   Relay     │  Fallback
+                 └─────────────┘
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Terminal & Shell" icon="terminal" href="/features/terminal-shell">
+    Use the terminal remotely.
+  </Card>
+  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
+    Learn how Kisuke Connect works under the hood.
+  </Card>
+</CardGroup>

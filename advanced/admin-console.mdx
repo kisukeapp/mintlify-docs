@@ -1,0 +1,228 @@
+---
+title: "Admin Console"
+description: "Manage users, devices, and policies"
+---
+
+## Overview
+
+The Kisuke Admin Console provides a web interface for managing your self-hosted deployment or organization settings.
+
+## Accessing the Console
+
+### Self-Hosted
+
+Navigate to your KJS URL:
+
+```
+https://kjs.yourcompany.com/admin
+```
+
+Sign in with your admin credentials.
+
+### Hosted Service
+
+For managed Kisuke accounts:
+
+```
+https://admin.kisuke.app
+```
+
+Sign in with your organization account.
+
+## Dashboard
+
+The dashboard shows:
+
+- **Active devices** - Currently connected devices
+- **Total users** - Users in your organization
+- **Network status** - Relay and connection health
+- **Recent activity** - Login and connection events
+
+## User Management
+
+### Viewing Users
+
+The Users tab shows all users in your organization:
+
+- Name and email
+- Authentication provider
+- Last active
+- Device count
+
+### Adding Users
+
+For self-hosted deployments with built-in auth:
+
+1. Click **Add User**
+2. Enter email and name
+3. Choose authentication method
+4. Send invitation
+
+For OIDC, users are automatically provisioned on first login.
+
+### Removing Users
+
+1. Select the user
+2. Click **Remove User**
+3. Confirm - this revokes all their device access
+
+## Device Management
+
+### Viewing Devices
+
+The Devices tab shows all registered devices:
+
+- Device name
+- Owner
+- OS and version
+- Last seen
+- Connection type (direct/relay)
+
+### Device Actions
+
+For each device you can:
+
+- **Rename** - Set a friendly name
+- **Disable** - Temporarily block access
+- **Remove** - Permanently remove from network
+
+### Device Approval
+
+If device approval is required:
+
+1. New devices appear in **Pending** tab
+2. Review the device and owner
+3. Click **Approve** or **Reject**
+
+## Auth Keys
+
+Manage auth keys for server deployments:
+
+### Creating Keys
+
+1. Go to **Auth Keys**
+2. Click **Generate Key**
+3. Set expiration (optional)
+4. Copy the key immediately (only shown once)
+
+### Key Properties
+
+| Property | Description |
+|----------|-------------|
+| Reusable | Can be used on multiple devices |
+| Ephemeral | Devices using this key are removed when offline for 90 days |
+| Pre-authorized | Devices don't require approval |
+| Tags | Assign tags to devices using this key |
+
+### Revoking Keys
+
+1. Find the key in the list
+2. Click **Revoke**
+3. Devices already authenticated remain connected until they disconnect
+
+## Access Policies
+
+### ACLs
+
+Define who can access what:
+
+```json
+{
+  "ACLs": [
+    {
+      "Action": "accept",
+      "Src": ["group:engineers"],
+      "Dst": ["tag:servers:22"]
+    }
+  ]
+}
+```
+
+Edit ACLs in the **Access Controls** tab.
+
+### Groups
+
+Organize users into groups:
+
+- `group:admins`
+- `group:developers`
+- `group:ops`
+
+### Tags
+
+Tag devices for ACL rules:
+
+- `tag:production`
+- `tag:staging`
+- `tag:servers`
+
+## DNS Settings
+
+Configure DNS for your network:
+
+### Global Nameservers
+
+Set nameservers for all devices.
+
+### Split DNS
+
+Route specific domains through internal DNS:
+
+| Domain | Nameservers |
+|--------|-------------|
+| `internal.company.com` | `10.0.0.53` |
+| `*.corp` | `10.0.0.53` |
+
+### Search Domains
+
+Add domains to search path for short hostnames.
+
+## Logs & Audit
+
+### Activity Log
+
+View recent events:
+
+- User logins
+- Device registrations
+- Configuration changes
+- Connection events
+
+### Export
+
+Export logs for compliance:
+
+1. Go to **Logs**
+2. Set date range
+3. Click **Export CSV**
+
+## Settings
+
+### General
+
+- Organization name
+- Contact email
+- Logo (for self-hosted)
+
+### Authentication
+
+- OIDC configuration
+- Allowed domains
+- Session duration
+
+### Network
+
+- DERP map configuration
+- Default routes
+- Exit node policy
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Self-Hosting" icon="building" href="/advanced/self-hosting">
+    Deploy your own infrastructure.
+  </Card>
+  <Card title="Custom Infrastructure" icon="server" href="/advanced/custom-infrastructure">
+    Configure relay servers.
+  </Card>
+</CardGroup>

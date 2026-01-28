@@ -1,0 +1,115 @@
+---
+title: "Web Browser"
+description: "Preview web content and test applications"
+---
+
+## Overview
+
+Kisuke includes a built-in web browser for previewing web applications and accessing documentation while coding.
+
+## Features
+
+### In-App Preview
+
+Preview your web applications without leaving Kisuke:
+
+- Local development servers
+- Remote URLs
+- Static files
+
+### Developer Tools
+
+Basic developer tools for debugging:
+
+- View source
+- Console output
+- Network requests
+
+### Integration
+
+The browser integrates with other Kisuke features:
+
+- Open URLs from terminal output
+- Preview from file editor
+- Share context to AI chat
+
+## Use Cases
+
+### Local Development
+
+When running a dev server on your connected machine:
+
+1. Start your dev server in terminal (`npm run dev`)
+2. Note the URL (e.g., `http://localhost:3000`)
+3. Open Browser in Kisuke
+4. Enter the URL
+
+Kisuke Connect routes the traffic through your secure tunnel.
+
+### Documentation
+
+Keep documentation open while coding:
+
+- API references
+- Framework docs
+- Stack Overflow answers
+
+### Testing
+
+Quick testing of web applications:
+
+- Check responsive design
+- Test user flows
+- Verify API responses
+
+## Navigation
+
+### Address Bar
+
+Tap the address bar to:
+
+- Enter URLs
+- Search (uses your default search engine)
+- Access recent history
+
+### Controls
+
+- **Back/Forward** - Navigate history
+- **Refresh** - Reload the page
+- **Share** - Share URL or send to chat
+
+## Accessing Local Servers
+
+When connected to a computer running a local server:
+
+```bash
+# On your computer
+npm run dev
+# Server running at http://localhost:3000
+```
+
+In Kisuke browser, navigate to:
+- `http://localhost:3000` - Works through Kisuke Connect
+
+Kisuke automatically routes localhost URLs to your connected device.
+
+## Limitations
+
+The built-in browser is designed for development preview, not general browsing:
+
+- Limited extension support
+- Simplified dev tools
+- Focus on development use cases
+
+For full browsing, use your device's native browser.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Terminal" icon="terminal" href="/features/terminal-shell">
+    Run your dev server.
+  </Card>
+  <Card title="Editor" icon="code" href="/features/editor">
+    Edit your web app code.
+  </Card>
+</CardGroup>

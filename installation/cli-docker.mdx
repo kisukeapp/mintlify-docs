@@ -1,0 +1,121 @@
+---
+title: "CLI & Docker"
+description: "Install Kisuke Connect via CLI or Docker"
+---
+
+## CLI Installation
+
+For advanced users who prefer command-line installation.
+
+### Quick Install
+
+```bash
+curl -fsSL https://kisuke.app/install.sh | sh
+```
+
+### Manual Download
+
+Download the binary for your platform:
+
+```bash
+# Linux x64
+curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-amd64 -o kisuke-connect
+chmod +x kisuke-connect
+sudo mv kisuke-connect /usr/local/bin/
+
+# Linux ARM64
+curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-arm64 -o kisuke-connect
+chmod +x kisuke-connect
+sudo mv kisuke-connect /usr/local/bin/
+
+# macOS
+curl -L https://kisuke.app/releases/latest/kisuke-connect-darwin-universal -o kisuke-connect
+chmod +x kisuke-connect
+sudo mv kisuke-connect /usr/local/bin/
+```
+
+### CLI Usage
+
+```bash
+# Authenticate
+kisuke-connect login
+
+# Start the daemon
+kisuke-connect up
+
+# Check status
+kisuke-connect status
+
+# List connected devices
+kisuke-connect devices
+
+# Stop the daemon
+kisuke-connect down
+```
+
+## Docker Installation
+
+Run Kisuke Connect in a Docker container for server deployments.
+
+### Quick Start
+
+```bash
+docker run -d \
+  --name kisuke-connect \
+  --restart unless-stopped \
+  -v kisuke-data:/var/lib/kisuke \
+  -e KISUKE_AUTH_KEY=your-auth-key \
+  kisuke/kisuke-connect
+```
+
+### Docker Compose
+
+```yaml
+version: '3.8'
+
+services:
+  kisuke-connect:
+    image: kisuke/kisuke-connect:latest
+    container_name: kisuke-connect
+    restart: unless-stopped
+    volumes:
+      - kisuke-data:/var/lib/kisuke
+    environment:
+      - KISUKE_AUTH_KEY=${KISUKE_AUTH_KEY}
+    network_mode: host
+
+volumes:
+  kisuke-data:
+```
+
+### Getting an Auth Key
+
+Generate an auth key from your Kisuke account:
+
+1. Open Kisuke on your mobile device
+2. Go to **Settings** > **Auth Keys**
+3. Tap **Generate New Key**
+4. Copy the key and use it in your Docker configuration
+
+<Warning>
+Auth keys provide access to your Kisuke network. Keep them secure and rotate them regularly.
+</Warning>
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `KISUKE_AUTH_KEY` | Authentication key for headless login | - |
+| `KISUKE_HOSTNAME` | Custom hostname for this device | Container ID |
+| `KISUKE_STATE_DIR` | Directory for state files | `/var/lib/kisuke` |
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Connect via Server" icon="server" href="/onboarding/connect-via-server">
+    Set up server connections.
+  </Card>
+  <Card title="Self-Hosting" icon="building" href="/advanced/self-hosting">
+    Host your own Kisuke infrastructure.
+  </Card>
+</CardGroup>
