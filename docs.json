@@ -5,11 +5,7 @@
   "colors": {
     "primary": "#a7c080",
     "light": "#83c092",
-    "dark": "#7fbbb3",
-    "background": {
-      "dark": "#2d353b",
-      "light": "#2d353b"
-    }
+    "dark": "#7fbbb3"
   },
   "modeToggle": {
     "default": "dark",
@@ -22,21 +18,20 @@
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Installation & Onboarding",
+            "group": "Getting Started",
             "pages": [
               "introduction",
-              "what-is-kisuke",
-              {
-                "group": "Installation",
-                "icon": "download",
-                "pages": [
-                  "installation/index",
-                  "installation/mobile",
-                  "installation/mac",
-                  "installation/windows",
-                  "installation/linux"
-                ]
-              },
+              "what-is-kisuke"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "installation/overview",
+              "installation/mobile",
+              "installation/mac",
+              "installation/windows",
+              "installation/linux",
               "installation/cli-docker"
             ]
           },
