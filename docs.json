@@ -3,9 +3,17 @@
   "theme": "mint",
   "name": "Kisuke",
   "colors": {
-    "primary": "#6366F1",
-    "light": "#818CF8",
-    "dark": "#4F46E5"
+    "primary": "#a7c080",
+    "light": "#83c092",
+    "dark": "#7fbbb3",
+    "background": {
+      "dark": "#2d353b",
+      "light": "#2d353b"
+    }
+  },
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": true
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -14,27 +22,22 @@
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Installation & Onboarding",
             "pages": [
-              "index",
-              "what-is-kisuke"
-            ]
-          },
-          {
-            "group": "Installation",
-            "pages": [
-              "installation/mobile",
-              "installation/mac",
-              "installation/windows",
-              "installation/linux",
+              "introduction",
+              "what-is-kisuke",
+              {
+                "group": "Installation",
+                "icon": "download",
+                "pages": [
+                  "installation/index",
+                  "installation/mobile",
+                  "installation/mac",
+                  "installation/windows",
+                  "installation/linux"
+                ]
+              },
               "installation/cli-docker"
-            ]
-          },
-          {
-            "group": "Onboarding",
-            "pages": [
-              "onboarding/connect-via-pc",
-              "onboarding/connect-via-server"
             ]
           },
           {
@@ -42,31 +45,25 @@
             "pages": [
               "concepts/kisuke-connect",
               "concepts/relay-system",
-              "concepts/security-encryption"
+              "concepts/security"
             ]
           },
           {
             "group": "Core Features",
             "pages": [
-              "features/terminal-shell",
+              "features/terminal",
               "features/spaces",
-              "features/ai-chat",
+              "features/coding-with-ai",
               "features/editor",
-              "features/web-browser"
+              "features/browser"
             ]
           },
           {
             "group": "Advanced Configuration",
             "pages": [
               "advanced/self-hosting",
-              "advanced/custom-infrastructure",
+              "advanced/custom-infra",
               "advanced/admin-console"
-            ]
-          },
-          {
-            "group": "Tips & Help",
-            "pages": [
-              "help/troubleshooting"
             ]
           }
         ]

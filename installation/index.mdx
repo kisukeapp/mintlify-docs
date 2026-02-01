@@ -1,0 +1,92 @@
+---
+title: "Installation"
+description: "Install Kisuke on your devices"
+---
+
+## Overview
+
+Kisuke consists of two components:
+
+1. **Kisuke Mobile App** — The main app for iOS and Android where you code, chat with AI, and access terminals
+2. **Kisuke Connect** — A companion app for your computer or server that enables secure connections from your mobile device
+
+## Choose Your Platform
+
+<CardGroup cols={2}>
+  <Card title="iOS & Android" icon="mobile" href="/installation/mobile">
+    Install the Kisuke mobile app
+  </Card>
+  <Card title="Mac" icon="apple" href="/installation/mac">
+    Install Kisuke Connect on macOS
+  </Card>
+  <Card title="Windows" icon="windows" href="/installation/windows">
+    Install Kisuke Connect on Windows
+  </Card>
+  <Card title="Linux" icon="linux" href="/installation/linux">
+    Install Kisuke Connect on Linux
+  </Card>
+</CardGroup>
+
+## For Servers & Advanced Users
+
+<Card title="CLI & Docker" icon="docker" href="/installation/cli-docker">
+  Install via command line or run in Docker containers
+</Card>
+
+## Quick Start
+
+### Step 1: Install on Mobile
+
+Download Kisuke from your app store:
+
+- [App Store](https://apps.apple.com/app/kisuke) (iOS)
+- [Google Play](https://play.google.com/store/apps/details?id=app.kisuke) (Android)
+
+### Step 2: Install on Your Computer
+
+Install Kisuke Connect on your development machine:
+
+<Tabs>
+  <Tab title="Mac">
+    ```bash
+    brew install kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Windows">
+    ```powershell
+    winget install Kisuke.KisukeConnect
+    ```
+  </Tab>
+  <Tab title="Linux">
+    ```bash
+    curl -fsSL https://kisuke.app/install.sh | sh
+    ```
+  </Tab>
+</Tabs>
+
+### Step 3: Sign In
+
+Sign in with the **same account** on both devices:
+
+1. Open Kisuke on your phone and sign in
+2. Open Kisuke Connect on your computer and sign in
+3. Your devices will automatically discover each other
+
+### Step 4: Connect
+
+In Kisuke mobile:
+
+1. Go to **Spaces** or **Terminal**
+2. Select your computer from the device list
+3. Start coding!
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
+    Learn how device connections work
+  </Card>
+  <Card title="Spaces" icon="folder-tree" href="/features/spaces">
+    Organize your development environments
+  </Card>
+</CardGroup>

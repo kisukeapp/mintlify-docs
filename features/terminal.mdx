@@ -1,0 +1,155 @@
+---
+title: "Terminal & Shell"
+description: "Full-featured terminal emulator on your mobile device"
+---
+
+## Overview
+
+Kisuke provides a full-featured terminal emulator optimized for mobile use. Execute commands, manage processes, and navigate file systems directly from your iOS or Android device.
+
+## Features
+
+### Full Terminal Emulation
+
+- Complete xterm-256color emulation
+- Color and Unicode support
+- Session persistence across app restarts
+- Multiple concurrent terminal sessions
+
+### Gesture Support
+
+The terminal is designed for touch:
+
+| Gesture | Action |
+|---------|--------|
+| Double-tap | Paste |
+| Two-finger tap | Copy selection |
+| Swipe left | Send Ctrl+C |
+| Swipe right | Tab completion |
+| Pinch | Zoom text |
+
+### Customizable Themes
+
+Choose from built-in themes or create your own:
+
+- Dark mode optimized
+- Light mode available
+- Custom color schemes
+- Adjustable font size
+
+## Remote Terminal
+
+When connected to a computer or server via Kisuke Connect:
+
+1. Open Kisuke
+2. Tap **Terminal**
+3. Select your connected device
+4. Full shell access is ready
+
+### Supported Shells
+
+- **bash**
+- **zsh**
+- **fish**
+- **PowerShell** (Windows)
+- **cmd** (Windows)
+
+The terminal uses your default shell configuration from the remote machine.
+
+## Local Terminal
+
+Kisuke also includes a local terminal for on-device operations:
+
+- Run scripts locally
+- File management
+- Git operations (with local repos)
+
+<Note>
+Local terminal capabilities depend on your device and platform.
+</Note>
+
+## Keyboard
+
+Kisuke provides a mobile-optimized keyboard with:
+
+- **Quick keys** - Tab, Ctrl, Esc, arrows
+- **Swipe gestures** - Swipe for common shortcuts
+- **Full keyboard** - Access all keys when needed
+- **External keyboard support** - Connect Bluetooth keyboards
+
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+C | Interrupt |
+| Ctrl+D | EOF / Logout |
+| Ctrl+Z | Suspend |
+| Ctrl+L | Clear screen |
+| Tab | Auto-complete |
+
+## Common Use Cases
+
+### Running Commands
+
+```bash
+# Build your project
+npm run build
+
+# Run tests
+pytest tests/
+
+# Deploy
+./deploy.sh production
+```
+
+### Server Management
+
+```bash
+# Check logs
+tail -f /var/log/app.log
+
+# System status
+htop
+
+# Service management
+systemctl status nginx
+```
+
+### Git Operations
+
+```bash
+# Check status
+git status
+
+# Commit changes
+git add . && git commit -m "Fix bug"
+
+# Push
+git push origin main
+```
+
+## Tips
+
+### Session Persistence
+
+Terminal sessions persist in the background. Switch between apps and come back—your session is still there.
+
+### Quick Actions
+
+Long-press the terminal for quick actions:
+
+- New terminal
+- Close session
+- Switch sessions
+- Settings
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Editor" icon="code" href="/features/editor">
+    Edit files directly on your phone.
+  </Card>
+  <Card title="Coding with Claude" icon="sparkles" href="/features/coding-with-ai">
+    Get AI assistance while coding.
+  </Card>
+</CardGroup>

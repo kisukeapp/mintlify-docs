@@ -1,11 +1,11 @@
 ---
 title: "Web Browser"
-description: "Preview web content and test applications"
+description: "Built-in browser with developer tools for testing and debugging"
 ---
 
 ## Overview
 
-Kisuke includes a built-in web browser for previewing web applications and accessing documentation while coding.
+Kisuke includes a built-in web browser with developer tools for testing and debugging your web projects. Preview applications, inspect network requests, and test APIs—all from your mobile device.
 
 ## Features
 
@@ -24,6 +24,7 @@ Basic developer tools for debugging:
 - View source
 - Console output
 - Network requests
+- Element inspection
 
 ### Integration
 
@@ -44,7 +45,7 @@ When running a dev server on your connected machine:
 3. Open Browser in Kisuke
 4. Enter the URL
 
-Kisuke Connect routes the traffic through your secure tunnel.
+Kisuke Connect routes the traffic through your secure tunnel automatically.
 
 ### Documentation
 
@@ -89,6 +90,7 @@ npm run dev
 ```
 
 In Kisuke browser, navigate to:
+
 - `http://localhost:3000` - Works through Kisuke Connect
 
 Kisuke automatically routes localhost URLs to your connected device.
@@ -106,7 +108,7 @@ For full browsing, use your device's native browser.
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Terminal" icon="terminal" href="/features/terminal-shell">
+  <Card title="Terminal" icon="terminal" href="/features/terminal">
     Run your dev server.
   </Card>
   <Card title="Editor" icon="code" href="/features/editor">

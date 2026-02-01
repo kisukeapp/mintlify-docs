@@ -28,6 +28,8 @@ docker run -d \
   kisuke/derp:latest
 ```
 
+> **USER TODO:** Verify the exact Docker image name and tag for your deployment.
+
 ### Configuration
 
 ```bash
@@ -103,6 +105,8 @@ For testing, override on individual clients:
 ```bash
 kisuke-connect up --derp-map=file:///path/to/derp-map.json
 ```
+
+> **USER TODO:** Insert specific CLI flags for your version of kisuke-connect.
 
 ## Network Configuration
 
@@ -205,7 +209,7 @@ curl https://derp.yourcompany.com/health
   <Card title="Admin Console" icon="gauge" href="/advanced/admin-console">
     Manage your deployment.
   </Card>
-  <Card title="Security" icon="shield" href="/concepts/security-encryption">
+  <Card title="Security" icon="shield" href="/concepts/security">
     Review security settings.
   </Card>
 </CardGroup>

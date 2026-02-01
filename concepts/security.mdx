@@ -41,6 +41,7 @@ Kisuke supports authentication through trusted identity providers:
 - **OpenAI**
 
 This means:
+
 - No passwords to manage for Kisuke
 - Leverage existing security (2FA, etc.) from your provider
 - Single sign-on across all your devices
@@ -61,7 +62,7 @@ This means:
 - Any decrypted traffic
 
 <Note>
-Your data flows directly between your devices. Kisuke servers only facilitate connections.
+Your data flows directly between your devices. Kisuke servers only facilitate connections—they never see your actual data.
 </Note>
 
 ## Auth Keys
@@ -88,6 +89,13 @@ Kisuke Connect works through most firewalls, but for optimal performance:
 - Allow outbound UDP on port 41641
 - Allow outbound TCP on port 443 (for relay fallback)
 
+### How Traffic Flows
+
+1. **Direct connection** (preferred) - Traffic flows directly between your devices
+2. **Relayed connection** (fallback) - If direct isn't possible, traffic goes through encrypted relay servers
+
+Even with relayed connections, Kisuke relay servers **cannot decrypt your traffic**. They only forward encrypted packets.
+
 ## Security Reporting
 
 Found a security vulnerability? Please report it responsibly:
@@ -101,7 +109,7 @@ Found a security vulnerability? Please report it responsibly:
   <Card title="Self-Hosting" icon="building" href="/advanced/self-hosting">
     Run Kisuke on your own infrastructure.
   </Card>
-  <Card title="Custom Infrastructure" icon="server" href="/advanced/custom-infrastructure">
+  <Card title="Custom Infrastructure" icon="server" href="/advanced/custom-infra">
     Configure custom relay servers.
   </Card>
 </CardGroup>

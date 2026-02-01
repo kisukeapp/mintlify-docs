@@ -1,15 +1,20 @@
 ---
-title: "AI Chat"
-description: "Code with AI assistance from Claude, GPT, and more"
+title: "Coding with Claude"
+description: "AI-powered coding assistant integrated into Kisuke"
 ---
 
 ## Overview
 
-Kisuke includes a built-in AI chat interface that helps you code on the go. Get help with debugging, code generation, explanations, and more.
+Kisuke includes an integrated AI coding assistant powered by Claude. Get debugging help, code generation, and documentation without leaving the app—all from your mobile device.
+
+## Getting Started
+
+1. Open Kisuke
+2. Tap **Chat**
+3. Sign in with your AI provider
+4. Start coding with AI
 
 ## Supported Providers
-
-Sign in with your existing account:
 
 <CardGroup cols={3}>
   <Card title="Claude" icon="sparkles">
@@ -23,13 +28,6 @@ Sign in with your existing account:
   </Card>
 </CardGroup>
 
-## Getting Started
-
-1. Open Kisuke
-2. Tap **Chat**
-3. Sign in with your preferred provider
-4. Start chatting
-
 ## Features
 
 ### Code Context
@@ -40,11 +38,11 @@ When you're in a Space, the AI has access to:
 - Recent terminal output
 - Previous conversation history
 
-This helps it give relevant, contextual answers.
+This helps Claude give relevant, contextual answers specific to your codebase.
 
 ### Code Generation
 
-Ask the AI to write code:
+Ask Claude to write code:
 
 ```
 "Write a Python function to parse CSV files"
@@ -72,12 +70,15 @@ Understand unfamiliar code:
 "What does this SQL query do?"
 ```
 
-### Quick Actions
+### Documentation
 
-- **Refactor** - Improve code structure
-- **Document** - Add comments and docs
-- **Test** - Generate unit tests
-- **Convert** - Translate between languages
+Generate docs for your code:
+
+```
+"Add JSDoc comments to this function"
+"Write a README for this project"
+"Document this API endpoint"
+```
 
 ## Chat Interface
 
@@ -132,13 +133,13 @@ Continue the conversation to refine answers:
 ## Privacy
 
 - Conversations are sent to your chosen AI provider
-- Kisuke doesn't store your chat content
+- Kisuke doesn't store your chat content on our servers
 - Your API credentials stay on your device
 
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Terminal" icon="terminal" href="/features/terminal-shell">
+  <Card title="Terminal" icon="terminal" href="/features/terminal">
     Run AI-generated code.
   </Card>
   <Card title="Editor" icon="code" href="/features/editor">
