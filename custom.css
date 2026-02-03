@@ -67,6 +67,31 @@ th {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Remove highlight background from subheadings */
+article h2,
+article h3,
+article h4,
+article h5,
+article h6,
+[class*="prose"] h2,
+[class*="prose"] h3,
+[class*="prose"] h4,
+[class*="prose"] h5,
+[class*="prose"] h6,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin-left: 0 !important;
+  border-radius: 0 !important;
 }
 
 /* ============================================
@@ -130,7 +155,7 @@ nav:not(header nav):not([class*="toc"]) a:hover {
   background-color: transparent !important;
 }
 
-/* ACTIVE item - dark pill background */
+/* ACTIVE item - dark pill background, brighter text */
 #sidebar a[aria-current="page"],
 #sidebar a[data-active="true"],
 #sidebar a.active,
@@ -143,11 +168,11 @@ nav:not(header nav) a[data-active="true"],
 a[data-active="true"],
 a[aria-current="page"] {
   background-color: #1e2528 !important;
-  color: #d3c6aa !important;
+  color: #a7c080 !important;
   font-weight: 500 !important;
 }
 
-/* Group headers */
+/* Group headers - prominent styling for main sections */
 #sidebar h3,
 #sidebar h4,
 [id*="sidebar"] h3,
@@ -157,13 +182,42 @@ aside h4,
 aside [class*="font-semibold"]:not(a),
 aside [class*="uppercase"],
 nav:not(header nav) h3,
-nav:not(header nav) h4 {
+nav:not(header nav) h4,
+aside button[class*="group"],
+aside div[class*="font-medium"],
+nav:not(header nav):not([class*="toc"]) button,
+nav:not(header nav):not([class*="toc"]) [class*="font-semibold"],
+aside [class*="text-sm"][class*="font-semibold"] {
   color: #d3c6aa !important;
   font-weight: 600 !important;
-  font-size: 0.8rem !important;
+  font-size: 0.85rem !important;
   padding: 8px 12px !important;
   margin-top: 16px !important;
   background: transparent !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Sub-items under groups - muted "download" style */
+#sidebar ul a,
+#sidebar li a,
+[id*="sidebar"] ul a,
+aside ul li a,
+aside nav ul a,
+nav:not(header nav):not([class*="toc"]) ul a,
+nav:not(header nav):not([class*="toc"]) li > a {
+  color: #7a8478 !important;
+  font-weight: 400 !important;
+  font-size: 0.8rem !important;
+  padding: 6px 12px 6px 20px !important;
+  margin: 0 !important;
+}
+
+/* Sub-items hover - brighten on hover */
+#sidebar ul a:hover,
+[id*="sidebar"] ul a:hover,
+aside ul li a:hover,
+nav:not(header nav):not([class*="toc"]) ul a:hover {
+  color: #9da9a0 !important;
 }
 
 /* Icons */
