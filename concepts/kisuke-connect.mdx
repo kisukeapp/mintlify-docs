@@ -5,9 +5,9 @@ description: "How Kisuke Connect creates secure connections between your devices
 
 ## Overview
 
-Kisuke Connect is the networking layer that connects your mobile device to your computers and servers. It creates a secure, encrypted mesh network between all your devices—no VPN configuration, no port forwarding, no firewall rules required.
+Kisuke Connect is the networking layer that connects your mobile device to your computers and servers. Powered by [Tailscale](https://tailscale.com), it creates a secure, encrypted mesh network between all your devices—no VPN configuration, no port forwarding, no firewall rules required.
 
-Think of it like Tailscale: once you're authenticated, your devices just find each other.
+Once you're authenticated, your devices just find each other automatically.
 
 ## How It Works
 
@@ -22,14 +22,73 @@ Think of it like Tailscale: once you're authenticated, your devices just find ea
                     Encrypted Mesh
 ```
 
-### The Connection Flow
+## Quick Setup Guide
 
-1. **Download Client** — Install Kisuke on your phone and Kisuke Connect on your computer
-2. **Authenticate** — Sign in with your identity provider (Claude, Google, or OpenAI)
-3. **Authorize Device** — Each device gets a unique cryptographic identity bound to your account
-4. **Connected** — Devices discover each other and establish direct, encrypted connections
+Setting up Kisuke Connect takes just a few clicks. Here's the complete flow:
 
-That's it. No IP addresses to remember. No configuration files to edit. Just sign in.
+### Step 1: Create Your Network
+
+<Steps>
+  <Step title="Go to Tailscale">
+    Visit [tailscale.com](https://tailscale.com) and click **"Start connecting devices"** or **"Get Started"**.
+  </Step>
+  <Step title="Sign in with Google">
+    Click the Google sign-in button. Complete the standard Google authentication (select account, confirm permissions).
+
+    <Note>
+    You can also sign in with other providers like Microsoft, GitHub, or Apple.
+    </Note>
+  </Step>
+  <Step title="Complete Setup">
+    After logging in, you'll see the Tailscale dashboard. Complete the mandatory setup steps—the analytics options are optional.
+  </Step>
+</Steps>
+
+### Step 2: Add Your Devices
+
+<Steps>
+  <Step title="Add Your First Device">
+    From the dashboard, click to add your first device. This will prompt you to download Tailscale for your current platform.
+  </Step>
+  <Step title="Install on Desktop">
+    Download and install Tailscale on your computer (Windows, Mac, or Linux). Sign in with the same account you used in Step 1.
+  </Step>
+  <Step title="Install on Mobile">
+    Download Tailscale from the App Store (iOS) or Play Store (Android). Sign in with the same account.
+  </Step>
+  <Step title="Automatic Connection">
+    Once logged in on both devices, they automatically discover each other and connect. No additional configuration needed.
+  </Step>
+</Steps>
+
+<Tip>
+The connection is automatic once you're logged in on both devices. They just find each other and connect securely.
+</Tip>
+
+### Step 3: Install Kisuke
+
+With your Tailscale network ready:
+
+1. **On mobile**: Download Kisuke from the App Store or Play Store
+2. **On desktop**: Download Kisuke Connect for your platform
+
+Kisuke uses your Tailscale network to securely connect your devices.
+
+## Admin Console
+
+Tailscale provides a powerful admin console to manage your devices and network.
+
+### Accessing the Console
+
+From the Tailscale app or website, click **"Admin Console"** to access the full management interface.
+
+### What You Can Do
+
+- **View all machines** — See every device on your network with status
+- **Manage access** — Control which devices can connect to each other
+- **View connection info** — Check IP addresses, last seen times, and connection types
+- **Remove devices** — Revoke access from old or lost devices
+- **Generate auth keys** — Create keys for headless server deployments
 
 ## Key Benefits
 
@@ -46,11 +105,11 @@ Just sign in on both devices and they find each other automatically. Kisuke Conn
 
 All traffic between your devices is encrypted using modern cryptography:
 
-- **WireGuard®-based protocol** for fast, secure tunnels
+- **WireGuard-based protocol** for fast, secure tunnels
 - **X25519** key exchange
 - **ChaCha20-Poly1305** encryption
 
-Kisuke servers never see your decrypted traffic—they only help devices find each other.
+The coordination servers never see your decrypted traffic—they only help devices find each other.
 
 ### Works Anywhere
 
@@ -65,14 +124,14 @@ Kisuke Connect works through:
 
 ### Direct Connections When Possible
 
-Kisuke Connect uses modern NAT traversal techniques to establish direct peer-to-peer connections whenever possible:
+Kisuke Connect establishes direct peer-to-peer connections whenever possible:
 
 ```
 Phone ◄────── Encrypted ──────► Computer
               Direct Path
 ```
 
-When direct connection isn't possible (strict firewalls, carrier-grade NAT), traffic goes through Kisuke relay servers while remaining end-to-end encrypted:
+When direct connection isn't possible (strict firewalls, carrier-grade NAT), traffic goes through relay servers while remaining end-to-end encrypted:
 
 ```
 Phone ◄──── Encrypted ────► Relay ◄──── Encrypted ────► Computer
@@ -82,44 +141,18 @@ Phone ◄──── Encrypted ────► Relay ◄──── Encrypted 
 Even relayed traffic is end-to-end encrypted. Relay servers cannot read your data.
 </Note>
 
-## Device Management
+## Auth Keys for Servers
 
-View and manage your connected devices in the Kisuke app:
+For headless server deployments where you can't use interactive login, generate auth keys from the admin console:
 
-- **Devices list** - See all devices on your account
-- **Connection status** - Check if devices are online
-- **Connection type** - See if you're connected directly or via relay
-- **Remove devices** - Revoke access to old devices
-
-## Authentication
-
-Kisuke Connect uses your identity provider for authentication:
-
-- **Claude** (Anthropic)
-- **Google**
-- **OpenAI**
-
-This means:
-
-- No separate passwords to manage
-- Your provider's security (2FA, SSO, etc.) protects your network
-- Single sign-on across all devices
-- Automatic device authorization when you sign in
-
-### Auth Keys for Servers
-
-For headless server deployments, generate auth keys:
-
-1. Open Kisuke on your phone
-2. Go to **Settings** > **Auth Keys**
-3. Generate a new key
-4. Use it when setting up Kisuke Connect on your server
+1. Open the **Admin Console**
+2. Go to **Settings** > **Keys**
+3. Generate a new auth key
+4. Use it when setting up Tailscale on your server:
 
 ```bash
-kisuke-connect up --auth-key=YOUR_AUTH_KEY
+tailscale up --authkey=YOUR_AUTH_KEY
 ```
-
-> **USER TODO:** Insert the specific auth key flag for your version.
 
 ## Use Cases
 
@@ -140,19 +173,15 @@ Work seamlessly across devices:
 - Fix a bug from your tablet
 - All connected, all the time
 
-### File Transfer
-
-Securely move files between devices without cloud storage middlemen. Your files travel directly between your devices.
-
 ## How It Compares
 
 | Feature | Kisuke Connect | Traditional VPN | SSH Tunnels |
 |---------|---------------|-----------------|-------------|
-| Zero config | ✅ | ❌ | ❌ |
-| NAT traversal | ✅ | Sometimes | ❌ |
-| End-to-end encrypted | ✅ | ✅ | ✅ |
-| Works on mobile | ✅ | Sometimes | Awkward |
-| No server required | ✅ | ❌ | ❌ |
+| Zero config | Yes | No | No |
+| NAT traversal | Yes | Sometimes | No |
+| End-to-end encrypted | Yes | Yes | Yes |
+| Works on mobile | Yes | Sometimes | Awkward |
+| No server required | Yes | No | No |
 
 ## Next Steps
 

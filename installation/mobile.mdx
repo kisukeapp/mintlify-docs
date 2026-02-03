@@ -3,7 +3,7 @@ title: "iOS & Android"
 description: "Install Kisuke on your mobile device"
 ---
 
-## Download
+## Download Kisuke
 
 <CardGroup cols={2}>
   <Card title="App Store" icon="apple" href="https://apps.apple.com/app/kisuke">
@@ -24,7 +24,112 @@ description: "Install Kisuke on your mobile device"
 - Android 8.0 (Oreo) or later
 - ARM64 or x86_64 device
 
-## First Launch
+---
+
+## Setting Up Kisuke Connect (Android)
+
+To connect your Android device to your desktop, you'll need to set up Tailscale. Here's the complete flow:
+
+### Step 1: Install Tailscale
+
+<Steps>
+  <Step title="Find Tailscale">
+    Open the Google Play Store and search for **"Tailscale"**.
+  </Step>
+  <Step title="Install">
+    Tap **Install** to download the Tailscale app.
+  </Step>
+  <Step title="Open">
+    Once installed, tap **Open** to launch Tailscale.
+  </Step>
+</Steps>
+
+### Step 2: Initial Setup
+
+<Steps>
+  <Step title="Get Started">
+    On the welcome screen, tap the button to proceed.
+  </Step>
+  <Step title="Approve VPN Permission">
+    Android will show a VPN connection request popup. Tap **OK** or **Allow** to grant Tailscale VPN access.
+
+    <Note>
+    This is required for Tailscale to create a secure tunnel between your devices.
+    </Note>
+  </Step>
+</Steps>
+
+### Step 3: Sign In
+
+<Steps>
+  <Step title="Browser Opens Automatically">
+    After approving VPN permissions, Tailscale automatically opens your browser to the sign-in page.
+  </Step>
+  <Step title="Sign in with Google">
+    Tap **Sign in with Google** and complete the authentication:
+    - Select your Google account
+    - Confirm permissions
+  </Step>
+  <Step title="Connect Device">
+    After signing in, you'll see a "Connect device" screen. Tap **Connect** to add this device to your network.
+  </Step>
+  <Step title="Login Successful">
+    You'll see a success confirmation and be redirected back to the app.
+  </Step>
+</Steps>
+
+### Step 4: Enable Notifications
+
+<Steps>
+  <Step title="Notification Permission">
+    Tailscale will ask for notification permissions. Tap **Continue**.
+  </Step>
+  <Step title="Allow Notifications">
+    On the system popup, tap **Allow** to enable notifications.
+
+    <Tip>
+    Notifications help you know when you're connected and alert you to any connection issues.
+    </Tip>
+  </Step>
+</Steps>
+
+### Step 5: You're Connected
+
+You'll now see the Tailscale home screen showing:
+
+- Your account email and connection status
+- **Exit Node** option (optional, for routing traffic)
+- **Search** to find devices
+- **Your devices** listed with their Tailscale IP addresses
+
+<Info>
+Your device now has a Tailscale IP address (like `100.x.x.x`) that other devices on your network can use to connect to it.
+</Info>
+
+---
+
+## Setting Up Kisuke Connect (iOS)
+
+<Steps>
+  <Step title="Install Tailscale">
+    Download Tailscale from the App Store.
+  </Step>
+  <Step title="Open and Sign In">
+    Launch Tailscale and sign in with Google (or your preferred provider).
+  </Step>
+  <Step title="Approve VPN">
+    Allow Tailscale to add VPN configurations when prompted.
+  </Step>
+  <Step title="Connected">
+    Your device joins your Tailscale network automatically.
+  </Step>
+</Steps>
+
+---
+
+## First Launch (Kisuke App)
+
+After setting up Tailscale, open the Kisuke app:
 
 1. Open Kisuke after installation
 2. Choose your sign-in method:
@@ -32,22 +137,21 @@ description: "Install Kisuke on your mobile device"
    - **Google** - Use your Google account
    - **OpenAI** - Use your OpenAI account
 3. Grant necessary permissions when prompted
+4. Kisuke will automatically detect devices on your Tailscale network
 
 ## Next Steps
 
-After installing Kisuke on your mobile device, you can:
-
 <CardGroup cols={2}>
+  <Card title="Install on Desktop" icon="desktop" href="/installation/windows">
+    Set up Kisuke Connect on Windows.
+  </Card>
+  <Card title="Install on Mac" icon="apple" href="/installation/mac">
+    Set up Kisuke Connect on macOS.
+  </Card>
   <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
-    Link your phone to your development machine.
+    Learn more about how Kisuke Connect works.
   </Card>
-  <Card title="Install on Desktop" icon="desktop" href="/installation/mac">
-    Set up Kisuke Connect on your computer.
-  </Card>
-  <Card title="Coding with Claude" icon="sparkles" href="/features/coding-with-ai">
-    Start coding with AI assistance.
-  </Card>
-  <Card title="Open Terminal" icon="terminal" href="/features/terminal">
+  <Card title="Terminal" icon="terminal" href="/features/terminal">
     Access the built-in terminal.
   </Card>
 </CardGroup>
