@@ -5,7 +5,7 @@ description: "How Kisuke Connect creates secure connections between your devices
 
 ## Overview
 
-Kisuke Connect is the networking layer that connects your mobile device to your computers and servers. Powered by [Tailscale](https://tailscale.com), it creates a secure, encrypted mesh network between all your devices—no VPN configuration, no port forwarding, no firewall rules required.
+Kisuke Connect is the networking layer that connects your mobile device to your computers and servers. It creates a secure, encrypted mesh network between all your devices — no VPN configuration, no port forwarding, no firewall rules required.
 
 Once you're authenticated, your devices just find each other automatically.
 
@@ -24,63 +24,20 @@ Once you're authenticated, your devices just find each other automatically.
 
 ## Quick Setup Guide
 
-Setting up Kisuke Connect takes just a few clicks. Here's the complete flow:
+Setting up Kisuke Connect takes just a few clicks:
 
-### Step 1: Create Your Network
-
-<Steps>
-  <Step title="Go to Tailscale">
-    Visit [tailscale.com](https://tailscale.com) and click **"Start connecting devices"** or **"Get Started"**.
-  </Step>
-  <Step title="Sign in with Google">
-    Click the Google sign-in button. Complete the standard Google authentication (select account, confirm permissions).
-
-    <Note>
-    You can also sign in with other providers like Microsoft, GitHub, or Apple.
-    </Note>
-  </Step>
-  <Step title="Complete Setup">
-    After logging in, you'll see the Tailscale dashboard. Complete the mandatory setup steps—the analytics options are optional.
-  </Step>
-</Steps>
-
-### Step 2: Add Your Devices
-
-<Steps>
-  <Step title="Add Your First Device">
-    From the dashboard, click to add your first device. This will prompt you to download Tailscale for your current platform.
-  </Step>
-  <Step title="Install on Desktop">
-    Download and install Tailscale on your computer (Windows, Mac, or Linux). Sign in with the same account you used in Step 1.
-  </Step>
-  <Step title="Install on Mobile">
-    Download Tailscale from the App Store (iOS) or Play Store (Android). Sign in with the same account.
-  </Step>
-  <Step title="Automatic Connection">
-    Once logged in on both devices, they automatically discover each other and connect. No additional configuration needed.
-  </Step>
-</Steps>
+1. **Install Kisuke Connect** on your computer ([macOS](/installation/mac), [Windows](/installation/windows), or [Linux](/installation/linux))
+2. **Sign in** with your account
+3. **Install Kisuke** on your mobile device ([iOS](/installation/ios) or [Android](/installation/android))
+4. **Sign in** with the same account — your devices automatically discover each other and connect
 
 <Tip>
-The connection is automatic once you're logged in on both devices. They just find each other and connect securely.
+The connection is automatic once you're signed in on both devices. They just find each other and connect securely.
 </Tip>
-
-### Step 3: Install Kisuke
-
-With your Tailscale network ready:
-
-1. **On mobile**: Download Kisuke from the App Store or Play Store
-2. **On desktop**: Download Kisuke Connect for your platform
-
-Kisuke uses your Tailscale network to securely connect your devices.
 
 ## Admin Console
 
-Tailscale provides a powerful admin console to manage your devices and network.
-
-### Accessing the Console
-
-From the Tailscale app or website, click **"Admin Console"** to access the full management interface.
+Kisuke Connect includes an admin console to manage your devices and network.
 
 ### What You Can Do
 
@@ -109,7 +66,7 @@ All traffic between your devices is encrypted using modern cryptography:
 - **X25519** key exchange
 - **ChaCha20-Poly1305** encryption
 
-The coordination servers never see your decrypted traffic—they only help devices find each other.
+The coordination servers never see your decrypted traffic — they only help devices find each other.
 
 ### Works Anywhere
 
@@ -148,17 +105,17 @@ For headless server deployments where you can't use interactive login, generate 
 1. Open the **Admin Console**
 2. Go to **Settings** > **Keys**
 3. Generate a new auth key
-4. Use it when setting up Tailscale on your server:
+4. Use it when setting up Kisuke Connect on your server:
 
 ```bash
-tailscale up --authkey=YOUR_AUTH_KEY
+kisuke-connect up --authkey=YOUR_AUTH_KEY
 ```
 
 ## Use Cases
 
 ### Remote Development
 
-Access your development machine from anywhere. Run builds, execute tests, and use terminals on your powerful desktop—all from your phone on the train.
+Access your development machine from anywhere. Run builds, execute tests, and use terminals on your powerful desktop — all from your phone on the train.
 
 ### Server Access
 

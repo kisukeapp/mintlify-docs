@@ -3,90 +3,35 @@ title: "Installation"
 description: "Install Kisuke on your devices"
 ---
 
-## Overview
-
-Kisuke consists of two components:
-
-1. **Kisuke Mobile App** — The main app for iOS and Android where you code, chat with AI, and access terminals
-2. **Kisuke Connect** — A companion app for your computer or server that enables secure connections from your mobile device
-
-## Choose Your Platform
-
-<CardGroup cols={2}>
-  <Card title="iOS & Android" icon="mobile" href="/installation/mobile">
-    Install the Kisuke mobile app
-  </Card>
-  <Card title="Mac" icon="apple" href="/installation/mac">
-    Install Kisuke Connect on macOS
-  </Card>
-  <Card title="Windows" icon="windows" href="/installation/windows">
-    Install Kisuke Connect on Windows
-  </Card>
-  <Card title="Linux" icon="linux" href="/installation/linux">
-    Install Kisuke Connect on Linux
-  </Card>
-</CardGroup>
-
-## For Servers & Advanced Users
-
-<Card title="CLI & Docker" icon="docker" href="/installation/cli-docker">
-  Install via command line or run in Docker containers
+<Card title="Download Kisuke Connect" icon="download" href="https://kisuke.app">
+  Download Kisuke Connect for your platform
 </Card>
 
-## Quick Start
+## Install Kisuke Connect
 
-### Step 1: Install on Mobile
+Kisuke Connect is the desktop server GUI that runs on your computer and enables secure connections from the Kisuke mobile app.
 
-Download Kisuke from your app store:
+- [macOS](/installation/mac)
+- [Windows](/installation/windows)
+- [Linux](/installation/linux)
 
-- [App Store](https://apps.apple.com/app/kisuke) (iOS)
-- [Google Play](https://play.google.com/store/apps/details?id=app.kisuke) (Android)
+## Install Kisuke Connect CLI
 
-### Step 2: Install on Your Computer
+The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers, containers, and automated environments.
 
-Install Kisuke Connect on your development machine:
+```bash
+npm install -g @kisuke/cli
+```
 
-<Tabs>
-  <Tab title="Mac">
-    ```bash
-    brew install kisuke-connect
-    ```
-  </Tab>
-  <Tab title="Windows">
-    ```powershell
-    winget install Kisuke.KisukeConnect
-    ```
-  </Tab>
-  <Tab title="Linux">
-    ```bash
-    curl -fsSL https://kisuke.app/install.sh | sh
-    ```
-  </Tab>
-</Tabs>
+- [CLI & Docker](/installation/cli-docker)
 
-### Step 3: Sign In
+## Install Kisuke on mobile
 
-Sign in with the **same account** on both devices:
+On iOS and Android, connection functionality is built directly into the Kisuke app. There is no separate Kisuke Connect client for mobile.
 
-1. Open Kisuke on your phone and sign in
-2. Open Kisuke Connect on your computer and sign in
-3. Your devices will automatically discover each other
+- [iOS](/installation/ios)
+- [Android](/installation/android)
 
-### Step 4: Connect
+## Auto-updates
 
-In Kisuke mobile:
-
-1. Go to **Spaces** or **Terminal**
-2. Select your computer from the device list
-3. Start coding!
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
-    Learn how device connections work
-  </Card>
-  <Card title="Spaces" icon="folder-tree" href="/features/spaces">
-    Organize your development environments
-  </Card>
-</CardGroup>
+Kisuke Connect checks for updates automatically. You can also update manually using the same method you used to install.

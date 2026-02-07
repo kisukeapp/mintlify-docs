@@ -3,61 +3,67 @@ title: "CLI & Docker"
 description: "Install Kisuke Connect via CLI or Docker"
 ---
 
-## CLI Installation
+The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers, containers, and automated environments.
 
-For advanced users who prefer command-line installation.
+## CLI
 
-### Quick Install
+### Install via npm
 
 ```bash
-curl -fsSL https://kisuke.app/install.sh | sh
+npm install -g @kisuke/cli
 ```
 
-### Manual Download
+### Install via binary download
 
-Download the binary for your platform:
+Download the binary directly for your platform:
+
+<Tabs>
+  <Tab title="Linux x64">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-amd64 -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="Linux ARM64">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-arm64 -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="macOS">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-darwin-universal -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="Windows">
+    ```powershell
+    Invoke-WebRequest -Uri https://kisuke.app/releases/latest/kisuke-connect-windows-amd64.exe -OutFile kisuke-connect.exe
+    ```
+  </Tab>
+</Tabs>
+
+### Authenticate
 
 ```bash
-# Linux x64
-curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-amd64 -o kisuke-connect
-chmod +x kisuke-connect
-sudo mv kisuke-connect /usr/local/bin/
-
-# Linux ARM64
-curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-arm64 -o kisuke-connect
-chmod +x kisuke-connect
-sudo mv kisuke-connect /usr/local/bin/
-
-# macOS
-curl -L https://kisuke.app/releases/latest/kisuke-connect-darwin-universal -o kisuke-connect
-chmod +x kisuke-connect
-sudo mv kisuke-connect /usr/local/bin/
-```
-
-### CLI Usage
-
-```bash
-# Authenticate
 kisuke-connect login
-
-# Start the daemon
-kisuke-connect up
-
-# Check status
-kisuke-connect status
-
-# List connected devices
-kisuke-connect devices
-
-# Stop the daemon
-kisuke-connect down
 ```
 
-## Docker Installation
+### Usage
 
-Run Kisuke Connect in a Docker container for server deployments.
+```bash
+kisuke-connect up        # Start the daemon
+kisuke-connect status    # Check status
+kisuke-connect devices   # List connected devices
+kisuke-connect down      # Stop the daemon
+```
 
-### Quick Start
+## Docker
+
+### Quick start
 
 ```bash
 docker run -d \
@@ -88,9 +94,9 @@ volumes:
   kisuke-data:
 ```
 
-### Getting an Auth Key
+### Auth keys
 
-Generate an auth key from your Kisuke account:
+Generate an auth key from your Kisuke mobile app:
 
 1. Open Kisuke on your mobile device
 2. Go to **Settings** > **Auth Keys**
@@ -101,21 +107,10 @@ Generate an auth key from your Kisuke account:
 Auth keys provide access to your Kisuke network. Keep them secure and rotate them regularly.
 </Warning>
 
-## Environment Variables
+## Environment variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `KISUKE_AUTH_KEY` | Authentication key for headless login | - |
+| `KISUKE_AUTH_KEY` | Authentication key for headless login | — |
 | `KISUKE_HOSTNAME` | Custom hostname for this device | Container ID |
 | `KISUKE_STATE_DIR` | Directory for state files | `/var/lib/kisuke` |
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
-    Learn how device connections work.
-  </Card>
-  <Card title="Self-Hosting" icon="building" href="/advanced/self-hosting">
-    Host your own Kisuke infrastructure.
-  </Card>
-</CardGroup>

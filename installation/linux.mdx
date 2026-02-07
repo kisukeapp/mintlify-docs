@@ -3,21 +3,21 @@ title: "Linux"
 description: "Install Kisuke Connect on Linux"
 ---
 
-## Overview
+The current version of Kisuke Connect requires Linux kernel 4.19 or later with systemd.
 
-Kisuke Connect is a desktop companion app that allows your mobile Kisuke app to connect to your Linux machine. It works similarly to Tailscale, creating a secure connection between your devices.
+## Install
 
-## Installation
-
-### Using the Install Script
-
-The easiest way to install Kisuke Connect on Linux:
+For most distributions, run the install script:
 
 ```bash
 curl -fsSL https://kisuke.app/install.sh | sh
 ```
 
-### Package Managers
+This supports Ubuntu, Debian, Fedora, RHEL, Arch, and other major distributions.
+
+### Package managers
+
+You can also install manually using your distribution's package manager.
 
 <Tabs>
   <Tab title="Debian/Ubuntu">
@@ -48,36 +48,27 @@ curl -fsSL https://kisuke.app/install.sh | sh
   </Tab>
 </Tabs>
 
-### System Requirements
+## Set up
 
-- Linux kernel 4.19 or later
-- systemd (for service management)
-- x86_64 or ARM64
-
-## Setup
-
-1. **Start** the Kisuke Connect service:
+1. Start the Kisuke Connect service:
    ```bash
    sudo systemctl enable --now kisuke-connect
    ```
 
-2. **Authenticate** your device:
+2. Authenticate your device:
    ```bash
    kisuke-connect login
    ```
 
-3. **Sign in** with the same account you use on your mobile device
+3. Sign in with the same account you use on your mobile device.
 
-## Connecting Your Devices
+## Verify
 
-Once Kisuke Connect is running:
+```bash
+kisuke-connect status
+```
 
-1. Open Kisuke on your mobile device
-2. Go to **Settings** > **Connections**
-3. Your Linux machine should appear in the list
-4. Tap to connect
-
-## Service Management
+## Service management
 
 ```bash
 # Check status
@@ -90,13 +81,6 @@ journalctl -u kisuke-connect -f
 sudo systemctl restart kisuke-connect
 ```
 
-## Next Steps
+## Troubleshooting
 
-<CardGroup cols={2}>
-  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
-    Learn how device connections work.
-  </Card>
-  <Card title="CLI & Docker" icon="docker" href="/installation/cli-docker">
-    Advanced installation options.
-  </Card>
-</CardGroup>
+If the install script fails, you can install manually using the package manager instructions above, or download a [static binary](/installation/cli-docker).

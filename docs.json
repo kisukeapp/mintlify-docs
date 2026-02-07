@@ -20,14 +20,10 @@
           {
             "group": "Getting Started",
             "pages": [
-              "what-is-kisuke"
-            ]
-          },
-          {
-            "group": "Quick Start",
-            "pages": [
+              "what-is-kisuke",
               "installation/overview",
-              "installation/mobile",
+              "installation/ios",
+              "installation/android",
               "installation/mac",
               "installation/windows",
               "installation/linux",
@@ -35,16 +31,10 @@
             ]
           },
           {
-            "group": "Core Concepts",
+            "group": "Build with Kisuke",
             "pages": [
               "concepts/kisuke-connect",
               "concepts/relay-system",
-              "concepts/security"
-            ]
-          },
-          {
-            "group": "Core Features",
-            "pages": [
               "features/terminal",
               "features/spaces",
               "features/coding-with-ai",
@@ -53,11 +43,17 @@
             ]
           },
           {
-            "group": "Advanced Configuration",
+            "group": "Administration",
             "pages": [
-              "advanced/self-hosting",
+              "advanced/admin-console",
+              "advanced/self-hosting"
+            ]
+          },
+          {
+            "group": "Configurations",
+            "pages": [
               "advanced/custom-infra",
-              "advanced/admin-console"
+              "concepts/security"
             ]
           }
         ]

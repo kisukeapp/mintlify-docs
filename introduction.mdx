@@ -11,7 +11,7 @@ Kisuke transforms your mobile device into a portable development environment. Wi
   <Card title="What is Kisuke?" icon="circle-question" href="/what-is-kisuke">
     Learn about Kisuke and its core features.
   </Card>
-  <Card title="Install on Mobile" icon="mobile" href="/installation/mobile">
+  <Card title="Install on Mobile" icon="mobile" href="/installation/ios">
     Get Kisuke on iOS or Android.
   </Card>
   <Card title="Install on Desktop" icon="desktop" href="/installation/mac">
@@ -45,11 +45,11 @@ Kisuke transforms your mobile device into a portable development environment. Wi
     - [Linux Installation](/installation/linux)
   </Tab>
   <Tab title="CLI / Docker">
-    For advanced users and server deployments.
+    For servers and headless environments.
 
     ```bash
-    # Install via CLI
-    curl -fsSL https://kisuke.app/install.sh | sh
+    # Install via npm
+    npm install -g @kisuke/cli
 
     # Or use Docker
     docker pull kisuke/kisuke-connect
@@ -61,7 +61,7 @@ Kisuke transforms your mobile device into a portable development environment. Wi
 
 ## How Kisuke Connect Works
 
-Kisuke Connect creates a secure, encrypted mesh network between your devices—similar to how Tailscale works. Once you sign in on your phone and computer with the same account:
+Kisuke Connect creates a secure, encrypted mesh network between your devices. Once you sign in on your phone and computer with the same account:
 
 1. **Download the client** on each device
 2. **Authenticate** via your identity provider (Claude, Google, or OpenAI)
