@@ -3,34 +3,34 @@ title: "Installation"
 description: "Install Kisuke on your devices"
 ---
 
-<Card title="Download Kisuke Connect" icon="download" href="https://kisuke.app">
-  Download Kisuke Connect for your platform
+<Card title="Download Kisuke" icon="download" href="https://kisuke.app">
+  Download Kisuke for your platform
 </Card>
 
-## Install Kisuke Connect
+## Mobile
 
-Kisuke Connect is the desktop server GUI that runs on your computer and enables secure connections from the Kisuke mobile app.
+Install the Kisuke app on your phone or tablet to code on the go. The app connects to your computers running Kisuke Connect over your local network or the internet.
+
+- [iOS](/installation/ios)
+- [Android](/installation/android)
+
+## Desktop
+
+Install Kisuke Connect on your computer to let the Kisuke app access your files, terminal, and dev environment remotely.
 
 - [macOS](/installation/mac)
 - [Windows](/installation/windows)
 - [Linux](/installation/linux)
 
-## Install Kisuke Connect CLI
+<Note>
+**Kisuke Connect vs CLI — which should I install?**
 
-The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers, containers, and automated environments.
+Most users should install **Kisuke Connect** (above). It's the desktop app with a GUI, system tray icon, and automatic updates. It runs in the background and just works.
 
-```bash
-npm install -g @kisuke/cli
-```
+The **CLI** is the same thing without the GUI — a headless daemon meant for servers, Docker containers, and automated/remote environments where you don't have a desktop. If you're sitting at the computer, install Kisuke Connect. If it's a headless server, use the CLI.
+</Note>
 
 - [CLI & Docker](/installation/cli-docker)
-
-## Install Kisuke on mobile
-
-On iOS and Android, connection functionality is built directly into the Kisuke app. There is no separate Kisuke Connect client for mobile.
-
-- [iOS](/installation/ios)
-- [Android](/installation/android)
 
 ## Auto-updates
 

@@ -22,12 +22,17 @@
             "pages": [
               "what-is-kisuke",
               "installation/overview",
-              "installation/ios",
-              "installation/android",
-              "installation/mac",
-              "installation/windows",
-              "installation/linux",
-              "installation/cli-docker"
+              {
+                "group": "Install Kisuke",
+                "pages": [
+                  "installation/ios",
+                  "installation/android",
+                  "installation/mac",
+                  "installation/windows",
+                  "installation/linux",
+                  "installation/cli-docker"
+                ]
+              }
             ]
           },
           {
@@ -36,7 +41,7 @@
               "concepts/kisuke-connect",
               "concepts/relay-system",
               "features/terminal",
-              "features/spaces",
+              "features/sessions",
               "features/coding-with-ai",
               "features/editor",
               "features/browser"
