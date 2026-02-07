@@ -1,0 +1,160 @@
+name: Telegram Commit Notification
+
+on:
+  push:
+
+jobs:
+  notify-telegram:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Send commit notification to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          TELEGRAM_TOPIC_ID: ${{ vars.TELEGRAM_TOPIC_ID }}
+        run: |
+          set -e
+
+          # Validate secrets are set
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "ERROR: TELEGRAM_BOT_TOKEN is not set"
+            exit 1
+          fi
+          if [ -z "$TELEGRAM_CHAT_ID" ]; then
+            echo "ERROR: TELEGRAM_CHAT_ID is not set"
+            exit 1
+          fi
+
+          # Function to escape HTML entities
+          escape_html() {
+            echo "$1" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g'
+          }
+
+          # Common variables
+          REPO_NAME="${{ github.repository }}"
+          BRANCH_NAME="${{ github.ref_name }}"
+          GITHUB_SERVER_URL="${{ github.server_url }}"
+
+          # Count commits in this push
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+
+          # Check if this is a new branch or force push
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            # New branch - just count the last commit
+            COMMIT_COUNT=1
+          else
+            # Count commits between before and after
+            COMMIT_COUNT=$(git rev-list --count "$BEFORE..$AFTER" 2>/dev/null || echo "1")
+          fi
+
+          echo "Detected $COMMIT_COUNT commit(s) in this push"
+
+          # Smart detection: Single commit or Digest mode
+          if [ "$COMMIT_COUNT" -eq 1 ]; then
+            echo "Using single commit mode"
+
+            # Get commit information
+            COMMIT_ID="${{ github.sha }}"
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            COMMIT_MESSAGE=$(escape_html "$COMMIT_MESSAGE")
+            COMMIT_AUTHOR=$(git log -1 --pretty=%an)
+
+            # Get diff stats (additions and deletions)
+            DIFF_STATS=$(git show --numstat --format='' HEAD)
+            ADDITIONS=$(echo "$DIFF_STATS" | awk '{sum += $1} END {print sum}')
+            DELETIONS=$(echo "$DIFF_STATS" | awk '{sum += $2} END {print sum}')
+            ADDITIONS=${ADDITIONS:-0}
+            DELETIONS=${DELETIONS:-0}
+
+            # Format the message (preserve newlines)
+            COMMIT_SHORT="${COMMIT_ID:0:7}"
+            REPO_URL="$GITHUB_SERVER_URL/$REPO_NAME"
+            MESSAGE="🔔 <b>New Commit</b>"$'\n\n'"<a href=\"$REPO_URL\">$REPO_NAME</a> ($BRANCH_NAME) - $COMMIT_AUTHOR [<code>$COMMIT_SHORT</code>]"$'\n'"+$ADDITIONS  -$DELETIONS"$'\n\n'"<code>$COMMIT_MESSAGE</code>"
+
+            # Create inline keyboard with "View Commit" button
+            BUTTON_URL="$GITHUB_SERVER_URL/$REPO_NAME/commit/$COMMIT_ID"
+            REPLY_MARKUP='{"inline_keyboard":[[{"text":"View Commit","url":"'"$BUTTON_URL"'"}]]}'
+
+          else
+            echo "Using digest mode for $COMMIT_COUNT commits"
+
+            # Get total diff stats for all commits
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              DIFF_STATS=$(git show --numstat --format='' HEAD)
+            else
+              DIFF_STATS=$(git diff --numstat "$BEFORE..$AFTER")
+            fi
+            ADDITIONS=$(echo "$DIFF_STATS" | awk '{sum += $1} END {print sum}')
+            DELETIONS=$(echo "$DIFF_STATS" | awk '{sum += $2} END {print sum}')
+            ADDITIONS=${ADDITIONS:-0}
+            DELETIONS=${DELETIONS:-0}
+
+            # Get list of commit SHAs
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              COMMIT_SHAS=$(git log -1 --pretty="%H")
+            else
+              COMMIT_SHAS=$(git log --reverse --pretty="%H" "$BEFORE..$AFTER")
+            fi
+
+            # Build commit list
+            REPO_URL="$GITHUB_SERVER_URL/$REPO_NAME"
+            MESSAGE="🔔 <b>$COMMIT_COUNT New Commits</b>"$'\n\n'"<a href=\"$REPO_URL\">$REPO_NAME</a> ($BRANCH_NAME)"$'\n'"+$ADDITIONS  -$DELETIONS"$'\n\n'
+
+            while read -r sha; do
+              # Get commit details
+              commit_author=$(git log -1 --pretty=%an "$sha")
+              commit_message=$(git log -1 --pretty=%B "$sha")
+              short_sha="${sha:0:7}"
+
+              # Check if commit message is multi-line
+              line_count=$(echo "$commit_message" | wc -l)
+
+              if [ "$line_count" -gt 1 ]; then
+                # Multi-line: use triple backticks
+                MESSAGE="$MESSAGE""• <code>$short_sha</code> - $commit_author:"$'\n'"<pre>$commit_message</pre>"$'\n\n'
+              else
+                # Single line: use inline code
+                MESSAGE="$MESSAGE""• <code>$short_sha</code> - $commit_author: <code>$commit_message</code>"$'\n\n'
+              fi
+            done <<< "$COMMIT_SHAS"
+
+            # Create inline keyboard with "View All Commits" button
+            BUTTON_URL="$GITHUB_SERVER_URL/$REPO_NAME/compare/$BEFORE...$AFTER"
+            REPLY_MARKUP='{"inline_keyboard":[[{"text":"View All Commits","url":"'"$BUTTON_URL"'"}]]}'
+          fi
+
+          # Build JSON payload using jq
+          if [ -z "$TELEGRAM_TOPIC_ID" ]; then
+            JSON=$(jq -n \
+              --argjson chat_id "$TELEGRAM_CHAT_ID" \
+              --arg text "$MESSAGE" \
+              --argjson reply_markup "$REPLY_MARKUP" \
+              '{chat_id: $chat_id, text: $text, parse_mode: "HTML", reply_markup: $reply_markup}')
+          else
+            JSON=$(jq -n \
+              --argjson chat_id "$TELEGRAM_CHAT_ID" \
+              --argjson message_thread_id "$TELEGRAM_TOPIC_ID" \
+              --arg text "$MESSAGE" \
+              --argjson reply_markup "$REPLY_MARKUP" \
+              '{chat_id: $chat_id, message_thread_id: $message_thread_id, text: $text, parse_mode: "HTML", reply_markup: $reply_markup}')
+          fi
+
+          # Send to Telegram
+          RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -H 'Content-Type: application/json' \
+            -d "$JSON")
+
+          # Check if successful
+          if echo "$RESPONSE" | grep -q '"ok":true'; then
+            echo "✅ Telegram notification sent successfully"
+          else
+            echo "❌ Failed to send Telegram notification"
+            echo "$RESPONSE"
+            exit 1
+          fi
