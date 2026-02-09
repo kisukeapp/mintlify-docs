@@ -16,36 +16,48 @@ For organizations that need complete control over their infrastructure, Kisuke c
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────┐
-│                  Your Infrastructure                │
-│                                                     │
-│   ┌─────────────┐    ┌─────────────┐               │
-│   │   Kisuke    │    │   Relay     │               │
-│   │   Server    │    │   Server    │               │
-│   │   (KJS)     │    │   (DERP)    │               │
-│   └──────┬──────┘    └──────┬──────┘               │
-│          │                   │                      │
-│          └───────────────────┘                      │
-│                    │                                │
-└────────────────────┼────────────────────────────────┘
-                     │
-        ┌────────────┼────────────┐
-        │            │            │
-   ┌────▼────┐  ┌────▼────┐  ┌────▼────┐
-   │  Phone  │  │  Laptop │  │  Server │
-   └─────────┘  └─────────┘  └─────────┘
+```mermaid
+graph TD
+  subgraph infra["Your Infrastructure"]
+    KJS["Kisuke Server<br/>(KJS)"]
+    DERP["Relay Server<br/>(DERP)"]
+    KJS --- DERP
+  end
+  infra --> Phone
+  infra --> Laptop
+  infra --> Server
 ```
 
 ## Requirements
 
 ### Hardware
 
-| Component | Minimum | Recommended |
-|-----------|---------|-------------|
-| CPU | 2 cores | 4 cores |
-| RAM | 2 GB | 4 GB |
-| Disk | 10 GB | 50 GB |
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Minimum</th>
+      <th>Recommended</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU</td>
+      <td>2 cores</td>
+      <td>4 cores</td>
+    </tr>
+    <tr>
+      <td>RAM</td>
+      <td>2 GB</td>
+      <td>4 GB</td>
+    </tr>
+    <tr>
+      <td>Disk</td>
+      <td>10 GB</td>
+      <td>50 GB</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Software
 

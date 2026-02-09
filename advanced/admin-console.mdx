@@ -13,9 +13,7 @@ The Kisuke Admin Console provides a web interface for managing your self-hosted 
 
 Navigate to your KJS URL:
 
-```
-https://kjs.yourcompany.com/admin
-```
+[https://kjs.yourcompany.com/admin](https://kjs.yourcompany.com/admin)
 
 Sign in with your admin credentials.
 
@@ -23,9 +21,7 @@ Sign in with your admin credentials.
 
 For managed Kisuke accounts:
 
-```
-https://admin.kisuke.app
-```
+[https://admin.kisuke.app](https://admin.kisuke.app)
 
 Sign in with your organization account.
 
@@ -107,12 +103,21 @@ Manage auth keys for server deployments:
 
 ### Key Properties
 
-| Property | Description |
-|----------|-------------|
-| Reusable | Can be used on multiple devices |
-| Ephemeral | Devices using this key are removed when offline for 90 days |
-| Pre-authorized | Devices don't require approval |
-| Tags | Assign tags to devices using this key |
+<ResponseField name="Reusable" type="boolean">
+  Can be used on multiple devices.
+</ResponseField>
+
+<ResponseField name="Ephemeral" type="boolean">
+  Devices using this key are removed when offline for 90 days.
+</ResponseField>
+
+<ResponseField name="Pre-authorized" type="boolean">
+  Devices don't require approval.
+</ResponseField>
+
+<ResponseField name="Tags" type="string[]">
+  Assign tags to devices using this key.
+</ResponseField>
 
 ### Revoking Keys
 
@@ -168,10 +173,24 @@ Set nameservers for all devices.
 
 Route specific domains through internal DNS:
 
-| Domain | Nameservers |
-|--------|-------------|
-| `internal.company.com` | `10.0.0.53` |
-| `*.corp` | `10.0.0.53` |
+<table>
+  <thead>
+    <tr>
+      <th>Domain</th>
+      <th>Nameservers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>internal.company.com</code></td>
+      <td><code>10.0.0.53</code></td>
+    </tr>
+    <tr>
+      <td><code>*.corp</code></td>
+      <td><code>10.0.0.53</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Search Domains
 

@@ -1,5 +1,3 @@
-/* Kisuke Docs - Everforest Dark Theme */
-
 /* Berkeley Mono Font */
 @font-face {
   font-family: 'Berkeley Mono';
@@ -33,766 +31,98 @@
   font-display: swap;
 }
 
-/* Override Mintlify's CSS variables */
-:root,
-:root[class*="dark"],
-.dark,
-* {
-  --primary: #a7c080 !important;
-  --primary-light: #343f44 !important;
-  --primary-dark: #83c092 !important;
-  --color-primary: #a7c080 !important;
-  --color-primary-light: #343f44 !important;
-  --background-light: #2d353b !important;
-  --background-dark: #2d353b !important;
-}
-
+/* Apply Berkeley Mono via Mintlify's custom font variables */
 :root {
-  --background-dark: #2d353b;
-  --background-darker: #272e33;
-  --background-lighter: #343f44;
-  --background-sidebar: #2d353b;
-  --text-primary: #d3c6aa;
-  --text-secondary: #9da9a0;
-  --text-muted: #7a8478;
-  --accent-green: #a7c080;
-  --accent-aqua: #83c092;
-  --accent-blue: #7fbbb3;
-  --accent-purple: #d699b6;
-  --accent-orange: #e69875;
-  --accent-red: #e67e80;
-  --accent-yellow: #dbbc7f;
-  --border-color: #475258;
-  --border-subtle: #3d484d;
-}
-
-/* Force dark mode and base font */
-html {
-  color-scheme: dark;
-}
-
-/* Apply Berkeley Mono as base font */
-html,
-body,
-* {
-  font-family: 'Berkeley Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-}
-
-/* Base backgrounds */
-body,
-.min-h-screen,
-main,
-#__next,
-[class*="bg-background"] {
-  background-color: var(--background-dark) !important;
-}
-
-.dark body,
-.dark .min-h-screen,
-.dark main,
-.dark #__next {
-  background-color: var(--background-dark) !important;
-}
-
-/* Text colors */
-body,
-p,
-span,
-div,
-li,
-td,
-th {
-  color: var(--text-primary) !important;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--text-primary) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Remove highlight background from subheadings */
-article h2,
-article h3,
-article h4,
-article h5,
-article h6,
-[class*="prose"] h2,
-[class*="prose"] h3,
-[class*="prose"] h4,
-[class*="prose"] h5,
-[class*="prose"] h6,
-main h2,
-main h3,
-main h4,
-main h5,
-main h6 {
-  background: transparent !important;
-  background-color: transparent !important;
-  padding: 0 !important;
-  margin-left: 0 !important;
-  border-radius: 0 !important;
-}
-
-/* ============================================
-   SIDEBAR - Complete Override (NUCLEAR)
-   ============================================ */
-
-/* Remove ALL backgrounds from left sidebar area */
-#sidebar,
-[id*="sidebar"],
-[class*="sidebar"],
-[class*="Sidebar"],
-aside,
-nav:not(header nav):not([class*="toc"]) {
-  background-color: #2d353b !important;
-}
-
-/* NUCLEAR OPTION: Target the actual link wrappers */
-#sidebar a,
-#sidebar li,
-#sidebar div,
-[id*="sidebar"] a,
-[id*="sidebar"] li,
-[id*="sidebar"] div,
-aside a,
-aside li,
-aside > div,
-aside > div > div,
-aside div[class],
-aside li[class],
-nav:not(header nav):not([class*="toc"]) a,
-nav:not(header nav):not([class*="toc"]) li,
-nav:not(header nav):not([class*="toc"]) div {
-  background-color: transparent !important;
-  background: transparent !important;
-  border: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Style the actual link text */
-#sidebar a,
-[id*="sidebar"] a,
-aside a:not([class*="search"]),
-nav:not(header nav):not([class*="toc"]) a {
-  color: #9da9a0 !important;
-  padding: 8px 12px !important;
-  border-radius: 6px !important;
-  margin: 1px 0 !important;
-  font-size: 0.875rem !important;
-  font-weight: 400 !important;
-  transition: color 0.15s ease !important;
-}
-
-/* Hover state */
-#sidebar a:hover,
-[id*="sidebar"] a:hover,
-aside a:hover:not([class*="search"]),
-nav:not(header nav):not([class*="toc"]) a:hover {
-  color: #d3c6aa !important;
-  background-color: transparent !important;
-}
-
-/* ACTIVE item - dark pill background, brighter text */
-#sidebar a[aria-current="page"],
-#sidebar a[data-active="true"],
-#sidebar a.active,
-[id*="sidebar"] a[aria-current="page"],
-aside a[aria-current="page"],
-aside a[data-active="true"],
-aside a.active,
-nav:not(header nav) a[aria-current="page"],
-nav:not(header nav) a[data-active="true"],
-a[data-active="true"],
-a[aria-current="page"] {
-  background-color: #1e2528 !important;
-  color: #a7c080 !important;
-  font-weight: 500 !important;
-}
-
-/* Group headers - prominent styling for main sections */
-#sidebar h3,
-#sidebar h4,
-[id*="sidebar"] h3,
-[id*="sidebar"] h4,
-aside h3,
-aside h4,
-aside [class*="font-semibold"]:not(a),
-aside [class*="uppercase"],
-nav:not(header nav) h3,
-nav:not(header nav) h4,
-aside button[class*="group"],
-aside div[class*="font-medium"],
-nav:not(header nav):not([class*="toc"]) button,
-nav:not(header nav):not([class*="toc"]) [class*="font-semibold"],
-aside [class*="text-sm"][class*="font-semibold"] {
-  color: #d3c6aa !important;
-  font-weight: 600 !important;
-  font-size: 0.85rem !important;
-  padding: 8px 12px !important;
-  margin-top: 16px !important;
-  background: transparent !important;
-  letter-spacing: 0.02em !important;
-}
-
-/* Sub-items under groups - muted "download" style */
-#sidebar ul a,
-#sidebar li a,
-[id*="sidebar"] ul a,
-aside ul li a,
-aside nav ul a,
-nav:not(header nav):not([class*="toc"]) ul a,
-nav:not(header nav):not([class*="toc"]) li > a {
-  color: #7a8478 !important;
-  font-weight: 400 !important;
-  font-size: 0.8rem !important;
-  padding: 6px 12px 6px 20px !important;
-  margin: 0 !important;
-}
-
-/* Sub-items hover - brighten on hover */
-#sidebar ul a:hover,
-[id*="sidebar"] ul a:hover,
-aside ul li a:hover,
-nav:not(header nav):not([class*="toc"]) ul a:hover {
-  color: #9da9a0 !important;
-}
-
-/* Icons */
-#sidebar svg,
-[id*="sidebar"] svg,
-aside svg,
-nav:not(header nav) svg {
-  color: #7a8478 !important;
-}
-
-/* ============================================
-   RIGHT SIDEBAR (On this page) - Also fix
-   ============================================ */
-[class*="toc"] a,
-[class*="toc"] li,
-[class*="toc"] div,
-[class*="TableOfContents"] a,
-[class*="TableOfContents"] li,
-[class*="TableOfContents"] div,
-[class*="on-this-page"] a,
-[class*="on-this-page"] li,
-[class*="on-this-page"] div {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-[class*="toc"] a,
-[class*="TableOfContents"] a,
-[class*="on-this-page"] a {
-  color: #7a8478 !important;
-  padding: 4px 8px !important;
-}
-
-[class*="toc"] a:hover,
-[class*="toc"] a[class*="active"],
-[class*="TableOfContents"] a:hover,
-[class*="on-this-page"] a:hover {
-  color: #d3c6aa !important;
-  background: transparent !important;
-}
-
-/* ============================================
-   ULTIMATE OVERRIDE - Target by structure
-   ============================================ */
-
-/* Any element that looks like a nav item wrapper */
-li > a,
-li > div > a,
-ul > li,
-ol > li,
-nav li,
-aside li {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: 0 !important;
-  border-width: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Specifically target Mintlify's hover/focus states */
-a:focus,
-li:focus,
-div:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Remove any bg-* utility class effects in sidebar */
-aside [class*="bg-"],
-nav:not(header nav) [class*="bg-"],
-#sidebar [class*="bg-"] {
-  background-color: transparent !important;
-}
-
-/* Search box */
-[class*="search"],
-[class*="Search"],
-input[type="search"],
-[role="search"] input,
-button[class*="search"],
-[class*="SearchButton"] {
-  background-color: #343f44 !important;
-  border: 1px solid #3d484d !important;
-  border-radius: 8px !important;
-  color: #d3c6aa !important;
-  padding: 8px 12px !important;
-  box-shadow: none !important;
-}
-
-[class*="search"]::placeholder,
-input::placeholder {
-  color: #7a8478 !important;
-}
-
-[class*="search"]:focus,
-[class*="Search"]:focus,
-input[type="search"]:focus {
-  border-color: #475258 !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Main content area */
-article,
-[class*="prose"],
-[class*="content"],
-main > div {
-  background-color: var(--background-dark) !important;
+  --font-family-body-custom: 'Berkeley Mono';
+  --font-family-headings-custom: 'Berkeley Mono';
 }
 
 /* Code blocks */
-pre,
-code,
-[class*="code"],
-[class*="Code"] {
-  background-color: var(--background-darker) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 8px !important;
+code, pre code {
+  font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-pre {
-  padding: 1rem !important;
-}
-
-code {
-  color: var(--accent-aqua) !important;
-  font-family: 'Berkeley Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace !important;
-}
-
-/* Inline code */
-:not(pre) > code {
-  background-color: var(--background-lighter) !important;
-  padding: 0.2em 0.4em !important;
+/* Buttons — less rounded corners globally */
+.rounded-xl {
   border-radius: 4px !important;
-  font-size: 0.9em !important;
 }
 
-/* Code syntax highlighting */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: var(--text-muted) !important;
+.rounded-full {
+  border-radius: 4px !important;
 }
 
-.token.punctuation {
-  color: var(--text-secondary) !important;
+/* Navbar CTA button — same style in both modes */
+.bg-primary-dark {
+  background-color: #35A77C !important;
 }
 
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol {
-  color: var(--accent-purple) !important;
+.bg-primary-light\/10 {
+  background-color: transparent !important;
+  border-color: #35A77C !important;
 }
 
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin {
-  color: var(--accent-green) !important;
+header a.group span[class*="relative"],
+header a.group span:not([class*="absolute"]) {
+  color: #F2EFDF !important;
+  font-weight: 600 !important;
 }
 
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: var(--accent-aqua) !important;
+header a.group:hover .bg-primary-dark {
+  background-color: #8DA101 !important;
 }
 
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: var(--accent-orange) !important;
+
+/* Light mode: boost primary color contrast across the board */
+:root:not(.dark) .text-primary {
+  color: #2d7a5a !important;
 }
 
-.token.function,
-.token.class-name {
-  color: var(--accent-yellow) !important;
+:root:not(.dark) .bg-primary {
+  background-color: #35A77C !important;
 }
 
-.token.regex,
-.token.important,
-.token.variable {
-  color: var(--accent-blue) !important;
+:root:not(.dark) .bg-primary\/10 {
+  background-color: rgba(53, 167, 124, 0.15) !important;
 }
 
-/* Cards */
-[class*="card"],
-[class*="Card"],
-[class*="CardGroup"] > div,
-[class*="CardGroup"] > a,
-a[class*="group"],
-div[class*="rounded"][class*="border"] {
-  background-color: var(--background-lighter) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 8px !important;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+:root:not(.dark) .bg-primary\/30 {
+  background-color: rgba(53, 167, 124, 0.3) !important;
 }
 
-[class*="card"]:hover,
-[class*="Card"]:hover,
-[class*="CardGroup"] > div:hover,
-[class*="CardGroup"] > a:hover {
-  border-color: var(--border-color) !important;
-  transform: translateY(-1px);
+:root:not(.dark) .border-primary {
+  border-color: #35A77C !important;
 }
 
-/* Fix card text colors */
-[class*="card"] *,
-[class*="Card"] *,
-[class*="CardGroup"] * {
-  color: var(--text-primary) !important;
+/* Bigger Kisuke logo */
+#navbar a[href="/"] img.nav-logo,
+.advanced-footer a[href="/"] img.nav-logo {
+  height: 31px !important;
 }
 
-[class*="card"] p,
-[class*="Card"] p,
-[class*="card"] span,
-[class*="Card"] span {
-  color: var(--text-secondary) !important;
+/* ASCII art next to Kisuke logo — navbar + footer */
+#navbar a[href="/"],
+.advanced-footer a[href="/"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 
-[class*="card"] h3,
-[class*="Card"] h3,
-[class*="card"] h4,
-[class*="Card"] h4,
-[class*="card"] [class*="title"],
-[class*="Card"] [class*="title"] {
-  color: var(--text-primary) !important;
-}
-
-/* Links */
-a {
-  color: var(--accent-blue) !important;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-a:hover {
-  color: var(--accent-aqua) !important;
-}
-
-/* Buttons */
-button,
-[class*="button"],
-[class*="Button"],
-[class*="btn"] {
-  background-color: var(--background-lighter) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
-  transition: all 0.15s ease;
-}
-
-button:hover,
-[class*="button"]:hover,
-[class*="Button"]:hover,
-[class*="btn"]:hover {
-  background-color: var(--border-color) !important;
-}
-
-/* Primary buttons - but NOT cards */
-button[class*="primary"],
-button[class*="Primary"],
-[type="submit"],
-a[class*="button"][class*="primary"] {
-  background-color: var(--accent-green) !important;
-  color: var(--background-dark) !important;
-  border-color: var(--accent-green) !important;
-}
-
-button[class*="primary"]:hover,
-button[class*="Primary"]:hover,
-[type="submit"]:hover {
-  background-color: var(--accent-aqua) !important;
-  border-color: var(--accent-aqua) !important;
-}
-
-/* Override any primary color backgrounds on non-button elements */
-div[class*="bg-primary"],
-a[class*="bg-primary"],
-[class*="card"][class*="bg-primary"],
-[style*="background-color: rgb(167, 192, 128)"],
-[style*="background-color:#a7c080"] {
-  background-color: var(--background-lighter) !important;
-}
-
-/* Ensure card icons use accent color, not background */
-[class*="card"] svg,
-[class*="Card"] svg,
-[class*="card"] [class*="icon"],
-[class*="Card"] [class*="icon"] {
-  color: var(--accent-green) !important;
-}
-
-/* AGGRESSIVE: Override ALL green backgrounds that aren't buttons */
-*:not(button):not([type="submit"]) {
-  --tw-bg-opacity: 1 !important;
-}
-
-/* Target Mintlify's specific card classes */
-.not-prose a,
-.not-prose > div,
-article a[href],
-.group,
-[class*="group/card"],
-[class*="flex"][class*="flex-col"][class*="rounded"],
-[class*="relative"][class*="rounded"][class*="border"],
-[class*="block"][class*="rounded"][class*="border"] {
-  background-color: var(--background-lighter) !important;
-}
-
-/* Force dark backgrounds on card-like elements */
-a[href^="/"]:not(nav a):not(header a):not([class*="button"]) > div,
-a[href^="/"]:not(nav a):not(header a):not([class*="button"])[class*="flex"] {
-  background-color: var(--background-lighter) !important;
-}
-
-/* Reset any inline styles with green */
-[style*="167, 192, 128"],
-[style*="a7c080"],
-[style*="#a7c080"] {
-  background-color: var(--background-lighter) !important;
-}
-
-/* Tables */
-table {
-  border-color: var(--border-subtle) !important;
-}
-
-th {
-  background-color: var(--background-lighter) !important;
-  border-color: var(--border-subtle) !important;
-}
-
-td {
-  border-color: var(--border-subtle) !important;
-}
-
-tr:hover {
-  background-color: var(--background-lighter) !important;
-}
-
-/* Callouts / Notes / Tips */
-[class*="callout"],
-[class*="Callout"],
-[class*="note"],
-[class*="Note"],
-[class*="tip"],
-[class*="Tip"],
-[class*="warning"],
-[class*="Warning"] {
-  background-color: var(--background-lighter) !important;
-  border-color: var(--border-color) !important;
-  border-radius: 8px !important;
-}
-
-/* Tabs */
-[role="tablist"],
-[class*="tabs"],
-[class*="Tabs"] {
-  border-color: var(--border-subtle) !important;
-}
-
-[role="tab"] {
-  color: var(--text-secondary) !important;
-}
-
-[role="tab"][aria-selected="true"],
-[role="tab"]:hover {
-  color: var(--text-primary) !important;
-  border-color: var(--accent-green) !important;
-}
-
-[role="tabpanel"] {
-  background-color: var(--background-dark) !important;
-}
-
-/* Navbar / Header */
-header,
-[class*="header"],
-[class*="Header"],
-[class*="navbar"],
-[class*="Navbar"],
-[class*="topbar"] {
-  background-color: var(--background-dark) !important;
-  border-color: var(--border-subtle) !important;
-}
-
-/* Breadcrumbs */
-[class*="breadcrumb"],
-[class*="Breadcrumb"] {
-  color: var(--text-muted) !important;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background-darker);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-/* Footer */
-footer,
-[class*="footer"],
-[class*="Footer"] {
-  background-color: var(--background-dark) !important;
-  border-color: var(--border-subtle) !important;
-  color: var(--text-muted) !important;
-}
-
-/* Selection */
-::selection {
-  background-color: var(--accent-green);
-  color: var(--background-dark);
-}
-
-/* Icons */
-svg,
-[class*="icon"],
-[class*="Icon"] {
-  color: var(--text-secondary) !important;
-}
-
-/* Dividers */
-hr,
-[class*="divider"],
-[class*="Divider"] {
-  border-color: var(--border-subtle) !important;
-  background-color: var(--border-subtle) !important;
-}
-
-/* TOC / On this page */
-[class*="toc"],
-[class*="Toc"],
-[class*="table-of-contents"],
-[class*="on-this-page"] {
-  border-color: var(--border-subtle) !important;
-}
-
-[class*="toc"] a,
-[class*="table-of-contents"] a {
-  color: var(--text-muted) !important;
-}
-
-[class*="toc"] a:hover,
-[class*="toc"] a[class*="active"],
-[class*="table-of-contents"] a:hover {
-  color: var(--text-primary) !important;
-}
-
-/* Logo area */
-[class*="logo"],
-[class*="Logo"] {
-  filter: brightness(0.95);
-}
-
-/* Mobile menu */
-[class*="mobile-menu"],
-[class*="MobileMenu"],
-[class*="drawer"],
-[class*="Drawer"] {
-  background-color: var(--background-dark) !important;
-}
-
-/* Dropdown menus */
-[class*="dropdown"],
-[class*="Dropdown"],
-[class*="menu"],
-[class*="Menu"],
-[role="menu"] {
-  background-color: var(--background-lighter) !important;
-  border-color: var(--border-color) !important;
-}
-
-/* Input fields */
-input,
-textarea,
-select {
-  background-color: var(--background-lighter) !important;
-  border-color: var(--border-color) !important;
-  color: var(--text-primary) !important;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--accent-green) !important;
-  outline: none !important;
-  box-shadow: 0 0 0 2px rgba(167, 192, 128, 0.2) !important;
-}
-
-/* Badges */
-[class*="badge"],
-[class*="Badge"],
-[class*="tag"],
-[class*="Tag"] {
-  background-color: var(--background-lighter) !important;
-  color: var(--text-secondary) !important;
-  border-color: var(--border-subtle) !important;
-}
-
-/* Accordion */
-[class*="accordion"],
-[class*="Accordion"],
-details {
-  border-color: var(--border-subtle) !important;
-}
-
-details summary {
-  color: var(--text-primary) !important;
-}
-
-/* Tooltips */
-[class*="tooltip"],
-[class*="Tooltip"],
-[role="tooltip"] {
-  background-color: var(--background-lighter) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--border-color) !important;
+#navbar a[href="/"]::after,
+.advanced-footer a[href="/"]::after {
+  content:
+    "██╗  ██╗██╗███████╗██╗   ██╗██╗  ██╗███████╗\A"
+    "██║ ██╔╝██║██╔════╝██║   ██║██║ ██╔╝██╔════╝\A"
+    "█████╔╝ ██║███████╗██║   ██║█████╔╝ █████╗  \A"
+    "██╔═██╗ ██║╚════██║██║   ██║██╔═██╗ ██╔══╝  \A"
+    "██║  ██╗██║███████║╚██████╔╝██║  ██╗███████╗\A"
+    "╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝";
+  white-space: pre;
+  font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 4.5px;
+  line-height: 1.15;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  color: #a7c080;
+  opacity: 0.8;
 }

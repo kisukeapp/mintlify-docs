@@ -109,8 +109,14 @@ Auth keys provide access to your Kisuke network. Keep them secure and rotate the
 
 ## Environment variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `KISUKE_AUTH_KEY` | Authentication key for headless login | — |
-| `KISUKE_HOSTNAME` | Custom hostname for this device | Container ID |
-| `KISUKE_STATE_DIR` | Directory for state files | `/var/lib/kisuke` |
+<ParamField body="KISUKE_AUTH_KEY" type="string">
+  Authentication key for headless login. No default.
+</ParamField>
+
+<ParamField body="KISUKE_HOSTNAME" type="string" default="Container ID">
+  Custom hostname for this device.
+</ParamField>
+
+<ParamField body="KISUKE_STATE_DIR" type="string" default="/var/lib/kisuke">
+  Directory for state files.
+</ParamField>

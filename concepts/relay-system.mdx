@@ -18,20 +18,10 @@ Direct connections are always preferred, but relays kick in when:
 
 ## How Relays Work
 
-```
-┌─────────────┐                              ┌─────────────┐
-│   Device A  │                              │   Device B  │
-│             │                              │             │
-│  Can't reach B directly                    │  Can't reach A directly
-└──────┬──────┘                              └──────┬──────┘
-       │                                            │
-       │     ┌──────────────────────┐              │
-       └────►│   Kisuke Relay       │◄─────────────┘
-             │                      │
-             │  Forwards encrypted  │
-             │  packets between     │
-             │  A and B             │
-             └──────────────────────┘
+```mermaid
+graph TD
+  A["Device A<br/>Can't reach B directly"] -->|Encrypted| Relay["Kisuke Relay<br/>Forwards encrypted packets<br/>between A and B"]
+  B["Device B<br/>Can't reach A directly"] -->|Encrypted| Relay
 ```
 
 ### Important: Still End-to-End Encrypted
@@ -50,12 +40,32 @@ They **cannot see**:
 
 Kisuke operates relay servers in multiple regions for low latency:
 
-| Region | Location |
-|--------|----------|
-| US East | Virginia |
-| US West | Oregon |
-| Europe | Frankfurt |
-| Asia Pacific | Singapore |
+<table>
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>US East</td>
+      <td>Virginia</td>
+    </tr>
+    <tr>
+      <td>US West</td>
+      <td>Oregon</td>
+    </tr>
+    <tr>
+      <td>Europe</td>
+      <td>Frankfurt</td>
+    </tr>
+    <tr>
+      <td>Asia Pacific</td>
+      <td>Singapore</td>
+    </tr>
+  </tbody>
+</table>
 
 Your devices automatically connect to the nearest relay.
 
