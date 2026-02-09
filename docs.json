@@ -4,42 +4,50 @@
   "name": "Kisuke",
   "colors": {
     "primary": "#a7c080",
-    "light": "#83c092",
-    "dark": "#7fbbb3"
+    "light": "#35A77C",
+    "dark": "#a7c080"
   },
-  "modeToggle": {
-    "default": "dark",
-    "isHidden": true
+  "appearance": {
+    "default": "system"
   },
-  "favicon": "/favicon.svg",
+  "background": {
+    "color": {
+      "light": "#F2EFDF",
+      "dark": "#2d353b"
+    }
+  },
+  "favicon": "/favicon.ico",
   "navigation": {
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Getting Started",
         "groups": [
           {
             "group": "Getting Started",
             "pages": [
               "what-is-kisuke",
-              "installation/overview",
-              {
-                "group": "Install Kisuke",
-                "pages": [
-                  "installation/ios",
-                  "installation/android",
-                  "installation/mac",
-                  "installation/windows",
-                  "installation/linux",
-                  "installation/cli-docker"
-                ]
-              }
+              "installation/overview"
             ]
           },
           {
-            "group": "Build with Kisuke",
+            "group": "Install Kisuke",
             "pages": [
-              "concepts/kisuke-connect",
-              "concepts/relay-system",
+              "installation/ios",
+              "installation/android",
+              "installation/mac",
+              "installation/windows",
+              "installation/linux",
+              "installation/cli-docker"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Features",
+        "groups": [
+          {
+            "group": "Features",
+            "pages": [
               "features/terminal",
               "features/sessions",
               "features/coding-with-ai",
@@ -48,43 +56,46 @@
             ]
           },
           {
+            "group": "Concepts",
+            "pages": [
+              "concepts/kisuke-connect",
+              "concepts/relay-system"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Administration",
+        "groups": [
+          {
             "group": "Administration",
             "pages": [
               "advanced/admin-console",
-              "advanced/self-hosting"
+              "advanced/self-hosting",
+              "advanced/custom-infra"
             ]
           },
           {
-            "group": "Configurations",
+            "group": "Security",
             "pages": [
-              "advanced/custom-infra",
               "concepts/security"
             ]
           }
         ]
       }
     ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Download",
-          "href": "https://kisuke.app",
-          "icon": "download"
-        },
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/kisuke-app",
-          "icon": "github"
-        }
-      ]
-    }
+    "global": {}
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/kisuke-logo.png",
+    "dark": "/logo/kisuke-logo.png"
   },
   "navbar": {
     "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/kisuke-app"
+      },
       {
         "label": "Support",
         "href": "mailto:support@kisuke.app"
@@ -100,6 +111,55 @@
     "socials": {
       "x": "https://x.com/kisuke_app",
       "github": "https://github.com/kisuke-app"
-    }
+    },
+    "links": [
+      {
+        "header": "Product",
+        "items": [
+          {
+            "label": "Download",
+            "href": "https://kisuke.app"
+          },
+          {
+            "label": "Features",
+            "href": "/features/terminal"
+          },
+          {
+            "label": "Security",
+            "href": "/concepts/security"
+          }
+        ]
+      },
+      {
+        "header": "Resources",
+        "items": [
+          {
+            "label": "Documentation",
+            "href": "/what-is-kisuke"
+          },
+          {
+            "label": "Installation",
+            "href": "/installation/overview"
+          },
+          {
+            "label": "Self-Hosting",
+            "href": "/advanced/self-hosting"
+          }
+        ]
+      },
+      {
+        "header": "Support",
+        "items": [
+          {
+            "label": "Contact",
+            "href": "mailto:support@kisuke.app"
+          },
+          {
+            "label": "GitHub Issues",
+            "href": "https://github.com/kisuke-app/issues"
+          }
+        ]
+      }
+    ]
   }
 }

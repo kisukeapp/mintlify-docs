@@ -11,15 +11,11 @@ Once you're authenticated, your devices just find each other automatically.
 
 ## How It Works
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Phone     │     │   Laptop    │     │   Server    │
-│   Kisuke    │◄───►│   Kisuke    │◄───►│   Kisuke    │
-│             │     │   Connect   │     │   Connect   │
-└─────────────┘     └─────────────┘     └─────────────┘
-       │                   │                   │
-       └───────────────────┴───────────────────┘
-                    Encrypted Mesh
+```mermaid
+graph LR
+  Phone["Phone<br/>Kisuke"] <-->|Encrypted| Laptop["Laptop<br/>Kisuke Connect"]
+  Laptop <-->|Encrypted| Server["Server<br/>Kisuke Connect"]
+  Server <-->|Encrypted| Phone
 ```
 
 ## Quick Setup Guide
@@ -83,15 +79,16 @@ Kisuke Connect works through:
 
 Kisuke Connect establishes direct peer-to-peer connections whenever possible:
 
-```
-Phone ◄────── Encrypted ──────► Computer
-              Direct Path
+```mermaid
+graph LR
+  Phone <-->|"Encrypted Direct Path"| Computer
 ```
 
 When direct connection isn't possible (strict firewalls, carrier-grade NAT), traffic goes through relay servers while remaining end-to-end encrypted:
 
-```
-Phone ◄──── Encrypted ────► Relay ◄──── Encrypted ────► Computer
+```mermaid
+graph LR
+  Phone <-->|Encrypted| Relay <-->|Encrypted| Computer
 ```
 
 <Note>
@@ -132,13 +129,48 @@ Work seamlessly across devices:
 
 ## How It Compares
 
-| Feature | Kisuke Connect | Traditional VPN | SSH Tunnels |
-|---------|---------------|-----------------|-------------|
-| Zero config | Yes | No | No |
-| NAT traversal | Yes | Sometimes | No |
-| End-to-end encrypted | Yes | Yes | Yes |
-| Works on mobile | Yes | Sometimes | Awkward |
-| No server required | Yes | No | No |
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Kisuke Connect</th>
+      <th>Traditional VPN</th>
+      <th>SSH Tunnels</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Zero config</td>
+      <td>&#10003;</td>
+      <td>&#10007;</td>
+      <td>&#10007;</td>
+    </tr>
+    <tr>
+      <td>NAT traversal</td>
+      <td>&#10003;</td>
+      <td>Sometimes</td>
+      <td>&#10007;</td>
+    </tr>
+    <tr>
+      <td>End-to-end encrypted</td>
+      <td>&#10003;</td>
+      <td>&#10003;</td>
+      <td>&#10003;</td>
+    </tr>
+    <tr>
+      <td>Works on mobile</td>
+      <td>&#10003;</td>
+      <td>Sometimes</td>
+      <td>&#10007;</td>
+    </tr>
+    <tr>
+      <td>No server required</td>
+      <td>&#10003;</td>
+      <td>&#10007;</td>
+      <td>&#10007;</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Next Steps
 
