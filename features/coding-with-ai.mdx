@@ -1,11 +1,11 @@
 ---
-title: "Coding with Claude"
+title: "Coding with AI"
 description: "AI-powered coding assistant integrated into Kisuke"
 ---
 
 ## Overview
 
-Kisuke includes an integrated AI coding assistant powered by Claude. Get debugging help, code generation, and documentation without leaving the app—all from your mobile device.
+Kisuke includes an integrated AI coding assistant. Get debugging help, code generation, and documentation without leaving the app—all from your mobile device. Connect your own account from any supported provider.
 
 ## Getting Started
 
@@ -16,17 +16,31 @@ Kisuke includes an integrated AI coding assistant powered by Claude. Get debuggi
 
 ## Supported Providers
 
+### Official (First-Party)
+
 <CardGroup cols={3}>
-  <Card title="Claude" icon="sparkles">
-    Anthropic's Claude models
+  <Card title="Anthropic" icon="sparkles">
+    Claude models — OAuth or API key
   </Card>
   <Card title="OpenAI" icon="brain">
-    GPT-4 and other models
+    GPT models — OAuth or API key
   </Card>
   <Card title="Google" icon="google">
-    Gemini models
+    Gemini models — OAuth or API key
+  </Card>
+  <Card title="xAI" icon="x">
+    Grok models — API key
+  </Card>
+  <Card title="zAI" icon="bolt">
+    zAI models — API key
   </Card>
 </CardGroup>
+
+### Third-Party
+
+Connect via API key to any of these providers:
+
+Azure, Cerebras, DeepSeek, Groq, Moonshot, OpenRouter, Qwen, Together AI, Vercel
 
 ## Features
 
@@ -38,11 +52,11 @@ When you're in a Space, the AI has access to:
 - Recent terminal output
 - Previous conversation history
 
-This helps Claude give relevant, contextual answers specific to your codebase.
+This helps the AI give relevant, contextual answers specific to your codebase.
 
 ### Code Generation
 
-Ask Claude to write code:
+Ask the AI to write code:
 
 ```
 "Write a Python function to parse CSV files"
@@ -94,6 +108,10 @@ AI responses include syntax-highlighted code blocks. Tap to:
 - **Copy** - Copy code to clipboard
 - **Insert** - Insert into current file
 - **Run** - Execute in terminal (if appropriate)
+
+### File Mentions
+
+Type `@` in the chat input to bring up a file selection menu. Tap any file from the list to insert it as a mention — this gives the AI direct context from that file without needing to paste its contents manually.
 
 ### Conversation History
 

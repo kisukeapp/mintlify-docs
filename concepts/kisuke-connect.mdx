@@ -5,9 +5,12 @@ description: "How Kisuke Connect creates secure connections between your devices
 
 ## Overview
 
-Kisuke Connect is the networking layer that connects your mobile device to your computers and servers. It creates a secure, encrypted mesh network between all your devices — no VPN configuration, no port forwarding, no firewall rules required.
+There are two parts to Kisuke:
 
-Once you're authenticated, your devices just find each other automatically.
+- **Kisuke** — the mobile app (iOS/Android) you use to code, run a terminal, and chat with AI
+- **Kisuke Connect** — a lightweight daemon you install on your desktop or server that acts as the other end of the connection
+
+Once both are signed in to the same account, they find each other automatically over an end-to-end encrypted connection. No VPN, no port forwarding, no firewall rules required.
 
 ## How It Works
 
@@ -18,9 +21,9 @@ graph LR
   Server <-->|Encrypted| Phone
 ```
 
-## Quick Setup Guide
+Kisuke Connect runs on your desktop or server and exposes your terminal, files, and editor to the Kisuke mobile app — securely, from anywhere.
 
-Setting up Kisuke Connect takes just a few clicks:
+## Quick Setup Guide
 
 1. **Install Kisuke Connect** on your computer ([macOS](/installation/mac), [Windows](/installation/windows), or [Linux](/installation/linux))
 2. **Sign in** with your account
@@ -30,18 +33,6 @@ Setting up Kisuke Connect takes just a few clicks:
 <Tip>
 The connection is automatic once you're signed in on both devices. They just find each other and connect securely.
 </Tip>
-
-## Admin Console
-
-Kisuke Connect includes an admin console to manage your devices and network.
-
-### What You Can Do
-
-- **View all machines** — See every device on your network with status
-- **Manage access** — Control which devices can connect to each other
-- **View connection info** — Check IP addresses, last seen times, and connection types
-- **Remove devices** — Revoke access from old or lost devices
-- **Generate auth keys** — Create keys for headless server deployments
 
 ## Key Benefits
 
@@ -54,15 +45,33 @@ Just sign in on both devices and they find each other automatically. Kisuke Conn
 - DNS resolution
 - Key exchange
 
-### End-to-End Encryption
+### End-to-End Encrypted
 
-All traffic between your devices is encrypted using modern cryptography:
+All traffic between your devices is end-to-end encrypted — relay servers and coordination servers never see your data:
 
 - **WireGuard-based protocol** for fast, secure tunnels
 - **X25519** key exchange
 - **ChaCha20-Poly1305** encryption
 
-The coordination servers never see your decrypted traffic — they only help devices find each other.
+### Global Relay Network
+
+When a direct peer-to-peer connection isn't possible (strict firewalls, carrier-grade NAT), Kisuke routes traffic through its relay network spanning **14+ regions worldwide** — keeping latency low regardless of where you are.
+
+```mermaid
+graph LR
+  Phone <-->|"Encrypted Direct Path"| Computer
+```
+
+When direct connection isn't possible:
+
+```mermaid
+graph LR
+  Phone <-->|Encrypted| Relay <-->|Encrypted| Computer
+```
+
+<Note>
+Even relayed traffic is end-to-end encrypted. Relay servers cannot read your data.
+</Note>
 
 ### Works Anywhere
 
@@ -75,39 +84,6 @@ Kisuke Connect works through:
 - Hotel networks
 - Carrier-grade NAT
 
-### Direct Connections When Possible
-
-Kisuke Connect establishes direct peer-to-peer connections whenever possible:
-
-```mermaid
-graph LR
-  Phone <-->|"Encrypted Direct Path"| Computer
-```
-
-When direct connection isn't possible (strict firewalls, carrier-grade NAT), traffic goes through relay servers while remaining end-to-end encrypted:
-
-```mermaid
-graph LR
-  Phone <-->|Encrypted| Relay <-->|Encrypted| Computer
-```
-
-<Note>
-Even relayed traffic is end-to-end encrypted. Relay servers cannot read your data.
-</Note>
-
-## Auth Keys for Servers
-
-For headless server deployments where you can't use interactive login, generate auth keys from the admin console:
-
-1. Open the **Admin Console**
-2. Go to **Settings** > **Keys**
-3. Generate a new auth key
-4. Use it when setting up Kisuke Connect on your server:
-
-```bash
-kisuke-connect up --authkey=YOUR_AUTH_KEY
-```
-
 ## Use Cases
 
 ### Remote Development
@@ -116,7 +92,7 @@ Access your development machine from anywhere. Run builds, execute tests, and us
 
 ### Server Access
 
-Connect to servers in your home lab, cloud VMs, or office machines without exposing ports to the internet. No SSH tunnels. No bastion hosts. Just connect.
+Connect to servers in your home lab, cloud VMs, or office machines without exposing ports to the internet. No bastion hosts. Just connect via Kisuke Connect.
 
 ### Multi-Device Workflow
 
@@ -135,7 +111,6 @@ Work seamlessly across devices:
       <th>Feature</th>
       <th>Kisuke Connect</th>
       <th>Traditional VPN</th>
-      <th>SSH Tunnels</th>
     </tr>
   </thead>
   <tbody>
@@ -143,17 +118,14 @@ Work seamlessly across devices:
       <td>Zero config</td>
       <td>&#10003;</td>
       <td>&#10007;</td>
-      <td>&#10007;</td>
     </tr>
     <tr>
       <td>NAT traversal</td>
       <td>&#10003;</td>
       <td>Sometimes</td>
-      <td>&#10007;</td>
     </tr>
     <tr>
       <td>End-to-end encrypted</td>
-      <td>&#10003;</td>
       <td>&#10003;</td>
       <td>&#10003;</td>
     </tr>
@@ -161,12 +133,15 @@ Work seamlessly across devices:
       <td>Works on mobile</td>
       <td>&#10003;</td>
       <td>Sometimes</td>
+    </tr>
+    <tr>
+      <td>Global relay network</td>
+      <td>&#10003; (14+ regions)</td>
       <td>&#10007;</td>
     </tr>
     <tr>
       <td>No server required</td>
       <td>&#10003;</td>
-      <td>&#10007;</td>
       <td>&#10007;</td>
     </tr>
   </tbody>

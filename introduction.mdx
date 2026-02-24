@@ -26,23 +26,27 @@ Kisuke transforms your mobile device into a portable development environment. Wi
 
 <Tabs>
   <Tab title="iOS / Android">
-    Download Kisuke from the App Store or Google Play.
-
     <CardGroup cols={2}>
-      <Card title="App Store" icon="apple" href="https://apps.apple.com/app/kisuke">
+      <Card title="App Store" icon="apple" href="https://download.kisuke.app/ios">
         Download for iOS
       </Card>
-      <Card title="Google Play" icon="google-play" href="https://play.google.com/store/apps/details?id=app.kisuke">
+      <Card title="Google Play" icon="google-play" href="https://download.kisuke.app/android">
         Download for Android
       </Card>
     </CardGroup>
   </Tab>
   <Tab title="Desktop">
-    Install Kisuke Connect to link your mobile device with your computer.
-
-    - [Mac Installation](/installation/mac)
-    - [Windows Installation](/installation/windows)
-    - [Linux Installation](/installation/linux)
+    <CardGroup cols={3}>
+      <Card title="macOS" icon="apple" href="https://download.kisuke.app/mac">
+        Download for Mac
+      </Card>
+      <Card title="Windows" icon="windows" href="https://download.kisuke.app/windows">
+        Download for Windows
+      </Card>
+      <Card title="Linux" icon="linux" href="https://download.kisuke.app/linux">
+        Download for Linux
+      </Card>
+    </CardGroup>
   </Tab>
   <Tab title="CLI / Docker">
     For servers and headless environments.
@@ -63,20 +67,22 @@ Kisuke transforms your mobile device into a portable development environment. Wi
 
 Kisuke Connect creates a secure, encrypted mesh network between your devices. Once you sign in on your phone and computer with the same account:
 
-1. **Download the client** on each device
-2. **Authenticate** via your identity provider (Claude, Google, or OpenAI)
-3. **Authorize the device** when prompted
-4. **Connected** — your devices can now communicate securely
+1. **Install Kisuke** on [iOS](https://download.kisuke.app/ios), [Android](https://download.kisuke.app/android), or desktop ([Mac](https://download.kisuke.app/mac), [Windows](https://download.kisuke.app/windows), or [Linux](https://download.kisuke.app/linux))
+2. **Sign in** with Google or GitHub on the Kisuke app
+3. **Install & sign in** to [Kisuke Connect](/concepts/kisuke-connect) daemon or [CLI](/installation/cli-docker) on your desktop, server, or toaster — then sign in with the **same** account
+4. **Connected** — use the [terminal](/features/terminal), [editor](/features/editor), and [browser](/features/browser) from anywhere
 
 No port forwarding. No firewall rules. No VPN configuration. Just sign in and go.
 
 ## Sign In Options
 
-Kisuke supports multiple authentication providers:
+Kisuke uses **Google** or **GitHub** for account sign-in and device linking.
 
-- **Claude** - Sign in with your Anthropic account
-- **Google** - Sign in with Google
-- **OpenAI** - Sign in with your OpenAI account
+To use AI chat, sign in separately with your AI provider:
+
+- **Anthropic** - For Claude
+- **Google** - For Gemini
+- **OpenAI** - For GPT
 
 ## Core Features
 

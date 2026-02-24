@@ -7,21 +7,32 @@ description: "A mobile coding app with AI chat, terminal, and editor"
 
 Kisuke is a mobile-first coding application that brings a complete development environment to your iOS or Android device. Whether you're on the go or away from your desk, Kisuke lets you write code, run commands, and chat with AI assistants.
 
+## Kisuke vs Kisuke Connect
+
+Kisuke has two parts that work together:
+
+| | Kisuke | Kisuke Connect |
+|---|---|---|
+| **What it is** | Mobile app | Desktop / server daemon |
+| **Runs on** | iOS, Android | macOS, Windows, Linux, servers |
+| **Role** | The client you use | The server you connect to |
+| **Install from** | App Store / Google Play | [kisuke.app](https://kisuke.app) |
+
+**Kisuke** is the app on your phone. **Kisuke Connect** is a lightweight background daemon that runs on your desktop or server and exposes your terminal, files, and editor to the app — over an end-to-end encrypted connection across 14+ global regions.
+
+You sign in to both with the same account and they find each other automatically.
+
 ## Key Features
 
 ### AI Chat
 
-Kisuke includes a built-in AI chat interface that supports multiple providers:
-
-- **Claude** (Anthropic)
-- **GPT** (OpenAI)
-- **Google AI**
+Kisuke includes a built-in AI chat interface that supports multiple providers including Anthropic, OpenAI, Google, xAI, and more.
 
 Sign in with your existing account to start coding with AI assistance directly from your phone.
 
 ### Terminal & Shell
 
-Access a full terminal environment on your mobile device. Run commands, execute scripts, and manage your development workflow.
+Access a full terminal environment on your mobile device. Run commands, execute scripts, and manage your development workflow — on your local machine or connected remotely via Kisuke Connect.
 
 ### Code Editor
 
@@ -33,22 +44,24 @@ A mobile-optimized code editor with:
 
 ### Kisuke Connect
 
-Connect your mobile device to your desktop or server using Kisuke Connect — our secure networking solution. This allows you to:
+Connect your mobile device to your desktop or server using Kisuke Connect. This allows you to:
 
 - Access your development machine from anywhere
 - Run commands on remote servers
-- Sync files between devices
+- Edit files directly on remote machines
 
 ## How It Works
 
-1. **Install Kisuke** on your iOS or Android device
-2. **Sign in** with Claude, Google, or OpenAI
-3. **Connect** to your PC or server using Kisuke Connect
-4. **Start coding** with terminal, editor, and AI chat
+1. **Install Kisuke** on [iOS](https://download.kisuke.app/ios) or [Android](https://download.kisuke.app/android)
+2. **Sign in** with Google or GitHub
+3. **Install Kisuke Connect** on your [Mac](https://download.kisuke.app/mac), [Windows](https://download.kisuke.app/windows), [Linux](https://download.kisuke.app/linux) machine or server — sign in with the **same** account
+4. **Start coding** with the [terminal](/features/terminal), [editor](/features/editor), and [browser](/features/browser)
+
+To use **[AI chat](/features/coding-with-ai)**, sign in separately with your AI provider account.
 
 ## Use Cases
 
 - **Mobile development** - Code while commuting or traveling
-- **Server management** - SSH into servers from your phone
+- **Server management** - Connect to servers from your phone via Kisuke Connect
 - **Quick fixes** - Make hotfixes without needing your laptop
 - **Learning** - Practice coding with AI assistance anywhere

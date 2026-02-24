@@ -31,10 +31,20 @@
   font-display: swap;
 }
 
-/* Apply Berkeley Mono via Mintlify's custom font variables */
-:root {
-  --font-family-body-custom: 'Berkeley Mono';
-  --font-family-headings-custom: 'Berkeley Mono';
+/* Lock background on html to prevent flash during SPA page transitions */
+html {
+  background-color: #F2EFDF;
+}
+
+html.dark {
+  background-color: #2d353b;
+}
+
+/* Disable zoom/pan on Mermaid diagrams */
+.mermaid svg,
+[class*="mermaid"] svg {
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Code blocks */
