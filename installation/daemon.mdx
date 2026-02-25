@@ -29,14 +29,7 @@ Kisuke Connect is a lightweight background daemon that exposes your terminal, fi
   <Tab title="Windows">
     Requires Windows 10 (1903) or later.
 
-    1. Download Kisuke Connect using one of the following methods:
-       - [Download from the Kisuke website](https://beta2.kisuke.dev/downloads/)
-       - Install via winget:
-         ```powershell
-         winget install Kisuke.KisukeConnect
-         ```
-
-    2. Run the installer. After installation, a Kisuke Connect icon appears in the system tray.
+    1. [Download Kisuke Connect](https://beta2.kisuke.dev/downloads/) and run the installer. After installation, a Kisuke Connect icon appears in the system tray.
 
     3. Sign in with the same account you use in Kisuke.
 
@@ -52,33 +45,6 @@ Kisuke Connect is a lightweight background daemon that exposes your terminal, fi
     ```bash
     curl -fsSL https://kisuke.app/install.sh | sh
     ```
-
-    This supports Ubuntu, Debian, Fedora, RHEL, Arch, and other major distributions.
-
-    Or install manually using your package manager:
-
-    <Tabs>
-      <Tab title="Debian/Ubuntu">
-        ```bash
-        curl -fsSL https://kisuke.app/gpg | sudo gpg --dearmor -o /usr/share/keyrings/kisuke.gpg
-        echo "deb [signed-by=/usr/share/keyrings/kisuke.gpg] https://repo.kisuke.app/apt stable main" | sudo tee /etc/apt/sources.list.d/kisuke.list
-
-        sudo apt update
-        sudo apt install kisuke-connect
-        ```
-      </Tab>
-      <Tab title="Fedora/RHEL">
-        ```bash
-        sudo dnf config-manager --add-repo https://repo.kisuke.app/rpm/kisuke.repo
-        sudo dnf install kisuke-connect
-        ```
-      </Tab>
-      <Tab title="Arch">
-        ```bash
-        yay -S kisuke-connect
-        ```
-      </Tab>
-    </Tabs>
 
     Then start the service:
 
