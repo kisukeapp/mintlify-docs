@@ -85,9 +85,7 @@
           {
             "group": "Administration",
             "pages": [
-              "advanced/admin-console",
-              "advanced/self-hosting",
-              "advanced/custom-infra"
+              "advanced/admin-console"
             ]
           },
           {
