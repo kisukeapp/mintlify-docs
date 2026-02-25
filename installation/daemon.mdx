@@ -1,0 +1,104 @@
+---
+title: "Install Daemon"
+description: "Install the Kisuke Connect daemon on macOS, Windows, or Linux"
+---
+
+Kisuke Connect is a lightweight background daemon that exposes your terminal, files, and editor to the Kisuke app over an end-to-end encrypted connection.
+
+<Tabs>
+  <Tab title="macOS">
+    Requires macOS 12 (Monterey) or later.
+
+    1. Download Kisuke Connect using one of the following methods:
+       - [Download from the Kisuke website](https://beta2.kisuke.dev/downloads/)
+       - Install via Homebrew:
+         ```bash
+         brew install kisuke-connect
+         ```
+
+    2. Open Kisuke Connect from Applications and follow the onscreen instructions.
+
+    3. Sign in with the same account you use in Kisuke.
+
+    **Troubleshooting:** If Kisuke Connect does not appear in Applications after installing via Homebrew, run:
+
+    ```bash
+    brew link kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Windows">
+    Requires Windows 10 (1903) or later.
+
+    1. Download Kisuke Connect using one of the following methods:
+       - [Download from the Kisuke website](https://beta2.kisuke.dev/downloads/)
+       - Install via winget:
+         ```powershell
+         winget install Kisuke.KisukeConnect
+         ```
+
+    2. Run the installer. After installation, a Kisuke Connect icon appears in the system tray.
+
+    3. Sign in with the same account you use in Kisuke.
+
+    **Firewall:** Kisuke Connect may prompt you to allow network access. Click **Allow** when the Windows Firewall dialog appears. If you need to configure it manually: open **Windows Defender Firewall** > **Allow an app through firewall** > find **Kisuke Connect** and enable both Private and Public networks.
+
+    **Troubleshooting:** If Kisuke Connect does not appear in the system tray, check the overflow area by clicking the **^** arrow in the taskbar.
+  </Tab>
+  <Tab title="Linux">
+    Requires Linux kernel 4.19 or later with systemd.
+
+    For most distributions, run the install script:
+
+    ```bash
+    curl -fsSL https://kisuke.app/install.sh | sh
+    ```
+
+    This supports Ubuntu, Debian, Fedora, RHEL, Arch, and other major distributions.
+
+    Or install manually using your package manager:
+
+    <Tabs>
+      <Tab title="Debian/Ubuntu">
+        ```bash
+        curl -fsSL https://kisuke.app/gpg | sudo gpg --dearmor -o /usr/share/keyrings/kisuke.gpg
+        echo "deb [signed-by=/usr/share/keyrings/kisuke.gpg] https://repo.kisuke.app/apt stable main" | sudo tee /etc/apt/sources.list.d/kisuke.list
+
+        sudo apt update
+        sudo apt install kisuke-connect
+        ```
+      </Tab>
+      <Tab title="Fedora/RHEL">
+        ```bash
+        sudo dnf config-manager --add-repo https://repo.kisuke.app/rpm/kisuke.repo
+        sudo dnf install kisuke-connect
+        ```
+      </Tab>
+      <Tab title="Arch">
+        ```bash
+        yay -S kisuke-connect
+        ```
+      </Tab>
+    </Tabs>
+
+    Then start the service:
+
+    ```bash
+    sudo systemctl enable --now kisuke-connect
+    kisuke-connect login
+    ```
+
+    **Verify:**
+
+    ```bash
+    kisuke-connect status
+    ```
+
+    **Service management:**
+
+    ```bash
+    sudo systemctl status kisuke-connect
+    journalctl -u kisuke-connect -f
+    sudo systemctl restart kisuke-connect
+    ```
+  </Tab>
+</Tabs>

@@ -39,19 +39,20 @@
           {
             "group": "Getting Started",
             "pages": [
-              "what-is-kisuke",
-              "installation/overview"
+              "what-is-kisuke"
             ]
           },
           {
             "group": "Install Kisuke",
             "pages": [
-              "installation/ios",
-              "installation/android",
-              "installation/mac",
-              "installation/windows",
-              "installation/linux",
-              "installation/cli-docker"
+              "installation/overview"
+            ]
+          },
+          {
+            "group": "Install Kisuke Connect",
+            "pages": [
+              "installation/daemon",
+              "installation/cli"
             ]
           }
         ]
@@ -62,9 +63,9 @@
           {
             "group": "Features",
             "pages": [
+              "features/coding-with-ai",
               "features/terminal",
               "features/sessions",
-              "features/coding-with-ai",
               "features/editor",
               "features/browser"
             ]
@@ -118,7 +119,7 @@
     "primary": {
       "type": "button",
       "label": "Download",
-      "href": "https://kisuke.app"
+      "href": "https://beta2.kisuke.dev/downloads/"
     }
   },
   "footer": {
@@ -132,7 +133,7 @@
         "items": [
           {
             "label": "Download",
-            "href": "https://kisuke.app"
+            "href": "https://beta2.kisuke.dev/downloads/"
           },
           {
             "label": "Features",

@@ -1,0 +1,87 @@
+---
+title: "Install CLI"
+description: "Install Kisuke Connect via CLI for servers and headless environments"
+---
+
+The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers and automated environments.
+
+## Install via npm
+
+```bash
+npm install -g @kisuke/cli
+```
+
+## Install via binary
+
+Download the binary directly for your platform:
+
+<Tabs>
+  <Tab title="Linux x64">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-amd64 -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="Linux ARM64">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-arm64 -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="macOS">
+    ```bash
+    curl -L https://kisuke.app/releases/latest/kisuke-connect-darwin-universal -o kisuke-connect
+    chmod +x kisuke-connect
+    sudo mv kisuke-connect /usr/local/bin/
+    ```
+  </Tab>
+  <Tab title="Windows">
+    ```powershell
+    Invoke-WebRequest -Uri https://kisuke.app/releases/latest/kisuke-connect-windows-amd64.exe -OutFile kisuke-connect.exe
+    ```
+  </Tab>
+</Tabs>
+
+## Authenticate
+
+```bash
+kisuke-connect login
+```
+
+## Usage
+
+```bash
+kisuke-connect up        # Start the daemon
+kisuke-connect status    # Check status
+kisuke-connect devices   # List connected devices
+kisuke-connect down      # Stop the daemon
+```
+
+## Auth keys
+
+For headless environments where interactive login isn't possible, use an auth key:
+
+1. Open Kisuke
+2. Go to **Settings** > **Auth Keys**
+3. Tap **Generate New Key**
+4. Pass the key via the `KISUKE_AUTH_KEY` environment variable
+
+<Warning>
+Auth keys provide access to your Kisuke network. Keep them secure and rotate them regularly.
+</Warning>
+
+## Environment variables
+
+<ParamField body="KISUKE_AUTH_KEY" type="string">
+  Authentication key for headless login. No default.
+</ParamField>
+
+<ParamField body="KISUKE_HOSTNAME" type="string">
+  Custom hostname for this device.
+</ParamField>
+
+<ParamField body="KISUKE_STATE_DIR" type="string" default="/var/lib/kisuke">
+  Directory for state files.
+</ParamField>

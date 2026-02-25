@@ -1,47 +1,55 @@
 ---
 title: "Installation"
-description: "Install Kisuke on your devices"
+description: "Available on iOS, Android, macOS, Windows, Linux, and the web"
 ---
 
-## Mobile
+<Tabs>
+  <Tab title="iOS">
+    Requires iOS 15.0 or later.
 
-Install the Kisuke app on your phone or tablet to code on the go. The app connects to your computers running Kisuke Connect over your local network or the internet.
+    1. Download Kisuke from the [App Store](https://beta2.kisuke.dev/downloads/).
+    2. Open the app and sign in with your account.
+    3. Grant permissions when prompted.
+  </Tab>
+  <Tab title="Android">
+    Requires Android 8.0 (Oreo) or later.
+
+    1. Download Kisuke from [Google Play](https://beta2.kisuke.dev/downloads/).
+    2. Open the app and sign in with your account.
+    3. Grant permissions when prompted.
+  </Tab>
+  <Tab title="macOS">
+    Requires macOS 12 (Monterey) or later.
+
+    1. [Download Kisuke](https://beta2.kisuke.dev/downloads/) for Mac.
+    2. Open Kisuke from Applications and sign in with your account.
+  </Tab>
+  <Tab title="Windows">
+    Requires Windows 10 (1903) or later.
+
+    1. [Download Kisuke](https://beta2.kisuke.dev/downloads/) for Windows.
+    2. Run the installer and sign in with your account.
+  </Tab>
+  <Tab title="Linux">
+    1. [Download Kisuke](https://beta2.kisuke.dev/downloads/) for Linux.
+    2. Sign in with your account.
+  </Tab>
+  <Tab title="Web">
+    No install needed — open Kisuke directly in your browser.
+
+    [Open web app](https://web.kisuke.app)
+  </Tab>
+</Tabs>
+
+## Next Steps
+
+To connect Kisuke to your desktop or server, install Kisuke Connect:
 
 <CardGroup cols={2}>
-  <Card title="iOS" icon="apple" href="https://download.kisuke.app/ios">
-    Download from the App Store
+  <Card title="Install Daemon" icon="server" href="/installation/daemon">
+    macOS, Windows, and Linux
   </Card>
-  <Card title="Android" icon="google-play" href="https://download.kisuke.app/android">
-    Download from Google Play
-  </Card>
-</CardGroup>
-
-## Desktop
-
-Install Kisuke Connect on your computer to let the Kisuke app access your files, terminal, and dev environment remotely.
-
-<CardGroup cols={3}>
-  <Card title="macOS" icon="apple" href="https://download.kisuke.app/mac">
-    Download for Mac
-  </Card>
-  <Card title="Windows" icon="windows" href="https://download.kisuke.app/windows">
-    Download for Windows
-  </Card>
-  <Card title="Linux" icon="linux" href="https://download.kisuke.app/linux">
-    Download for Linux
+  <Card title="Install CLI" icon="terminal" href="/installation/cli">
+    For servers and headless environments
   </Card>
 </CardGroup>
-
-<Note>
-**Kisuke Connect vs CLI — which should I install?**
-
-Most users should install **Kisuke Connect** (above). It's the desktop app with a GUI, system tray icon, and automatic updates. It runs in the background and just works.
-
-The **CLI** is the same thing without the GUI — a headless daemon meant for servers, Docker containers, and automated/remote environments where you don't have a desktop. If you're sitting at the computer, install Kisuke Connect. If it's a headless server, use the CLI.
-</Note>
-
-- [CLI & Docker](/installation/cli-docker)
-
-## Auto-updates
-
-Kisuke Connect checks for updates automatically. You can also update manually using the same method you used to install.

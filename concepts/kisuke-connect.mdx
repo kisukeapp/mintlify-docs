@@ -7,7 +7,7 @@ description: "How Kisuke Connect creates secure connections between your devices
 
 There are two parts to Kisuke:
 
-- **Kisuke** — the mobile app (iOS/Android) you use to code, run a terminal, and chat with AI
+- **Kisuke** — the app (iOS, Android, macOS, Windows, Linux, and web) you use to code, run a terminal, and chat with AI
 - **Kisuke Connect** — a lightweight daemon you install on your desktop or server that acts as the other end of the connection
 
 Once both are signed in to the same account, they find each other automatically over an end-to-end encrypted connection. No VPN, no port forwarding, no firewall rules required.
@@ -16,18 +16,18 @@ Once both are signed in to the same account, they find each other automatically 
 
 ```mermaid
 graph LR
-  Phone["Phone<br/>Kisuke"] <-->|Encrypted| Laptop["Laptop<br/>Kisuke Connect"]
+  Client["Any Device<br/>Kisuke"] <-->|Encrypted| Laptop["Laptop<br/>Kisuke Connect"]
   Laptop <-->|Encrypted| Server["Server<br/>Kisuke Connect"]
-  Server <-->|Encrypted| Phone
+  Server <-->|Encrypted| Client
 ```
 
-Kisuke Connect runs on your desktop or server and exposes your terminal, files, and editor to the Kisuke mobile app — securely, from anywhere.
+Kisuke Connect runs on your desktop or server and exposes your terminal, files, and editor to the Kisuke app — securely, from anywhere.
 
 ## Quick Setup Guide
 
 1. **Install Kisuke Connect** on your computer ([macOS](/installation/mac), [Windows](/installation/windows), or [Linux](/installation/linux))
 2. **Sign in** with your account
-3. **Install Kisuke** on your mobile device ([iOS](/installation/ios) or [Android](/installation/android))
+3. **Install Kisuke** on your device ([iOS](/installation/ios), [Android](/installation/android), [macOS](/installation/mac), [Windows](/installation/windows), [Linux](/installation/linux), or use the [web app](https://web.kisuke.app))
 4. **Sign in** with the same account — your devices automatically discover each other and connect
 
 <Tip>
