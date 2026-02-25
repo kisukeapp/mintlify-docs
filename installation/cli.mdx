@@ -59,24 +59,7 @@ kisuke-connect devices   # List connected devices
 kisuke-connect down      # Stop the daemon
 ```
 
-## Auth keys
-
-For headless environments where interactive login isn't possible, use an auth key:
-
-1. Open Kisuke
-2. Go to **Settings** > **Auth Keys**
-3. Tap **Generate New Key**
-4. Pass the key via the `KISUKE_AUTH_KEY` environment variable
-
-<Warning>
-Auth keys provide access to your Kisuke network. Keep them secure and rotate them regularly.
-</Warning>
-
 ## Environment variables
-
-<ParamField body="KISUKE_AUTH_KEY" type="string">
-  Authentication key for headless login. No default.
-</ParamField>
 
 <ParamField body="KISUKE_HOSTNAME" type="string">
   Custom hostname for this device.
