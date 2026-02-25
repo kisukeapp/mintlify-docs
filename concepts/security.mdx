@@ -15,7 +15,7 @@ All traffic between your devices is encrypted using modern cryptographic protoco
 - **Encryption** - ChaCha20-Poly1305 AEAD
 - **Authentication** - Ed25519 signatures
 
-```mermaid
+```mermaid actions={false}
 graph LR
   A["Device A<br/>Private Key"] <-->|"Encrypted<br/>Only A & B can decrypt"| B["Device B<br/>Private Key"]
 ```

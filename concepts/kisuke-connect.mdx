@@ -14,7 +14,7 @@ Once both are signed in to the same account, they find each other automatically 
 
 ## How It Works
 
-```mermaid
+```mermaid actions={false}
 graph LR
   Client["Any Device<br/>Kisuke"] <-->|Encrypted| Laptop["Laptop<br/>Kisuke Connect"]
   Laptop <-->|Encrypted| Server["Server<br/>Kisuke Connect"]
@@ -57,14 +57,14 @@ All traffic between your devices is end-to-end encrypted — relay servers and c
 
 When a direct peer-to-peer connection isn't possible (strict firewalls, carrier-grade NAT), Kisuke routes traffic through its relay network spanning **14+ regions worldwide** — keeping latency low regardless of where you are.
 
-```mermaid
+```mermaid actions={false}
 graph LR
   Phone <-->|"Encrypted Direct Path"| Computer
 ```
 
 When direct connection isn't possible:
 
-```mermaid
+```mermaid actions={false}
 graph LR
   Phone <-->|Encrypted| Relay <-->|Encrypted| Computer
 ```

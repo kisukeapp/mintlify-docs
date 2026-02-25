@@ -18,7 +18,7 @@ Direct connections are always preferred, but relays kick in when:
 
 ## How Relays Work
 
-```mermaid
+```mermaid actions={false}
 graph TD
   A["Device A<br/>Can't reach B directly"] -->|Encrypted| Relay["Kisuke Relay<br/>Forwards encrypted packets<br/>between A and B"]
   B["Device B<br/>Can't reach A directly"] -->|Encrypted| Relay

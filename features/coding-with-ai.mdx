@@ -7,6 +7,8 @@ description: "AI-powered coding assistant integrated into Kisuke"
 
 Kisuke includes an integrated AI coding assistant. Get debugging help, code generation, and documentation without leaving the app — from any device. Connect your own account from any supported provider.
 
+Kisuke is **provider agnostic** — all skills, slash commands, and features work across Anthropic, OpenAI, Google, and every other supported provider.
+
 ## Getting Started
 
 1. Open Kisuke
@@ -42,11 +44,95 @@ Connect via API key to any of these providers:
 
 Azure, Cerebras, DeepSeek, Groq, Moonshot, OpenRouter, Qwen, Together AI, Vercel
 
+## Skills
+
+Type `/` in the chat input to bring up the skills picker. All skills work with Anthropic, OpenAI, Google, and every other supported provider.
+
+### Conversation
+
+| Command | Description |
+|---|---|
+| `/clear` | Clear the current conversation and start fresh |
+| `/compact` | Summarize and compress the conversation to free up context |
+| `/rename` | Rename the current conversation |
+| `/resume` | Resume a previous conversation |
+| `/rewind` | Rewind the conversation to a previous state |
+
+### Agentic Modes
+
+| Command | Description |
+|---|---|
+| `/agent` | Switch to agent mode — the AI takes multi-step actions autonomously |
+| `/auto` | Let the AI decide the best approach automatically |
+| `/plan` | Ask the AI to plan before acting, so you can review the approach first |
+
+### Code & Review
+
+| Command | Description |
+|---|---|
+| `/add-dir` | Add a directory to the AI's context |
+| `/review` | Request a code review of the current file or selection |
+| `/security` | Run a security-focused review of your code |
+
+### Other
+
+| Command | Description |
+|---|---|
+| `/skills` | List all available skills |
+| `/todo` | View and manage todos the AI has tracked during your session |
+
+### Usage & Stats
+
+| Command | Description |
+|---|---|
+| `/usage` | View token usage for the current session |
+| `/stats` | View detailed session statistics |
+| `/extra-usage` | View extended usage and quota information |
+
+## Chat Interface
+
+### @ File Mentions
+
+Type `@` in the chat input to bring up a file selection menu. Tap any file from the list to insert it as a mention — this gives the AI direct context from that file without needing to paste its contents manually.
+
+### Code Blocks
+
+AI responses include syntax-highlighted code blocks. Tap to:
+
+- **Copy** - Copy code to clipboard
+- **Insert** - Insert into current file
+- **Run** - Execute in terminal (if appropriate)
+
+### Messages
+
+- **You** - Your messages appear on the right
+- **AI** - Responses appear on the left with syntax highlighting
+
+### Conversation History
+
+Previous conversations are saved per Session. Access them by:
+
+1. Tap the history icon in chat
+2. Select a previous conversation
+3. Continue where you left off
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|---|---|
+| `Shift + Tab` | Toggle between chat input and editor focus |
+| `Ctrl + S` | Stash the current prompt to continue later |
+| `Alt + V` | Attach an image (Desktop) |
+
+## GitHub Actions
+
+Kisuke's AI chat integrates with GitHub Actions — trigger or monitor workflows directly from the chat interface without leaving your session.
+
 ## Features
 
 ### Code Context
 
-When you're in a Space, the AI has access to:
+When you're in a Session, the AI has access to:
 
 - Your project files
 - Recent terminal output
@@ -94,33 +180,6 @@ Generate docs for your code:
 "Document this API endpoint"
 ```
 
-## Chat Interface
-
-### Messages
-
-- **You** - Your messages appear on the right
-- **AI** - Responses appear on the left with syntax highlighting
-
-### Code Blocks
-
-AI responses include syntax-highlighted code blocks. Tap to:
-
-- **Copy** - Copy code to clipboard
-- **Insert** - Insert into current file
-- **Run** - Execute in terminal (if appropriate)
-
-### File Mentions
-
-Type `@` in the chat input to bring up a file selection menu. Tap any file from the list to insert it as a mention — this gives the AI direct context from that file without needing to paste its contents manually.
-
-### Conversation History
-
-Previous conversations are saved per Space. Access them by:
-
-1. Tap the history icon in chat
-2. Select a previous conversation
-3. Continue where you left off
-
 ## Tips
 
 ### Be Specific
@@ -154,13 +213,3 @@ Continue the conversation to refine answers:
 - Kisuke doesn't store your chat content on our servers
 - Your API credentials stay on your device
 
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Terminal" icon="terminal" href="/features/terminal">
-    Run AI-generated code.
-  </Card>
-  <Card title="Editor" icon="code" href="/features/editor">
-    Edit files with AI suggestions.
-  </Card>
-</CardGroup>

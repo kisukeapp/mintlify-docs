@@ -5,49 +5,38 @@ description: "Persistent project sessions across all your devices"
 
 ## Overview
 
-Sessions are how you work on projects in Kisuke. Each session is tied to a project and preserves your chat history with Claude, terminal tabs, and browsing tabs across all your devices.
+Sessions are how you work on projects in Kisuke. Each session is tied to a project — when you open a project (and any of its subfolders), that project gets its own session. Sessions preserve your chat history, terminal tabs, and browsing tabs across all your devices.
 
-## Creating a Session
+## Opening a Session
+
+Sessions are created automatically when you open a project:
 
 1. Open Kisuke
-2. Tap **Sessions** in the bottom navigation
-3. Tap **+ New Session**
-4. Choose a project name and location
+2. Tap / click **Open Project**
+3. Choose a project name and location
 
-## Session Types
+Kisuke creates a session for that project automatically. The next time you open the same project, your session — including chat history, terminal tabs, and browser tabs — is right where you left it.
 
-### Local Session
+## Switching Sessions
 
-A session on your mobile device:
+### Mobile
 
-- Files stored locally
-- Works offline
-- Limited by device storage
+Go to **Settings** to view and switch between your sessions.
 
-### Connected Session
+### Desktop
 
-A session on a connected computer or server:
+Click **Switch / Add Session** to move between projects or open a new one.
 
-- Files on remote machine
-- Requires active connection
-- Access your full development environment
-
-## Working with Sessions
-
-### Switching Sessions
-
-Tap the session name at the top of the screen to switch between sessions.
-
-### Session Contents
+## Session Contents
 
 Each session contains:
 
-- **Chat** - Your full conversation history with Claude, preserved across devices
+- **Chat** - Your full AI conversation history, preserved across devices
 - **Terminal** - Shell tabs that persist and sync between devices
 - **Browser** - Browsing tabs remembered across all your devices
 - **Files** - Project files and folders
 
-### Project Detection
+## Project Detection
 
 Kisuke automatically detects project types:
 
@@ -59,14 +48,14 @@ Kisuke automatically detects project types:
 
 ## AI Context
 
-When you chat with Claude in a session, it has context about:
+When you chat with AI in a session, it has context about:
 
 - Your project structure
 - Recent file changes
 - Terminal history
 - Previous conversations
 
-This helps Claude give more relevant suggestions.
+This helps the AI give more relevant, project-specific suggestions.
 
 ## Syncing
 
@@ -77,27 +66,3 @@ Sessions sync automatically across all your devices:
 - Browsing tabs are remembered
 - File changes appear immediately
 
-## Best Practices
-
-### One Session Per Project
-
-Keep things organized by creating a separate session for each project you're working on.
-
-### Use Connected Sessions for Heavy Work
-
-For large projects or resource-intensive tasks, use connected sessions on your computer.
-
-### Local Sessions for Quick Edits
-
-Local sessions are great for quick scripts, notes, or experimenting.
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Editor" icon="code" href="/features/editor">
-    Edit files in your sessions.
-  </Card>
-  <Card title="Coding with Claude" icon="sparkles" href="/features/coding-with-ai">
-    Get AI help for your projects.
-  </Card>
-</CardGroup>
