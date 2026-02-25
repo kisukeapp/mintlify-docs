@@ -104,16 +104,7 @@
     "dark": "/logo/kisuke-logo.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/kisuke-app"
-      },
-      {
-        "label": "Support",
-        "href": "mailto:support@kisuke.app"
-      }
-    ],
+    "links": [],
     "primary": {
       "type": "button",
       "label": "Download",
@@ -122,8 +113,7 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/kisuke_app",
-      "github": "https://github.com/kisuke-app"
+      "x": "https://x.com/kiuske"
     },
     "links": [
       {
@@ -157,19 +147,6 @@
           {
             "label": "Self-Hosting",
             "href": "/advanced/self-hosting"
-          }
-        ]
-      },
-      {
-        "header": "Support",
-        "items": [
-          {
-            "label": "Contact",
-            "href": "mailto:support@kisuke.app"
-          },
-          {
-            "label": "GitHub Issues",
-            "href": "https://github.com/kisuke-app/issues"
           }
         ]
       }
