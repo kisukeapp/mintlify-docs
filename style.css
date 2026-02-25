@@ -29,3 +29,9 @@
   font-style: oblique;
   font-display: block;
 }
+
+/* Fix Mermaid diagram text clipping on same-section navigation */
+.mermaid svg {
+  overflow: visible !important;
+  max-width: 100%;
+}
