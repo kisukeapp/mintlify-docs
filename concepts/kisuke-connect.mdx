@@ -47,9 +47,9 @@ Just sign in on both devices and they find each other automatically. Kisuke Conn
 
 ### End-to-End Encrypted
 
-All traffic between your devices is end-to-end encrypted — relay servers and coordination servers never see your data:
+All traffic between your devices is end-to-end encrypted — relay servers and coordination servers never see your data. Kisuke uses the **Noise Protocol Framework** for its secure tunnels, the same cryptographic foundation that WireGuard is built on:
 
-- **WireGuard-based protocol** for fast, secure tunnels
+- **Noise Protocol** for authenticated key exchange and session establishment
 - **X25519** key exchange
 - **ChaCha20-Poly1305** encryption
 
