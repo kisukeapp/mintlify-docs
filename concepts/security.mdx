@@ -80,17 +80,11 @@ For server deployments, auth keys provide secure headless authentication:
 
 ### Firewall Recommendations
 
-Kisuke Connect works through most firewalls, but for optimal performance:
-
-- Allow outbound UDP on port 41641
-- Allow outbound TCP on port 443 (for relay fallback)
+Kisuke Connect works through most firewalls with no configuration needed. For optimal performance, allow outbound TCP on port 443.
 
 ### How Traffic Flows
 
-1. **Direct connection** (preferred) - Traffic flows directly between your devices
-2. **Relayed connection** (fallback) - If direct isn't possible, traffic goes through encrypted relay servers
-
-Even with relayed connections, Kisuke relay servers **cannot decrypt your traffic**. They only forward encrypted packets.
+All traffic routes through Kisuke's encrypted relay network. Relay servers only forward encrypted packets — they cannot decrypt your traffic.
 
 ## Security Reporting
 

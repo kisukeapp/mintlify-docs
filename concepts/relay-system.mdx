@@ -1,30 +1,21 @@
 ---
 title: "The Relay System"
-description: "How Kisuke relay servers help connect devices"
+description: "How Kisuke relay servers connect your devices"
 ---
 
 ## Overview
 
-Kisuke's relay servers (sometimes called DERP - Designated Encrypted Relay for Packets) help devices connect when direct communication isn't possible.
-
-## When Relays Are Used
-
-Direct connections are always preferred, but relays kick in when:
-
-- **Strict NAT** - Some networks don't allow direct peer-to-peer connections
-- **Carrier-grade NAT** - Mobile carriers often use NAT that blocks direct connections
-- **Firewalls** - Corporate or restrictive firewalls may block UDP traffic
-- **Initial connection** - Relays provide a fallback while direct connection is being established
+All traffic between your Kisuke devices routes through Kisuke's relay network — a global network of encrypted relay servers (DERP — Designated Encrypted Relay for Packets). This ensures connectivity regardless of your network environment, without any port forwarding, firewall rules, or VPN configuration.
 
 ## How Relays Work
 
 ```mermaid actions={false}
 graph TD
-  A["Device A<br/>Can't reach B directly"] -->|Encrypted| Relay["Kisuke Relay<br/>Forwards encrypted packets<br/>between A and B"]
-  B["Device B<br/>Can't reach A directly"] -->|Encrypted| Relay
+  A["Device A<br/>Kisuke"] -->|Encrypted| Relay["Kisuke Relay<br/>Forwards encrypted packets<br/>between A and B"]
+  B["Device B<br/>Kisuke Connect"] -->|Encrypted| Relay
 ```
 
-### Important: Still End-to-End Encrypted
+### Still End-to-End Encrypted
 
 Relay servers **cannot decrypt your traffic**. They only see:
 - Encrypted blobs
@@ -38,80 +29,26 @@ They **cannot see**:
 
 ## Relay Network
 
-Kisuke operates relay servers in multiple regions for low latency:
-
-<table>
-  <thead>
-    <tr>
-      <th>Region</th>
-      <th>Location</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>US East</td>
-      <td>Virginia</td>
-    </tr>
-    <tr>
-      <td>US West</td>
-      <td>Oregon</td>
-    </tr>
-    <tr>
-      <td>Europe</td>
-      <td>Frankfurt</td>
-    </tr>
-    <tr>
-      <td>Asia Pacific</td>
-      <td>Singapore</td>
-    </tr>
-  </tbody>
-</table>
-
-Your devices automatically connect to the nearest relay.
-
-## Connection Preference Order
-
-Kisuke Connect tries connections in this order:
-
-1. **Direct UDP** - Fastest, preferred
-2. **Direct over fallback ports** - In case default ports are blocked
-3. **Relay** - Always works, slightly higher latency
+Kisuke operates relay servers across **14+ regions worldwide**. Your devices automatically connect to the nearest relay for the lowest possible latency.
 
 ## Performance
 
-### Direct Connection
-- Latency: Depends on internet path between devices
-- Bandwidth: Limited by your internet connection
-
 ### Relayed Connection
 - Latency: +10-50ms depending on relay distance
-- Bandwidth: Still fast, but goes through relay
-
-<Tip>
-For best performance, ensure UDP port 41641 is open on at least one side of the connection.
-</Tip>
-
-## Self-Hosted Relays
-
-For enterprise deployments or data sovereignty requirements, you can run your own relay servers.
-
-See [Custom Infrastructure](/advanced/custom-infra) for details.
+- Bandwidth: Limited only by your internet connection
 
 ## Monitoring
 
-Check your connection type in the Kisuke app:
+Check your connection status in the Kisuke app:
 
 1. Go to **Connect** > **Devices**
 2. Tap on a connected device
-3. View **Connection Type**: Direct or Relayed
+3. View connection details
 
 ## Next Steps
 
-<CardGroup cols={2}>
+<CardGroup cols={1}>
   <Card title="Security" icon="shield" href="/concepts/security">
     Learn about encryption and security.
-  </Card>
-  <Card title="Custom Infrastructure" icon="server" href="/advanced/custom-infra">
-    Run your own relay servers.
   </Card>
 </CardGroup>

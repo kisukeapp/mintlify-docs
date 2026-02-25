@@ -55,22 +55,15 @@ All traffic between your devices is end-to-end encrypted — relay servers and c
 
 ### Global Relay Network
 
-When a direct peer-to-peer connection isn't possible (strict firewalls, carrier-grade NAT), Kisuke routes traffic through its relay network spanning **14+ regions worldwide** — keeping latency low regardless of where you are.
+All traffic routes through Kisuke's relay network spanning **14+ regions worldwide** — keeping latency low regardless of where you are.
 
 ```mermaid actions={false}
 graph LR
-  Phone <-->|"Encrypted Direct Path"| Computer
-```
-
-When direct connection isn't possible:
-
-```mermaid actions={false}
-graph LR
-  Phone <-->|Encrypted| Relay <-->|Encrypted| Computer
+  Client["Kisuke"] <-->|Encrypted| Relay["Kisuke Relay"] <-->|Encrypted| Host["Kisuke Connect"]
 ```
 
 <Note>
-Even relayed traffic is end-to-end encrypted. Relay servers cannot read your data.
+Relay servers cannot decrypt your traffic. Everything is end-to-end encrypted — relay servers only forward encrypted packets.
 </Note>
 
 ### Works Anywhere
