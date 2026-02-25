@@ -86,6 +86,16 @@ Kisuke Connect works through most firewalls with no configuration needed. For op
 
 All traffic routes through Kisuke's encrypted relay network. Relay servers only forward encrypted packets — they cannot decrypt your traffic.
 
+Relay servers **only see**:
+- Encrypted blobs
+- Which device to forward packets to
+
+Relay servers **cannot see**:
+- Your terminal commands
+- Your code
+- Your files
+- Anything meaningful about your traffic
+
 ## Security Reporting
 
 Found a security vulnerability? Please report it responsibly:
