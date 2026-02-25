@@ -5,11 +5,11 @@ description: "Manage your devices and account at auth.kisuke.app"
 
 ## Overview
 
-The Kisuke Admin Console is available at [auth.kisuke.app](https://auth.kisuke.app). It gives you a web interface to manage your devices, auth keys, and account settings.
+The Kisuke Admin Console is available at [auth.kisuke.app/login](https://auth.kisuke.app/login). It gives you a web interface to manage your devices, auth keys, and account settings.
 
 ## Accessing the Console
 
-Navigate to [auth.kisuke.app](https://auth.kisuke.app) and sign in with the same account you use in the Kisuke app.
+Navigate to [auth.kisuke.app/login](https://auth.kisuke.app/login) and sign in with the same account you use in the Kisuke app.
 
 ## What You Can Do
 
@@ -17,22 +17,6 @@ Navigate to [auth.kisuke.app](https://auth.kisuke.app) and sign in with the same
 - **Manage access** — Control which devices can connect to each other
 - **View connection info** — Check last seen times and connection types
 - **Remove devices** — Revoke access from old or lost devices
-- **Generate auth keys** — Create keys for headless server deployments
-
-## Auth Keys
-
-For servers and headless environments where you can't sign in interactively, generate an auth key:
-
-1. Open [auth.kisuke.app](https://auth.kisuke.app)
-2. Go to **Keys**
-3. Click **Generate Key**
-4. Copy the key — it's only shown once
-
-Then use it when installing Kisuke Connect on your server:
-
-```bash
-kisuke-connect up --authkey=YOUR_AUTH_KEY
-```
 
 ## Next Steps
 
