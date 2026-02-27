@@ -11,8 +11,8 @@ All traffic between your Kisuke devices routes through Kisuke's relay network â€
 
 ```mermaid actions={false}
 graph TD
-  A["Device A<br/>Kisuke"] -->|Encrypted| Relay["Kisuke Relay<br/>Forwards encrypted packets<br/>between A and B"]
-  B["Device B<br/>Kisuke Connect"] -->|Encrypted| Relay
+  A["Kisuke App"] -->|Encrypted| Relay["Kisuke Relay"]
+  B["Kisuke Connect"] -->|Encrypted| Relay
 ```
 
 
