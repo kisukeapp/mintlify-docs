@@ -5,59 +5,39 @@ description: "Install Kisuke Connect via CLI for servers and headless environmen
 
 The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers and automated environments.
 
-## Install via npm
+## Install
 
 ```bash
-npm install -g @kisuke/cli
+npm install -g @kisuke/cli@dev
 ```
 
-## Install via binary
+## Run
 
-Download the binary directly for your platform:
-
-<Tabs>
-  <Tab title="Linux x64">
-    ```bash
-    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-amd64 -o kisuke-connect
-    chmod +x kisuke-connect
-    sudo mv kisuke-connect /usr/local/bin/
-    ```
-  </Tab>
-  <Tab title="Linux ARM64">
-    ```bash
-    curl -L https://kisuke.app/releases/latest/kisuke-connect-linux-arm64 -o kisuke-connect
-    chmod +x kisuke-connect
-    sudo mv kisuke-connect /usr/local/bin/
-    ```
-  </Tab>
-  <Tab title="macOS">
-    ```bash
-    curl -L https://kisuke.app/releases/latest/kisuke-connect-darwin-universal -o kisuke-connect
-    chmod +x kisuke-connect
-    sudo mv kisuke-connect /usr/local/bin/
-    ```
-  </Tab>
-  <Tab title="Windows">
-    ```powershell
-    Invoke-WebRequest -Uri https://kisuke.app/releases/latest/kisuke-connect-windows-amd64.exe -OutFile kisuke-connect.exe
-    ```
-  </Tab>
-</Tabs>
-
-## Authenticate
+Once installed, run `kisuke` in your terminal:
 
 ```bash
-kisuke-connect login
+kisuke
 ```
 
-## Usage
+The CLI will automatically open a browser window to authenticate your account. Sign in and the terminal will confirm:
 
-```bash
-kisuke-connect up        # Start the daemon
-kisuke-connect status    # Check status
-kisuke-connect devices   # List connected devices
-kisuke-connect down      # Stop the daemon
 ```
+✓ Logged in as you@example.com
+```
+
+You'll then be prompted to install and start the Kisuke Connect daemon:
+
+```
+Do you wanna install and start Kisuke?
+By selecting `Yes, I agree`, you agree to:
+  Privacy: https://beta.kisuke.dev/privacy
+  Terms: https://beta.kisuke.dev/terms
+
+> Yes, I agree
+  Quit
+```
+
+Select **Yes, I agree** and the daemon will start running in the background.
 
 ## Environment variables
 
