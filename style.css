@@ -31,7 +31,11 @@
 }
 
 /* Fix Mermaid diagram text clipping on same-section navigation */
-.mermaid svg {
+.mermaid svg,
+.mermaid foreignObject {
   overflow: visible !important;
+}
+
+.mermaid svg {
   max-width: 100%;
 }

@@ -16,8 +16,8 @@ Once both are signed in to the same account, they find each other automatically 
 
 ```mermaid actions={false}
 graph LR
-  Client["Any Device<br/>Kisuke"] <-->|Encrypted| Laptop["Laptop<br/>Kisuke Connect"]
-  Laptop <-->|Encrypted| Server["Server<br/>Kisuke Connect"]
+  Client["Kisuke App"] <-->|Encrypted| Laptop["Kisuke Connect"]
+  Laptop <-->|Encrypted| Server["Kisuke Connect (Server)"]
   Server <-->|Encrypted| Client
 ```
 
