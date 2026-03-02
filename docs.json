@@ -121,7 +121,7 @@
         "items": [
           {
             "label": "Download",
-            "href": "https://beta2.kisuke.dev/downloads/"
+            "href": "https://beta.kisuke.dev/downloads/"
           },
           {
             "label": "Features",
@@ -151,5 +151,13 @@
         ]
       }
     ]
+  },
+  "errors": {
+    "404": {
+      "redirect": true
+    }
+  },
+  "seo": {
+    "indexing": "navigable"
   }
 }
