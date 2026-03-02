@@ -108,7 +108,7 @@
     "primary": {
       "type": "button",
       "label": "Download",
-      "href": "https://beta2.kisuke.dev/downloads/"
+      "href": "https://beta.kisuke.dev/downloads/"
     }
   },
   "footer": {
