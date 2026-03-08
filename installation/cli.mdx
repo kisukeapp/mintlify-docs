@@ -65,12 +65,12 @@ A browser window opens for you to sign in with Google or GitHub:
 └  Done
 ```
 
-## Environment variables
+## Headless authentication
 
-<ParamField body="KISUKE_HOSTNAME" type="string">
-  Custom hostname for this device.
-</ParamField>
+If you're running on a VPS or a machine without a browser, use headless login to get an authentication link you can open on any device:
 
-<ParamField body="KISUKE_STATE_DIR" type="string" default="/var/lib/kisuke">
-  Directory for state files.
-</ParamField>
+```bash
+kisuke login --headless
+```
+
+This will output a URL — open it on any device, sign in, and the CLI will automatically detect the authentication.
