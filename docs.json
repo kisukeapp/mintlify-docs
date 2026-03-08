@@ -46,7 +46,10 @@
                 "pages": [
                   "installation/kisuke",
                   "installation/ios",
-                  "installation/android"
+                  "installation/android",
+                  "installation/app-macos",
+                  "installation/app-windows",
+                  "installation/app-linux"
                 ]
               },
               {
