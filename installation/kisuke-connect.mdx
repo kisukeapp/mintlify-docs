@@ -3,16 +3,55 @@ title: "Install Kisuke Connect"
 description: "Install Kisuke Connect on your computer to bridge it to the Kisuke app"
 ---
 
-Kisuke Connect bridges your computer to Kisuke over an end-to-end encrypted connection, giving you remote access to your terminal, files, and editor. [Learn more](/concepts/kisuke-connect).
+Kisuke Connect is a lightweight service that runs on your computer or server and bridges it to the Kisuke app over an end-to-end encrypted connection. Once installed, you get remote access to your terminal, files, and editor from any device. [Learn more about Kisuke Connect](/concepts/kisuke-connect).
 
-## Desktop
+New users can follow the [Quickstart](/quickstart) guide to set up Kisuke and Kisuke Connect in minutes.
+
+## Install instructions
+
+The following topics provide platform-specific installation instructions for Kisuke Connect.
+
+### Desktop
 
 - [Install on macOS](/installation/mac)
 - [Install on Windows](/installation/windows)
 - [Install on Linux](/installation/linux)
 
-## CLI
+### CLI
 
-For servers, containers, and headless environments:
+- [Install CLI](/installation/cli) — for servers, containers, and headless environments
 
-- [Install CLI](/installation/cli)
+## Install options
+
+### Desktop app
+
+Download and install the Kisuke Connect desktop app from the [Kisuke downloads page](https://beta.kisuke.dev/downloads/). Available for macOS, Windows, and Linux. The desktop app runs in the background and appears in your menu bar (macOS) or system tray (Windows/Linux).
+
+### Package managers
+
+- **macOS** — Install via [Homebrew](https://brew.sh):
+  ```bash
+  brew install kisuke-connect
+  ```
+- **Windows** — Install via [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/):
+  ```powershell
+  winget install Kisuke.KisukeConnect
+  ```
+- **Linux** — Install via your distribution's package manager (apt, dnf, yay) or use the install script:
+  ```bash
+  curl -fsSL https://kisuke.app/install.sh | sh
+  ```
+
+### CLI (headless)
+
+For servers and automated environments without a desktop, install the CLI via npm:
+
+```bash
+npm install -g @kisuke/cli@dev
+```
+
+Run `kisuke` to authenticate and start the daemon. See [Install CLI](/installation/cli) for details.
+
+## Uninstall
+
+To uninstall Kisuke Connect, remove it using the same method you used to install it (e.g., drag to Trash on macOS, uninstall from Settings on Windows, or `apt remove kisuke-connect` on Linux).
