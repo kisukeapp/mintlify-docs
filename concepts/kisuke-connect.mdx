@@ -1,16 +1,15 @@
 ---
-title: "Kisuke Connect"
+title: "Overview"
 description: "How Kisuke Connect creates secure connections between your devices"
 ---
 
-## Overview
+Kisuke Connect is a lightweight service that runs on your desktop or server and acts as the bridge between your machine and the Kisuke app. It exposes your terminal, files, and editor over an end-to-end encrypted connection — letting you access your development environment from anywhere.
 
-There are two parts to Kisuke:
+Once Kisuke Connect is installed and you sign in with the same account as your Kisuke app, your devices find each other automatically. No VPN, no port forwarding, no firewall rules required.
 
-- **Kisuke** — the app (iOS, Android, macOS, Windows, Linux, and web) you use to code, run a terminal, and chat with AI
-- **Kisuke Connect** — a lightweight daemon you install on your desktop or server that acts as the other end of the connection
-
-Once both are signed in to the same account, they find each other automatically over an end-to-end encrypted connection. No VPN, no port forwarding, no firewall rules required.
+<Info>
+New to Kisuke? Follow the [Quickstart](/quickstart) to get everything set up in minutes.
+</Info>
 
 ## How It Works
 
@@ -21,18 +20,7 @@ graph LR
   Server <-->|Encrypted| Client
 ```
 
-Kisuke Connect runs on your desktop or server and exposes your terminal, files, and editor to the Kisuke app — securely, from anywhere.
-
-## Quick Setup Guide
-
-1. **Install Kisuke Connect** on your computer ([macOS](/installation/mac), [Windows](/installation/windows), or [Linux](/installation/linux))
-2. **Sign in** with your account
-3. **Install Kisuke** on your device ([iOS](/installation/ios), [Android](/installation/android), [macOS](/installation/mac), [Windows](/installation/windows), [Linux](/installation/linux), or use the [web app](https://web.kisuke.app))
-4. **Sign in** with the same account — your devices automatically discover each other and connect
-
-<Tip>
-The connection is automatic once you're signed in on both devices. They just find each other and connect securely.
-</Tip>
+Kisuke Connect maintains a persistent encrypted tunnel between your devices. When you open a terminal, edit a file, or browse the web through Kisuke, the traffic flows through this tunnel — routed via Kisuke's global relay network for reliable connectivity from any network.
 
 ## Key Benefits
 
