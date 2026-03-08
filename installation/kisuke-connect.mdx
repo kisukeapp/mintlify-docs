@@ -19,32 +19,17 @@ The following topics provide platform-specific installation instructions for Kis
 
 - [Install CLI](/installation/cli) — for servers, containers, and headless environments
 
-## Install options
+## Update
 
-### Desktop app
+### Desktop
 
-Download and install the Kisuke Connect desktop app from the [Kisuke downloads page](https://beta.kisuke.dev/downloads/). Available for macOS, Windows, and Linux. The desktop app runs in the background and appears in your menu bar (macOS) or system tray (Windows/Linux).
+To update Kisuke Connect, download the latest version from the [Kisuke downloads page](https://beta.kisuke.dev/downloads/) and run the installer again.
 
-### Package managers
-
-- **macOS** — Install via [Homebrew](https://brew.sh):
-  ```bash
-  brew install kisuke-connect
-  ```
-- **Linux** — Install via your distribution's package manager (apt, dnf, yay) or use the install script:
-  ```bash
-  curl -fsSL https://kisuke.app/install.sh | sh
-  ```
-
-### CLI (headless)
-
-For servers and automated environments without a desktop, install the CLI via npm:
+### CLI
 
 ```bash
-npm install -g @kisuke/cli@dev
+kisuke update
 ```
-
-Run `kisuke` to authenticate and start the daemon. See [Install CLI](/installation/cli) for details.
 
 ## Uninstall
 
