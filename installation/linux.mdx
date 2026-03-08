@@ -15,30 +15,19 @@ The current version of Kisuke Connect requires Linux kernel 4.19 or later.
 | `.deb` | x64 | Ubuntu, Debian, Linux Mint, Pop!_OS, and other Debian-based distributions |
 | `.rpm` | x64 | Fedora, RHEL, CentOS, openSUSE, and other RPM-based distributions |
 
-## Install
-
-<Tabs>
-  <Tab title="AppImage">
-    ```bash
-    chmod +x KisukeConnect-*.AppImage
-    ./KisukeConnect-*.AppImage
-    ```
-  </Tab>
-  <Tab title=".deb">
-    ```bash
-    sudo dpkg -i kisuke-connect-*.deb
-    ```
-  </Tab>
-  <Tab title=".rpm">
-    ```bash
-    sudo rpm -i kisuke-connect-*.rpm
-    ```
-  </Tab>
-</Tabs>
-
 Open Kisuke Connect — a sign-in window will appear. Sign in with **Google** or **GitHub** using the same account you use in Kisuke.
 
 After signing in, Kisuke Connect will live in your **system tray** — look for the Kisuke Connect icon in your panel's notification area.
+
+## CLI alternative
+
+Prefer the command line? You can also install Kisuke Connect via npm:
+
+```bash
+npm install -g @kisuke/cli@dev
+```
+
+See [Install CLI](/installation/cli) for details.
 
 ## Troubleshooting
 
