@@ -1,0 +1,37 @@
+---
+title: "CLI"
+description: ""
+---
+
+The Kisuke Connect CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Built for servers, containers, VPS instances, and automated environments.
+
+## Features
+
+- **Headless operation** — No desktop or GUI required. Runs entirely from the terminal.
+- **Daemon management** — Start, stop, and monitor the Kisuke Connect daemon with simple commands.
+- **Browser & headless auth** — Authenticate via browser, or use headless mode for machines without one.
+- **Auto-reconnect** — The daemon automatically reconnects if your network drops.
+- **Update command** — Update Kisuke Connect in place with `kisuke update`.
+
+## Commands
+
+| Command | Description |
+| --- | --- |
+| `kisuke connect` | Start the Kisuke Connect daemon |
+| `kisuke update` | Update to the latest version |
+| `kisuke login --headless` | Authenticate on a headless server |
+| `kisuke` | Show all available commands |
+
+## Install
+
+```bash
+npm install -g @kisuke/cli@dev
+```
+
+On macOS, you can also install via Homebrew:
+
+```bash
+brew install kisukeapp/tap/kisuke-cli-dev
+```
+
+For the full setup walkthrough, see [Install CLI](/installation/cli).

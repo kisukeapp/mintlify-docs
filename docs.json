@@ -79,12 +79,6 @@
               "features/browser"
             ]
           },
-          {
-            "group": "Concepts",
-            "pages": [
-              "concepts/relay-system"
-            ]
-          }
         ]
       },
       {
@@ -93,21 +87,10 @@
           {
             "group": "Kisuke Connect",
             "pages": [
-              "concepts/kisuke-connect"
-            ]
-          },
-          {
-            "group": "Desktop App",
-            "pages": [
-              "installation/mac",
-              "installation/windows",
-              "installation/linux"
-            ]
-          },
-          {
-            "group": "CLI",
-            "pages": [
-              "installation/cli"
+              "concepts/kisuke-connect",
+              "connect/desktop-app",
+              "connect/cli",
+              "concepts/relay-system"
             ]
           }
         ]
