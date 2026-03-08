@@ -19,31 +19,44 @@ brew install kisukeapp/tap/kisuke-cli-dev
 
 ## Run
 
-Once installed, run `kisuke` in your terminal:
+Once installed, run `kisuke connect` in your terminal:
 
 ```bash
-kisuke
+kisuke connect
 ```
 
-The CLI will automatically open a browser window to authenticate your account. Sign in and the terminal will confirm:
+On first run, the CLI will walk you through setup — agreeing to terms, installing the daemon, and authenticating via your browser:
 
 ```
-✓ Logged in as you@example.com
+┌  Kisuke Connect v1.1.84
+│
+◇  Daemon is not running
+│
+◇  Preflight checks passed
+│
+●  Before installing, please review our terms and privacy policy:
+│
+│    Terms:   https://beta.kisuke.dev/terms
+│
+│    Privacy: https://beta.kisuke.dev/privacy
+│
+◇  Do you agree to the Terms of Service and Privacy Policy?
+│  Yes
+│
+◇  Daemon installed
+│
+◇  Daemon started
+│
+◇  Opening browser for authentication...
+│
+◇  Authentication successful
+│
+◆  Logged in as you@example.com
+│
+◆  Daemon running (PID 63348)
+│
+└  Done
 ```
-
-You'll then be prompted to install and start the Kisuke Connect daemon:
-
-```
-Do you wanna install and start Kisuke?
-By selecting `Yes, I agree`, you agree to:
-  Privacy: https://beta.kisuke.dev/privacy
-  Terms: https://beta.kisuke.dev/terms
-
-> Yes, I agree
-  Quit
-```
-
-Select **Yes, I agree** and the daemon will start running in the background.
 
 ## Environment variables
 
