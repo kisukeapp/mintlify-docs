@@ -43,8 +43,8 @@
               "quickstart",
               {
                 "group": "Install Kisuke",
+                "page": "installation/kisuke",
                 "pages": [
-                  "installation/kisuke",
                   "installation/ios",
                   "installation/android",
                   "installation/app-macos",
@@ -54,8 +54,8 @@
               },
               {
                 "group": "Install Kisuke Connect",
+                "page": "installation/kisuke-connect",
                 "pages": [
-                  "installation/kisuke-connect",
                   "installation/mac",
                   "installation/windows",
                   "installation/linux",
