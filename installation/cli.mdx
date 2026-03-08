@@ -1,24 +1,17 @@
 ---
-title: "Install Kisuke Connect CLI"
+title: "CLI"
 description: "Install Kisuke Connect via CLI for servers and headless environments"
 ---
 
-The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers, containers, and automated environments where you don't have a graphical interface.
+The CLI is the headless version of Kisuke Connect — the same daemon, without the desktop GUI. Use it for servers and automated environments.
 
-## System requirements
-
-- **Node.js 18 or later** with npm
-- macOS, Windows, or Linux
-
-## Installation
-
-### Step 1: Install via npm
+## Install
 
 ```bash
 npm install -g @kisuke/cli@dev
 ```
 
-### Step 2: Run Kisuke
+## Run
 
 Once installed, run `kisuke` in your terminal:
 
@@ -26,17 +19,13 @@ Once installed, run `kisuke` in your terminal:
 kisuke
 ```
 
-### Step 3: Sign in
-
-The CLI will automatically open a browser window for authentication. Sign in with the **same Google or GitHub account** you use in the Kisuke app. Once signed in, the terminal will confirm:
+The CLI will automatically open a browser window to authenticate your account. Sign in and the terminal will confirm:
 
 ```
 ✓ Logged in as you@example.com
 ```
 
-### Step 4: Start the daemon
-
-You'll be prompted to install and start the Kisuke Connect daemon:
+You'll then be prompted to install and start the Kisuke Connect daemon:
 
 ```
 Do you wanna install and start Kisuke?
@@ -50,62 +39,12 @@ By selecting `Yes, I agree`, you agree to:
 
 Select **Yes, I agree** and the daemon will start running in the background.
 
-### Step 5: Verify the connection
-
-Open Kisuke on your phone or another device. Your machine should appear in the device list. Select it to access the terminal, file editor, and browser.
-
-## Headless authentication
-
-For servers without a browser, you can authenticate using an auth key:
-
-1. Open Kisuke on your phone or desktop
-2. Go to **Settings** > **Auth Keys**
-3. Tap **Generate New Key**
-4. Use the key to authenticate:
-
-```bash
-KISUKE_AUTH_KEY=your-auth-key kisuke
-```
-
-<Warning>
-Auth keys provide access to your Kisuke network. Keep them secure and rotate them regularly.
-</Warning>
-
 ## Environment variables
 
-<ParamField body="KISUKE_AUTH_KEY" type="string">
-  Authentication key for headless login. Required for environments without a browser.
-</ParamField>
-
 <ParamField body="KISUKE_HOSTNAME" type="string">
-  Custom hostname for this device. Defaults to the system hostname.
+  Custom hostname for this device.
 </ParamField>
 
 <ParamField body="KISUKE_STATE_DIR" type="string" default="/var/lib/kisuke">
   Directory for state files.
 </ParamField>
-
-## Troubleshooting
-
-### Browser does not open
-
-If you're on a headless server without a browser, use [headless authentication](#headless-authentication) with an auth key instead.
-
-### npm permission errors
-
-If you get `EACCES` permission errors when installing globally, see the [npm docs on fixing permissions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally).
-
-### Device not appearing in Kisuke
-
-Make sure you are signed in with the **same account** on both the Kisuke app and the CLI. Run `kisuke` again to check the status.
-
-## Uninstall
-
-```bash
-npm uninstall -g @kisuke/cli
-```
-
-## Next steps
-
-- [Learn more about Kisuke Connect](/concepts/kisuke-connect)
-- Prefer a GUI? Install the desktop app on [macOS](/installation/mac), [Windows](/installation/windows), or [Linux](/installation/linux)
