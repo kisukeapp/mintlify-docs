@@ -5,11 +5,40 @@ description: "Install Kisuke Connect on Linux"
 
 The current version of Kisuke Connect requires Linux kernel 4.19 or later.
 
-1. [Download Kisuke Connect](https://beta.kisuke.dev/downloads/) from the Kisuke website.
-2. Run the installer. If you have a previous version installed, you may be prompted to uninstall it first.
-3. Choose an install location and complete the installation.
-4. Open Kisuke Connect — a sign-in window will appear. Sign in with **Google** or **GitHub** using the same account you use in Kisuke.
-5. After signing in, Kisuke Connect will live in your **system tray** — look for the Kisuke Connect icon in your panel's notification area.
+[Download Kisuke Connect](https://beta.kisuke.dev/downloads/) for Linux and install using the package format for your distribution.
+
+## Supported formats
+
+| Format | Architecture | Best for |
+| --- | --- | --- |
+| AppImage | x64 | Most distributions — no install needed, just download and run |
+| `.deb` | x64 | Ubuntu, Debian, Linux Mint, Pop!_OS, and other Debian-based distributions |
+| `.rpm` | x64 | Fedora, RHEL, CentOS, openSUSE, and other RPM-based distributions |
+
+## Install
+
+<Tabs>
+  <Tab title="AppImage">
+    ```bash
+    chmod +x KisukeConnect-*.AppImage
+    ./KisukeConnect-*.AppImage
+    ```
+  </Tab>
+  <Tab title=".deb">
+    ```bash
+    sudo dpkg -i kisuke-connect-*.deb
+    ```
+  </Tab>
+  <Tab title=".rpm">
+    ```bash
+    sudo rpm -i kisuke-connect-*.rpm
+    ```
+  </Tab>
+</Tabs>
+
+Open Kisuke Connect — a sign-in window will appear. Sign in with **Google** or **GitHub** using the same account you use in Kisuke.
+
+After signing in, Kisuke Connect will live in your **system tray** — look for the Kisuke Connect icon in your panel's notification area.
 
 ## Troubleshooting
 
