@@ -1,140 +1,16 @@
 ---
-title: "Install Kisuke Connect on Linux"
+title: "Linux"
 description: "Install Kisuke Connect on Linux"
 ---
 
-## System requirements
+The current version of Kisuke Connect requires Linux kernel 4.19 or later.
 
-The current version of Kisuke Connect requires **Linux kernel 4.19 or later** with **systemd**.
-
-Supported distributions include Ubuntu, Debian, Fedora, RHEL, Arch, and derivatives.
-
-## Installation
-
-### Option A: Install script
-
-For most distributions, the install script will detect your system and install the correct package:
-
-```bash
-curl -fsSL https://kisuke.app/install.sh | sh
-```
-
-### Option B: Package managers
-
-You can also install manually using your distribution's package manager.
-
-<Tabs>
-  <Tab title="Debian / Ubuntu">
-    ```bash
-    # Add the repository
-    curl -fsSL https://kisuke.app/gpg | sudo gpg --dearmor -o /usr/share/keyrings/kisuke.gpg
-    echo "deb [signed-by=/usr/share/keyrings/kisuke.gpg] https://repo.kisuke.app/apt stable main" | sudo tee /etc/apt/sources.list.d/kisuke.list
-
-    # Install
-    sudo apt update
-    sudo apt install kisuke-connect
-    ```
-  </Tab>
-  <Tab title="Fedora / RHEL">
-    ```bash
-    # Add the repository
-    sudo dnf config-manager --add-repo https://repo.kisuke.app/rpm/kisuke.repo
-
-    # Install
-    sudo dnf install kisuke-connect
-    ```
-  </Tab>
-  <Tab title="Arch">
-    ```bash
-    # From AUR
-    yay -S kisuke-connect
-    ```
-  </Tab>
-</Tabs>
-
-### Option C: Download directly
-
-Download the package for your distribution from [beta.kisuke.dev/downloads](https://beta.kisuke.dev/downloads/) and install it manually.
-
-## Set up
-
-### Step 1: Start the service
-
-```bash
-sudo systemctl enable --now kisuke-connect
-```
-
-### Step 2: Sign in
-
-```bash
-kisuke-connect login
-```
-
-A browser window will open. Sign in with the **same Google or GitHub account** you use in the Kisuke app. Once both devices are signed in with the same account, they will find each other automatically.
-
-### Step 3: Verify the connection
-
-```bash
-kisuke-connect status
-```
-
-Open Kisuke on your phone or another device. Your Linux machine should appear in the device list.
-
-## Service management
-
-```bash
-# Check status
-sudo systemctl status kisuke-connect
-
-# View logs
-journalctl -u kisuke-connect -f
-
-# Restart the service
-sudo systemctl restart kisuke-connect
-
-# Stop the service
-sudo systemctl stop kisuke-connect
-```
+1. [Download Kisuke Connect](https://beta.kisuke.dev/downloads/) from the Kisuke website.
+2. Run the installer. If you have a previous version installed, you may be prompted to uninstall it first.
+3. Choose an install location and complete the installation.
+4. Open Kisuke Connect — a sign-in window will appear. Sign in with **Google** or **GitHub** using the same account you use in Kisuke.
+5. After signing in, Kisuke Connect will live in your **system tray**.
 
 ## Troubleshooting
 
-### Install script fails
-
-If the install script does not work for your distribution, use the [package manager instructions](#option-b-package-managers) above, or install the [CLI](/installation/cli) as a standalone binary.
-
-### Device not appearing in Kisuke
-
-Make sure you are signed in with the **same account** on both the Kisuke app and Kisuke Connect. Run `kisuke-connect status` to confirm the service is running and authenticated.
-
-### Service fails to start
-
-Check the logs for errors:
-
-```bash
-journalctl -u kisuke-connect --no-pager -n 50
-```
-
-## Uninstall
-
-<Tabs>
-  <Tab title="Debian / Ubuntu">
-    ```bash
-    sudo apt remove kisuke-connect
-    ```
-  </Tab>
-  <Tab title="Fedora / RHEL">
-    ```bash
-    sudo dnf remove kisuke-connect
-    ```
-  </Tab>
-  <Tab title="Arch">
-    ```bash
-    yay -R kisuke-connect
-    ```
-  </Tab>
-</Tabs>
-
-## Next steps
-
-- [Learn more about Kisuke Connect](/concepts/kisuke-connect)
-- [Install the CLI](/installation/cli) for headless or server environments
+If the system tray icon does not appear, make sure your desktop environment supports system tray icons (e.g., install `gnome-shell-extension-appindicator` on GNOME).
