@@ -82,8 +82,32 @@
           {
             "group": "Concepts",
             "pages": [
-              "concepts/kisuke-connect",
               "concepts/relay-system"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Kisuke Connect",
+        "groups": [
+          {
+            "group": "Kisuke Connect",
+            "pages": [
+              "concepts/kisuke-connect"
+            ]
+          },
+          {
+            "group": "Desktop App",
+            "pages": [
+              "installation/mac",
+              "installation/windows",
+              "installation/linux"
+            ]
+          },
+          {
+            "group": "CLI",
+            "pages": [
+              "installation/cli"
             ]
           }
         ]
