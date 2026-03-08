@@ -67,10 +67,10 @@
         ]
       },
       {
-        "tab": "Features",
+        "tab": "Build with Kisuke",
         "groups": [
           {
-            "group": "Features",
+            "group": "Build with Kisuke",
             "pages": [
               "features/coding-with-ai",
               "features/terminal",
