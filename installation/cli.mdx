@@ -25,7 +25,7 @@ Once installed, run `kisuke connect` in your terminal:
 kisuke connect
 ```
 
-On first run, the CLI will walk you through setup — agreeing to terms, installing the daemon, and authenticating via your browser:
+On first run, the CLI will walk you through setup. It starts by checking your system and asking you to agree to the terms:
 
 ```
 ┌  Kisuke Connect v1.1.84
@@ -37,16 +37,23 @@ On first run, the CLI will walk you through setup — agreeing to terms, install
 ●  Before installing, please review our terms and privacy policy:
 │
 │    Terms:   https://beta.kisuke.dev/terms
-│
 │    Privacy: https://beta.kisuke.dev/privacy
 │
 ◇  Do you agree to the Terms of Service and Privacy Policy?
 │  Yes
-│
+```
+
+Once you agree, the daemon is installed and started:
+
+```
 ◇  Daemon installed
 │
 ◇  Daemon started
-│
+```
+
+A browser window opens for you to sign in with Google or GitHub:
+
+```
 ◇  Opening browser for authentication...
 │
 ◇  Authentication successful
