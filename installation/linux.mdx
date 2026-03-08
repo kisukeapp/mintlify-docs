@@ -1,26 +1,30 @@
 ---
-title: "Linux"
+title: "Install Kisuke Connect on Linux"
 description: "Install Kisuke Connect on Linux"
 ---
 
-The current version of Kisuke Connect requires Linux kernel 4.19 or later with systemd.
+## System requirements
 
-## Install
+The current version of Kisuke Connect requires **Linux kernel 4.19 or later** with **systemd**.
 
-For most distributions, run the install script:
+Supported distributions include Ubuntu, Debian, Fedora, RHEL, Arch, and derivatives.
+
+## Installation
+
+### Option A: Install script
+
+For most distributions, the install script will detect your system and install the correct package:
 
 ```bash
 curl -fsSL https://kisuke.app/install.sh | sh
 ```
 
-This supports Ubuntu, Debian, Fedora, RHEL, Arch, and other major distributions.
-
-### Package managers
+### Option B: Package managers
 
 You can also install manually using your distribution's package manager.
 
 <Tabs>
-  <Tab title="Debian/Ubuntu">
+  <Tab title="Debian / Ubuntu">
     ```bash
     # Add the repository
     curl -fsSL https://kisuke.app/gpg | sudo gpg --dearmor -o /usr/share/keyrings/kisuke.gpg
@@ -31,7 +35,7 @@ You can also install manually using your distribution's package manager.
     sudo apt install kisuke-connect
     ```
   </Tab>
-  <Tab title="Fedora/RHEL">
+  <Tab title="Fedora / RHEL">
     ```bash
     # Add the repository
     sudo dnf config-manager --add-repo https://repo.kisuke.app/rpm/kisuke.repo
@@ -48,25 +52,33 @@ You can also install manually using your distribution's package manager.
   </Tab>
 </Tabs>
 
+### Option C: Download directly
+
+Download the package for your distribution from [beta.kisuke.dev/downloads](https://beta.kisuke.dev/downloads/) and install it manually.
+
 ## Set up
 
-1. Start the Kisuke Connect service:
-   ```bash
-   sudo systemctl enable --now kisuke-connect
-   ```
+### Step 1: Start the service
 
-2. Authenticate your device:
-   ```bash
-   kisuke-connect login
-   ```
+```bash
+sudo systemctl enable --now kisuke-connect
+```
 
-3. Sign in with the same account you use in Kisuke.
+### Step 2: Sign in
 
-## Verify
+```bash
+kisuke-connect login
+```
+
+A browser window will open. Sign in with the **same Google or GitHub account** you use in the Kisuke app. Once both devices are signed in with the same account, they will find each other automatically.
+
+### Step 3: Verify the connection
 
 ```bash
 kisuke-connect status
 ```
+
+Open Kisuke on your phone or another device. Your Linux machine should appear in the device list.
 
 ## Service management
 
@@ -77,10 +89,52 @@ sudo systemctl status kisuke-connect
 # View logs
 journalctl -u kisuke-connect -f
 
-# Restart service
+# Restart the service
 sudo systemctl restart kisuke-connect
+
+# Stop the service
+sudo systemctl stop kisuke-connect
 ```
 
 ## Troubleshooting
 
-If the install script fails, you can install manually using the package manager instructions above, or download a [static binary](/installation/cli).
+### Install script fails
+
+If the install script does not work for your distribution, use the [package manager instructions](#option-b-package-managers) above, or install the [CLI](/installation/cli) as a standalone binary.
+
+### Device not appearing in Kisuke
+
+Make sure you are signed in with the **same account** on both the Kisuke app and Kisuke Connect. Run `kisuke-connect status` to confirm the service is running and authenticated.
+
+### Service fails to start
+
+Check the logs for errors:
+
+```bash
+journalctl -u kisuke-connect --no-pager -n 50
+```
+
+## Uninstall
+
+<Tabs>
+  <Tab title="Debian / Ubuntu">
+    ```bash
+    sudo apt remove kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Fedora / RHEL">
+    ```bash
+    sudo dnf remove kisuke-connect
+    ```
+  </Tab>
+  <Tab title="Arch">
+    ```bash
+    yay -R kisuke-connect
+    ```
+  </Tab>
+</Tabs>
+
+## Next steps
+
+- [Learn more about Kisuke Connect](/concepts/kisuke-connect)
+- [Install the CLI](/installation/cli) for headless or server environments

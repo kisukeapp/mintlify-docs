@@ -1,24 +1,71 @@
 ---
-title: "macOS"
+title: "Install Kisuke Connect on macOS"
 description: "Install Kisuke Connect on macOS"
 ---
 
-The current version of Kisuke Connect requires macOS 12 (Monterey) or later.
+## System requirements
 
-1. Download Kisuke Connect using one of the following methods:
-   - [Download from the Kisuke website](https://beta.kisuke.dev/downloads/)
-   - Install via Homebrew:
+The current version of Kisuke Connect requires **macOS 12 (Monterey) or later**.
 
-     ```bash
-     brew install kisuke-connect
-     ```
-2. Open Kisuke Connect from Applications and follow the onscreen instructions.
-3. Sign in with the same account you use in Kisuke.
+## Installation
+
+### Step 1: Download Kisuke Connect
+
+Download Kisuke Connect using one of the following methods:
+
+- [Download from the Kisuke website](https://beta.kisuke.dev/downloads/)
+- Install via Homebrew:
+
+  ```bash
+  brew install kisuke-connect
+  ```
+
+### Step 2: Open Kisuke Connect
+
+Open Kisuke Connect from Applications. A Kisuke Connect icon will appear in the menu bar, indicating the service is running.
+
+### Step 3: Sign in
+
+Click the Kisuke Connect icon in the menu bar and select **Sign in**. Sign in with the **same Google or GitHub account** you use in the Kisuke app. Once both devices are signed in with the same account, they will find each other automatically.
+
+### Step 4: Verify the connection
+
+Open Kisuke on your phone or another device. Your Mac should appear in the device list. Select it to access the terminal, file editor, and browser.
 
 ## Troubleshooting
 
-If Kisuke Connect does not appear in Applications after installing via Homebrew, run:
+### Kisuke Connect does not appear in Applications
+
+If you installed via Homebrew and Kisuke Connect does not appear in Applications, run:
 
 ```bash
 brew link kisuke-connect
 ```
+
+### macOS blocks the app
+
+If macOS shows a security prompt saying the app can't be opened, go to **System Settings** > **Privacy & Security** and click **Open Anyway**.
+
+### Device not appearing in Kisuke
+
+Make sure you are signed in with the **same account** on both the Kisuke app and Kisuke Connect. Check the Kisuke Connect menu bar icon to confirm you are signed in and the service is running.
+
+## Uninstall
+
+<Tabs>
+  <Tab title="Downloaded from website">
+    1. Quit Kisuke Connect from the menu bar
+    2. Drag **Kisuke Connect** from Applications to the Trash
+    3. Empty the Trash
+  </Tab>
+  <Tab title="Installed via Homebrew">
+    ```bash
+    brew uninstall kisuke-connect
+    ```
+  </Tab>
+</Tabs>
+
+## Next steps
+
+- [Learn more about Kisuke Connect](/concepts/kisuke-connect)
+- [Install the CLI](/installation/cli) for headless or server environments

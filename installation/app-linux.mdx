@@ -1,12 +1,65 @@
 ---
-title: "Linux"
+title: "Install Kisuke on Linux"
 description: "Install Kisuke on Linux"
 ---
 
-1. [Download Kisuke](https://beta.kisuke.dev/downloads/) for Linux.
-2. Install the package for your distribution (`.deb` or `.rpm`).
-3. Open Kisuke and sign in with your account.
+## System requirements
 
-<Tip>
-Looking to connect your Linux machine to Kisuke remotely? You'll also need [Kisuke Connect](/installation/kisuke-connect).
-</Tip>
+Kisuke for Linux is available as a `.deb` package (Debian, Ubuntu) and `.rpm` package (Fedora, RHEL).
+
+## Installation
+
+### Step 1: Download the package
+
+Download the latest package for your distribution from [beta.kisuke.dev/downloads](https://beta.kisuke.dev/downloads/).
+
+### Step 2: Install the package
+
+<Tabs>
+  <Tab title="Debian / Ubuntu">
+    ```bash
+    sudo dpkg -i kisuke_*.deb
+    sudo apt-get install -f
+    ```
+  </Tab>
+  <Tab title="Fedora / RHEL">
+    ```bash
+    sudo rpm -i kisuke_*.rpm
+    ```
+  </Tab>
+</Tabs>
+
+### Step 3: Open Kisuke
+
+Launch Kisuke from your application menu, or run `kisuke` from the terminal.
+
+### Step 4: Sign in
+
+Sign in with **Google** or **GitHub**. This creates your Kisuke account and links your device. Use the same account on all your devices so they can find each other automatically.
+
+## Using AI chat
+
+To use the built-in AI chat, sign in separately with your AI provider:
+
+1. Open **Settings** in Kisuke
+2. Under **AI Providers**, select the provider you want to use (Anthropic, OpenAI, Google, etc.)
+3. Sign in with your existing account for that provider
+
+## Uninstall
+
+<Tabs>
+  <Tab title="Debian / Ubuntu">
+    ```bash
+    sudo apt remove kisuke
+    ```
+  </Tab>
+  <Tab title="Fedora / RHEL">
+    ```bash
+    sudo dnf remove kisuke
+    ```
+  </Tab>
+</Tabs>
+
+## Next steps
+
+To access this machine remotely from another device, install [Kisuke Connect on Linux](/installation/linux).

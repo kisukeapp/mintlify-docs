@@ -1,19 +1,36 @@
 ---
-title: "Windows"
+title: "Install Kisuke Connect on Windows"
 description: "Install Kisuke Connect on Windows"
 ---
 
-The current version of Kisuke Connect requires Windows 10 (1903) or later.
+## System requirements
 
-1. Download Kisuke Connect using one of the following methods:
-   - [Download from the Kisuke website](https://beta.kisuke.dev/downloads/)
-   - Install via winget:
+The current version of Kisuke Connect requires **Windows 10 (version 1903) or later**.
 
-     ```powershell
-     winget install Kisuke.KisukeConnect
-     ```
-2. Run the installer. After installation, a Kisuke Connect icon appears in the system tray.
-3. Sign in with the same account you use in Kisuke.
+## Installation
+
+### Step 1: Download the installer
+
+Download Kisuke Connect using one of the following methods:
+
+- [Download from the Kisuke website](https://beta.kisuke.dev/downloads/)
+- Install via winget:
+
+  ```powershell
+  winget install Kisuke.KisukeConnect
+  ```
+
+### Step 2: Run the installer
+
+Execute the installer and follow the on-screen prompts. After installation completes, a Kisuke Connect icon will appear in the system tray. If not immediately visible, check the system tray overflow area by clicking the **^** arrow in the taskbar.
+
+### Step 3: Sign in
+
+Right-click the Kisuke Connect icon in the system tray and select **Sign in**. Sign in with the **same Google or GitHub account** you use in the Kisuke app. Once both devices are signed in with the same account, they will find each other automatically.
+
+### Step 4: Verify the connection
+
+Open Kisuke on your phone or another device. Your PC should appear in the device list. Select it to access the terminal, file editor, and browser.
 
 ## Firewall
 
@@ -23,8 +40,34 @@ If you need to configure the firewall manually:
 
 1. Open **Windows Defender Firewall**
 2. Click **Allow an app through firewall**
-3. Find **Kisuke Connect** and enable both Private and Public networks
+3. Find **Kisuke Connect** and enable both **Private** and **Public** networks
 
 ## Troubleshooting
 
-If Kisuke Connect does not appear in the system tray, check the overflow area by clicking the **^** arrow in the taskbar.
+### Kisuke Connect does not appear in the system tray
+
+Check the overflow area by clicking the **^** arrow in the taskbar. If it still does not appear, try restarting the application from the Start menu.
+
+### Device not appearing in Kisuke
+
+Make sure you are signed in with the **same account** on both the Kisuke app and Kisuke Connect. Right-click the system tray icon to confirm you are signed in and the service is running.
+
+### Firewall blocking connections
+
+If Kisuke Connect cannot connect, verify that it is allowed through the Windows Firewall using the steps in the [Firewall](#firewall) section above.
+
+## Uninstall
+
+1. Open **Settings** > **Apps** > **Installed apps**
+2. Find **Kisuke Connect**, click the three-dot menu, and select **Uninstall**
+
+Alternatively, if installed via winget:
+
+```powershell
+winget uninstall Kisuke.KisukeConnect
+```
+
+## Next steps
+
+- [Learn more about Kisuke Connect](/concepts/kisuke-connect)
+- [Install the CLI](/installation/cli) for headless or server environments
