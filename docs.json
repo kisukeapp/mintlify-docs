@@ -43,16 +43,25 @@
             ]
           },
           {
-            "group": "Install Kisuke",
+            "group": "Installation",
             "pages": [
-              "installation/overview"
-            ]
-          },
-          {
-            "group": "Install Kisuke Connect",
-            "pages": [
-              "installation/daemon",
-              "installation/cli"
+              "installation/overview",
+              {
+                "group": "Kisuke",
+                "pages": [
+                  "installation/ios",
+                  "installation/android"
+                ]
+              },
+              {
+                "group": "Kisuke Connect",
+                "pages": [
+                  "installation/mac",
+                  "installation/windows",
+                  "installation/linux",
+                  "installation/cli"
+                ]
+              }
             ]
           }
         ]
