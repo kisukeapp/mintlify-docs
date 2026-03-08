@@ -39,12 +39,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "what-is-kisuke"
-            ]
-          },
-          {
-            "group": "Installation",
-            "pages": [
+              "what-is-kisuke",
               "installation/overview",
               {
                 "group": "Kisuke",
