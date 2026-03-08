@@ -40,17 +40,19 @@
             "group": "Getting Started",
             "pages": [
               "what-is-kisuke",
-              "installation/overview",
+              "quickstart",
               {
-                "group": "Kisuke",
+                "group": "Install Kisuke",
                 "pages": [
+                  "installation/kisuke",
                   "installation/ios",
                   "installation/android"
                 ]
               },
               {
-                "group": "Kisuke Connect",
+                "group": "Install Kisuke Connect",
                 "pages": [
+                  "installation/kisuke-connect",
                   "installation/mac",
                   "installation/windows",
                   "installation/linux",
@@ -146,7 +148,7 @@
           },
           {
             "label": "Installation",
-            "href": "/installation/overview"
+            "href": "/quickstart"
           },
           {
             "label": "Self-Hosting",
