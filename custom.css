@@ -102,9 +102,9 @@ body {
 #navbar {
   background: var(--kisuke-doc-bg) !important;
   border-bottom: 1px solid var(--kisuke-doc-border-subtle) !important;
-  box-shadow: 0 4px 30px var(--kisuke-doc-shadow) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 #navbar > div {
