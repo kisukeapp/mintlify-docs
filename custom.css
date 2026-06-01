@@ -270,6 +270,80 @@ body {
   padding-top: 2rem;
 }
 
+#content a.card {
+  min-height: 12.75rem !important;
+  border-radius: 8px !important;
+  border-color: transparent !important;
+  background: var(--kisuke-doc-bg-2) !important;
+  box-shadow: none !important;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+#content a.card:has(.prose strong) {
+  height: 12.75rem !important;
+}
+
+#content a.card:hover {
+  background: var(--kisuke-doc-bg-3) !important;
+  border-color: var(--kisuke-doc-border) !important;
+}
+
+#content a.card > div {
+  display: flex !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+  flex-direction: column !important;
+  padding: 1.75rem !important;
+  position: relative !important;
+}
+
+#content a.card svg,
+#content a.card > div > div:has(> svg) {
+  display: none !important;
+}
+
+#content a.card > div > div:not([class*="absolute"]) {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+}
+
+#content a.card h2 {
+  margin-top: 0 !important;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+  color: var(--kisuke-doc-fg) !important;
+  font-size: 1.125rem !important;
+  line-height: 1.55 !important;
+}
+
+#content a.card .prose {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  margin-top: 1rem !important;
+  color: var(--kisuke-doc-muted) !important;
+}
+
+#content a.card:has(.prose strong) .prose {
+  padding-bottom: 2.75rem !important;
+}
+
+#content a.card .prose > span:has(strong):last-child {
+  position: absolute !important;
+  left: 1.75rem !important;
+  right: 1.75rem !important;
+  bottom: 1.75rem !important;
+  margin: 0 !important;
+}
+
+#content a.card .prose strong {
+  color: var(--kisuke-doc-fg) !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+}
+
 #content table {
   border-color: var(--kisuke-doc-border) !important;
 }

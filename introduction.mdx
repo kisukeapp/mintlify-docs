@@ -1,107 +1,71 @@
 ---
-title: "Getting Started"
-description: "Your development environment, anywhere"
+title: "Quickstart"
+description: "Get Kisuke running in minutes"
 ---
 
-## What is Kisuke?
+## 1. Install Kisuke
 
-Kisuke is your development environment, anywhere. With built-in AI chat, terminal, and code editor, you can code from any device — phone, desktop, or browser — on the train, at a coffee shop, or from your couch.
+Download Kisuke on your phone or desktop:
 
 <CardGroup cols={2}>
-  <Card title="What is Kisuke?" icon="circle-question" href="/what-is-kisuke">
-    Learn about Kisuke and its core features.
+  <Card href="https://kisuke.dev/downloads/" title="iOS">
+    Install Kisuke on iPhone or iPad.
+
+    **Download for iOS**
   </Card>
-  <Card title="Install Kisuke" icon="mobile" href="/installation/overview">
-    Get Kisuke on iOS, Android, desktop, or the web.
+
+  <Card href="https://kisuke.dev/downloads/" title="Android">
+    Install Kisuke from the Android download page.
+
+    **Download for Android**
   </Card>
-  <Card title="Install on Desktop" icon="desktop" href="/installation/mac">
-    Set up Kisuke Connect on your computer.
+
+  <Card href="https://kisuke.dev/downloads/" title="Desktop">
+    Install Kisuke on your main development machine.
+
+    **Download for macOS, Windows, or Linux**
   </Card>
-  <Card title="Coding with Claude" icon="sparkles" href="/features/coding-with-ai">
-    Code with AI assistance.
+
+  <Card href="https://web.kisuke.app" title="Web">
+    Use Kisuke from your browser with no install needed.
+
+    **Open web app**
   </Card>
 </CardGroup>
 
-## Quick Install
+## 2. Sign in
 
-<Tabs>
-  <Tab title="iOS / Android">
-    <CardGroup cols={2}>
-      <Card title="App Store" icon="apple" href="https://kisuke.dev/downloads/">
-        Download for iOS
-      </Card>
-      <Card title="Google Play" icon="google-play" href="https://kisuke.dev/downloads/">
-        Download for Android
-      </Card>
-    </CardGroup>
-  </Tab>
-  <Tab title="Desktop">
-    <CardGroup cols={3}>
-      <Card title="macOS" icon="apple" href="https://kisuke.dev/downloads/">
-        Download for Mac
-      </Card>
-      <Card title="Windows" icon="windows" href="https://kisuke.dev/downloads/">
-        Download for Windows
-      </Card>
-      <Card title="Linux" icon="linux" href="https://kisuke.dev/downloads/">
-        Download for Linux
-      </Card>
-    </CardGroup>
-  </Tab>
-  <Tab title="Web">
-    No install needed — open Kisuke directly in your browser.
+Open Kisuke and sign in with **Google** or **GitHub**. This creates your account and links your device.
 
-    [Open web app](https://web.kisuke.app)
-  </Tab>
-  <Tab title="CLI / Docker">
-    For servers and headless environments.
+## 3. Install Kisuke Connect
 
-    ```bash
-    # Install via npm
-    npm install -g @kisuke/cli
-
-    # Or use Docker
-    docker pull kisuke/kisuke-connect
-    ```
-
-    [Learn more about CLI & Docker](/installation/cli-docker)
-  </Tab>
-</Tabs>
-
-## How Kisuke Connect Works
-
-Kisuke Connect creates a secure, encrypted mesh network between your devices. Once you sign in on your phone and computer with the same account:
-
-1. **Install Kisuke** on [iOS](https://kisuke.dev/downloads/), [Android](https://kisuke.dev/downloads/), or desktop ([Mac](https://kisuke.dev/downloads/), [Windows](https://kisuke.dev/downloads/), or [Linux](https://kisuke.dev/downloads/))
-2. **Sign in** with Google or GitHub on the Kisuke app
-3. **Install & sign in** to [Kisuke Connect](/concepts/kisuke-connect) daemon or [CLI](/installation/cli-docker) on your desktop, server, or toaster — then sign in with the **same** account
-4. **Connected** — use the [terminal](/features/terminal), [editor](/features/editor), and [browser](/features/browser) from anywhere
-
-No port forwarding. No firewall rules. No VPN configuration. Just sign in and go.
-
-## Sign In Options
-
-Kisuke uses **Google** or **GitHub** for account sign-in and device linking.
-
-To use AI chat, sign in separately with your AI provider:
-
-- **Anthropic** - For Claude
-- **Google** - For Gemini
-- **OpenAI** - For GPT
-
-## Core Features
+Kisuke Connect runs on the computer you want to access remotely. It bridges your terminal, files, and editor to Kisuke over an encrypted connection.
 
 <CardGroup cols={2}>
-  <Card title="Terminal" icon="terminal" href="/features/terminal">
-    Full terminal access from any device.
+  <Card href="https://kisuke.dev/downloads/#connect" title="Desktop App">
+    Use the desktop app to expose your local machine.
+
+    **Download for macOS, Windows, or Linux**
   </Card>
-  <Card title="Code Editor" icon="code" href="/features/editor">
-    Edit files with syntax highlighting and more.
-  </Card>
-  <Card title="Kisuke Connect" icon="link" href="/concepts/kisuke-connect">
-    Connect any Kisuke client to your development machine.
-  </Card>
-  <Card title="Sessions" icon="clock-rotate-left" href="/features/sessions">
-    Persistent project sessions across all your devices.
+
+  <Card href="/installation/cli" title="CLI">
+    Connect servers and headless environments.
+
+    **Install the CLI**
   </Card>
 </CardGroup>
+
+## 4. Sign in to Kisuke Connect
+
+Sign in with the **same account** you used in step 2. Once both devices are signed in, they automatically connect.
+
+## 5. You're connected
+
+Open Kisuke on your phone or browser and start using:
+
+* [Chat](/features/coding-with-ai) — code with AI assistance
+* [Terminal](/features/terminal) — full shell access from anywhere
+* [Code Editor](/features/editor) — edit files with syntax highlighting
+* [Browser](/features/browser) — browse the web on your remote machine
+
+No port forwarding. No firewall rules. No VPN. Just sign in and go.
