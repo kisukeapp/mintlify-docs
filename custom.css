@@ -1,7 +1,7 @@
 :root {
   --kisuke-app-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --kisuke-mono-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --kisuke-doc-bg: #0a0a0b;
+  --kisuke-doc-bg: #161618;
   --kisuke-doc-bg-1: #161618;
   --kisuke-doc-bg-2: #222226;
   --kisuke-doc-bg-3: #2c2c30;
@@ -21,7 +21,7 @@
 }
 
 :root.dark {
-  --kisuke-doc-bg: #0a0a0b;
+  --kisuke-doc-bg: #161618;
   --kisuke-doc-bg-1: #161618;
   --kisuke-doc-bg-2: #222226;
   --kisuke-doc-bg-3: #2c2c30;
@@ -76,7 +76,7 @@ body {
 
 /* OpenAI-style top chrome */
 #navbar {
-  background: rgba(22, 22, 24, 0.6) !important;
+  background: var(--kisuke-doc-bg) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
   backdrop-filter: blur(12px);
@@ -131,12 +131,17 @@ body {
 }
 
 #navigation-items .sidebar-group-header {
-  padding-left: 0 !important;
-  margin-bottom: 0.65rem !important;
-  color: var(--kisuke-doc-fg) !important;
-  font-size: 0.82rem !important;
-  line-height: 1.25rem !important;
-  letter-spacing: 0 !important;
+  display: none !important;
+}
+
+#navigation-items > div,
+#navigation-items > div > div {
+  margin-top: 0 !important;
+}
+
+#navigation-items ul {
+  margin-top: 0 !important;
+  margin-bottom: 0.75rem !important;
 }
 
 #navigation-items a {
@@ -182,6 +187,10 @@ body {
 #content h1 {
   font-size: clamp(2rem, 4vw, 3.25rem) !important;
   letter-spacing: -0.02em;
+}
+
+#content-area header .eyebrow {
+  display: none !important;
 }
 
 #content h2 {
