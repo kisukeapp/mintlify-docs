@@ -12,74 +12,63 @@
   },
   "background": {
     "color": {
-      "light": "#F2EFDF",
-      "dark": "#2d353b"
+      "light": "#ffffff",
+      "dark": "#000000"
     }
   },
   "favicon": "/favicon.ico",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Getting Started",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "what-is-kisuke"
-            ]
-          },
-          {
-            "group": "Install Kisuke",
-            "pages": [
-              "installation/overview"
-            ]
-          },
-          {
-            "group": "Install Kisuke Connect",
-            "pages": [
-              "installation/daemon",
-              "installation/cli"
-            ]
-          }
+        "group": "Getting Started",
+        "pages": [
+          "what-is-kisuke",
+          "introduction"
         ]
       },
       {
-        "tab": "Features",
-        "groups": [
-          {
-            "group": "Features",
-            "pages": [
-              "features/coding-with-ai",
-              "features/terminal",
-              "features/sessions",
-              "features/editor",
-              "features/browser"
-            ]
-          },
-          {
-            "group": "Concepts",
-            "pages": [
-              "concepts/kisuke-connect",
-              "concepts/relay-system"
-            ]
-          }
+        "group": "Install Kisuke",
+        "pages": [
+          "installation/overview",
+          "installation/ios",
+          "installation/android"
         ]
       },
       {
-        "tab": "Administration",
-        "groups": [
-          {
-            "group": "Administration",
-            "pages": [
-              "advanced/admin-console"
-            ]
-          },
-          {
-            "group": "Security",
-            "pages": [
-              "concepts/security"
-            ]
-          }
+        "group": "Kisuke Connect",
+        "pages": [
+          "installation/daemon",
+          "installation/cli",
+          "installation/cli-docker",
+          "installation/mac",
+          "installation/windows",
+          "installation/linux"
+        ]
+      },
+      {
+        "group": "Features",
+        "pages": [
+          "features/coding-with-ai",
+          "features/terminal",
+          "features/sessions",
+          "features/editor",
+          "features/browser"
+        ]
+      },
+      {
+        "group": "Concepts",
+        "pages": [
+          "concepts/kisuke-connect",
+          "concepts/relay-system",
+          "concepts/security"
+        ]
+      },
+      {
+        "group": "Administration",
+        "pages": [
+          "advanced/admin-console",
+          "advanced/self-hosting",
+          "advanced/custom-infra"
         ]
       }
     ],

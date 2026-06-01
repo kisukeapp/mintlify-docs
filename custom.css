@@ -1,6 +1,25 @@
 :root {
   --kisuke-app-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --kisuke-mono-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --kisuke-doc-bg: #ffffff;
+  --kisuke-doc-fg: #111111;
+  --kisuke-doc-muted: #5f6368;
+  --kisuke-doc-border: #e6e6e6;
+  --kisuke-doc-surface: #f7f7f7;
+  --kisuke-doc-surface-hover: #eeeeee;
+  --kisuke-doc-active: #e8f4ee;
+  --kisuke-doc-active-text: #0b7f54;
+}
+
+:root.dark {
+  --kisuke-doc-bg: #000000;
+  --kisuke-doc-fg: #f5f5f5;
+  --kisuke-doc-muted: #a1a1a1;
+  --kisuke-doc-border: #242424;
+  --kisuke-doc-surface: #1f1f1f;
+  --kisuke-doc-surface-hover: #2a2a2a;
+  --kisuke-doc-active: #1f1f1f;
+  --kisuke-doc-active-text: #ffffff;
 }
 
 body,
@@ -25,11 +44,144 @@ select,
 
 /* Lock background on html to prevent flash during SPA page transitions */
 html {
-  background-color: #F2EFDF;
+  background-color: var(--kisuke-doc-bg);
 }
 
 html.dark {
-  background-color: #2d353b;
+  background-color: var(--kisuke-doc-bg);
+}
+
+body {
+  background: var(--kisuke-doc-bg) !important;
+  color: var(--kisuke-doc-fg) !important;
+}
+
+/* OpenAI-style top chrome */
+#navbar {
+  background: color-mix(in srgb, var(--kisuke-doc-bg) 94%, transparent) !important;
+  border-bottom: 1px solid var(--kisuke-doc-border) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#navbar > div {
+  max-width: none !important;
+}
+
+#navbar nav a:not(.group) {
+  color: var(--kisuke-doc-muted) !important;
+}
+
+#navbar nav a:not(.group):hover {
+  color: var(--kisuke-doc-fg) !important;
+}
+
+#search-bar-entry {
+  height: 40px !important;
+  border-radius: 999px !important;
+  background: var(--kisuke-doc-surface) !important;
+  border: 1px solid var(--kisuke-doc-border) !important;
+  box-shadow: none !important;
+}
+
+#search-bar-entry:hover {
+  background: var(--kisuke-doc-surface-hover) !important;
+  border-color: color-mix(in srgb, var(--kisuke-doc-border) 70%, var(--kisuke-doc-fg)) !important;
+}
+
+/* Root groups replace the old top tab row; keep any legacy tab rail hidden. */
+.nav-tabs,
+.nav-tabs-item {
+  display: none !important;
+}
+
+/* Sidebar as the primary document map */
+#sidebar {
+  width: 15rem !important;
+  border-right: 1px solid var(--kisuke-doc-border) !important;
+}
+
+#sidebar-content {
+  padding-right: 16px !important;
+  scrollbar-width: none;
+}
+
+#sidebar-content::-webkit-scrollbar {
+  display: none;
+}
+
+#navigation-items .sidebar-group-header {
+  padding-left: 0 !important;
+  margin-bottom: 0.65rem !important;
+  color: var(--kisuke-doc-fg) !important;
+  font-size: 0.82rem !important;
+  line-height: 1.25rem !important;
+  letter-spacing: 0 !important;
+}
+
+#navigation-items a {
+  border-radius: 7px !important;
+  padding: 0.38rem 0.75rem !important;
+  color: var(--kisuke-doc-fg) !important;
+  text-shadow: none !important;
+}
+
+#navigation-items a:hover {
+  background: var(--kisuke-doc-surface-hover) !important;
+  color: var(--kisuke-doc-fg) !important;
+}
+
+#navigation-items a[class*="bg-primary"] {
+  background: var(--kisuke-doc-active) !important;
+  color: var(--kisuke-doc-active-text) !important;
+}
+
+#content-area {
+  max-width: 1120px !important;
+}
+
+#content {
+  max-width: 760px !important;
+}
+
+#table-of-contents-layout {
+  border-left: 1px solid var(--kisuke-doc-border);
+}
+
+#table-of-contents a {
+  color: var(--kisuke-doc-muted) !important;
+}
+
+#table-of-contents a:hover,
+#table-of-contents a.text-primary,
+#table-of-contents a[class*="text-primary"] {
+  color: var(--kisuke-doc-fg) !important;
+}
+
+#content h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem) !important;
+  letter-spacing: -0.02em;
+}
+
+#content h2 {
+  border-top: 1px solid var(--kisuke-doc-border);
+  padding-top: 2rem;
+}
+
+#content table {
+  border-color: var(--kisuke-doc-border) !important;
+}
+
+#content div[class*="overflow-x-auto"]:has(table) {
+  overflow-x: visible !important;
+}
+
+#content thead {
+  background: transparent !important;
+}
+
+#content tr {
+  border-color: var(--kisuke-doc-border) !important;
 }
 
 /* Disable zoom/pan on Mermaid diagrams */
@@ -46,11 +198,11 @@ code, pre code {
 
 /* Buttons — less rounded corners globally */
 .rounded-xl {
-  border-radius: 4px !important;
+  border-radius: 8px !important;
 }
 
 .rounded-full {
-  border-radius: 4px !important;
+  border-radius: 999px !important;
 }
 
 /* Navbar CTA button — same style in both modes */
@@ -95,36 +247,28 @@ header a.group:hover .bg-primary-dark {
   border-color: #35A77C !important;
 }
 
-/* Bigger Kisuke logo */
+/* Compact wordmark in the same spirit as developer docs sites */
 #navbar a[href="/"] img.nav-logo,
 .advanced-footer a[href="/"] img.nav-logo {
-  height: 31px !important;
+  height: 24px !important;
 }
 
-/* ASCII art next to Kisuke logo — navbar + footer */
+/* Text mark next to Kisuke logo — navbar + footer */
 #navbar a[href="/"],
 .advanced-footer a[href="/"] {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
+  gap: 10px !important;
 }
 
 #navbar a[href="/"]::after,
 .advanced-footer a[href="/"]::after {
-  content:
-    "██╗  ██╗██╗███████╗██╗   ██╗██╗  ██╗███████╗\A"
-    "██║ ██╔╝██║██╔════╝██║   ██║██║ ██╔╝██╔════╝\A"
-    "█████╔╝ ██║███████╗██║   ██║█████╔╝ █████╗  \A"
-    "██╔═██╗ ██║╚════██║██║   ██║██╔═██╗ ██╔══╝  \A"
-    "██║  ██╗██║███████║╚██████╔╝██║  ██╗███████╗\A"
-    "╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝";
-  white-space: pre;
-  font-family: var(--kisuke-mono-font) !important;
-  font-size: 4.5px;
-  line-height: 1.15;
-  height: 31px;
-  display: flex;
-  align-items: center;
-  color: #a7c080;
-  opacity: 0.8;
+  content: "Kisuke Docs";
+  white-space: nowrap;
+  font-family: var(--kisuke-app-font) !important;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 650;
+  color: var(--kisuke-doc-fg);
+  opacity: 1;
 }
