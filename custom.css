@@ -18,6 +18,7 @@
   --kisuke-doc-accent: #bfd690;
   --kisuke-doc-accent-secondary: #e6d3a5;
   --kisuke-doc-accent-glow: rgba(191, 214, 144, 0.15);
+  --kisuke-doc-cta-text: #161618;
   --kisuke-doc-shadow: rgba(0, 0, 0, 0.5);
 }
 
@@ -38,7 +39,29 @@
   --kisuke-doc-accent: #bfd690;
   --kisuke-doc-accent-secondary: #e6d3a5;
   --kisuke-doc-accent-glow: rgba(191, 214, 144, 0.15);
+  --kisuke-doc-cta-text: #161618;
   --kisuke-doc-shadow: rgba(0, 0, 0, 0.5);
+}
+
+:root:not(.dark) {
+  --kisuke-doc-bg: #f5f0e6;
+  --kisuke-doc-bg-1: #f5f0e6;
+  --kisuke-doc-bg-2: #f2ede4;
+  --kisuke-doc-bg-3: #ebe4d8;
+  --kisuke-doc-fg: #2d2b28;
+  --kisuke-doc-muted: #6b6860;
+  --kisuke-doc-dim: #9a9589;
+  --kisuke-doc-border: rgba(0, 0, 0, 0.08);
+  --kisuke-doc-border-subtle: rgba(0, 0, 0, 0.06);
+  --kisuke-doc-surface: #f5f0e6;
+  --kisuke-doc-surface-hover: #f2ede4;
+  --kisuke-doc-active: #ebe4d8;
+  --kisuke-doc-active-text: #5a8a5e;
+  --kisuke-doc-accent: #5a8a5e;
+  --kisuke-doc-accent-secondary: #4a7a4e;
+  --kisuke-doc-accent-glow: rgba(90, 138, 94, 0.14);
+  --kisuke-doc-cta-text: #ffffff;
+  --kisuke-doc-shadow: rgba(45, 43, 40, 0.12);
 }
 
 body,
@@ -78,8 +101,8 @@ body {
 /* OpenAI-style top chrome */
 #navbar {
   background: var(--kisuke-doc-bg) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
+  border-bottom: 1px solid var(--kisuke-doc-border-subtle) !important;
+  box-shadow: 0 4px 30px var(--kisuke-doc-shadow) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -100,7 +123,7 @@ body {
   height: 40px !important;
   border-radius: var(--kisuke-button-radius) !important;
   background: var(--kisuke-doc-surface) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--kisuke-doc-border) !important;
   box-shadow: none !important;
 }
 
@@ -194,6 +217,29 @@ body {
 
 #content {
   max-width: 760px !important;
+}
+
+#content,
+#content .prose,
+#content p,
+#content li,
+#content td {
+  color: var(--kisuke-doc-muted) !important;
+}
+
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6,
+#content strong,
+#content th {
+  color: var(--kisuke-doc-fg) !important;
+}
+
+#content a:not(.card) {
+  color: var(--kisuke-doc-accent) !important;
 }
 
 #table-of-contents-layout {
@@ -315,7 +361,7 @@ code, pre code {
 /* Navbar CTA button — same style in both modes */
 .bg-primary-dark {
   background-color: var(--kisuke-doc-accent) !important;
-  color: var(--kisuke-doc-bg) !important;
+  color: var(--kisuke-doc-cta-text) !important;
 }
 
 .bg-primary-light\/10 {
@@ -325,13 +371,13 @@ code, pre code {
 
 header a.group span[class*="relative"],
 header a.group span:not([class*="absolute"]) {
-  color: var(--kisuke-doc-bg-1) !important;
+  color: var(--kisuke-doc-cta-text) !important;
   font-weight: 600 !important;
 }
 
 #navbar a.group > div,
 #navbar a.group > div * {
-  color: var(--kisuke-doc-bg-1) !important;
+  color: var(--kisuke-doc-cta-text) !important;
 }
 
 header a.group:hover .bg-primary-dark {
