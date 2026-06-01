@@ -98,7 +98,7 @@ body {
 /* Sidebar as the primary document map */
 #sidebar {
   width: 15rem !important;
-  border-right: 1px solid var(--kisuke-doc-border) !important;
+  border-right: 0 !important;
 }
 
 #sidebar-content {
