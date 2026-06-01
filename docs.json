@@ -10,20 +10,6 @@
   "appearance": {
     "default": "system"
   },
-  "fonts": {
-    "body": {
-      "family": "Berkeley Mono",
-      "source": "/font/BerkeleyMono-Regular.woff2",
-      "format": "woff2",
-      "weight": 400
-    },
-    "heading": {
-      "family": "Berkeley Mono",
-      "source": "/font/BerkeleyMono-Bold.woff2",
-      "format": "woff2",
-      "weight": 700
-    }
-  },
   "background": {
     "color": {
       "light": "#F2EFDF",
