@@ -88,11 +88,11 @@ body {
 }
 
 #navbar nav a:not(.group) {
-  color: var(--kisuke-doc-muted) !important;
+  color: var(--kisuke-doc-dim) !important;
 }
 
 #navbar nav a:not(.group):hover {
-  color: var(--kisuke-doc-fg) !important;
+  color: var(--kisuke-doc-muted) !important;
 }
 
 #search-bar-entry {
@@ -299,8 +299,13 @@ code, pre code {
 
 header a.group span[class*="relative"],
 header a.group span:not([class*="absolute"]) {
-  color: var(--kisuke-doc-bg) !important;
+  color: var(--kisuke-doc-bg-1) !important;
   font-weight: 600 !important;
+}
+
+#navbar a.group > div,
+#navbar a.group > div * {
+  color: var(--kisuke-doc-bg-1) !important;
 }
 
 header a.group:hover .bg-primary-dark {
