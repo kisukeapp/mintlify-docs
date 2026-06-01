@@ -119,11 +119,14 @@ body {
 #sidebar {
   width: 15rem !important;
   border-right: 0 !important;
+  overscroll-behavior: contain;
 }
 
 #sidebar-content {
   padding-left: 16px !important;
   padding-right: 16px !important;
+  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
   scrollbar-width: none;
 }
 
