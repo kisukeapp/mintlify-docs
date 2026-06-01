@@ -102,6 +102,7 @@ body {
 }
 
 #sidebar-content {
+  padding-left: 16px !important;
   padding-right: 16px !important;
   scrollbar-width: none;
 }
@@ -174,6 +175,57 @@ body {
 
 #content div[class*="overflow-x-auto"]:has(table) {
   overflow-x: visible !important;
+}
+
+@media (min-width: 1024px) {
+  #sidebar {
+    left: 0 !important;
+    right: auto !important;
+    width: 17.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #sidebar-content {
+    left: 0 !important;
+    right: 0 !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1rem !important;
+  }
+
+  #content-area {
+    margin-left: 0 !important;
+    padding-left: 21rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  #content-side-layout {
+    position: fixed !important;
+    right: 0 !important;
+    top: 6.5rem !important;
+    width: 17rem !important;
+    height: calc(100vh - 6.5rem) !important;
+    max-width: none !important;
+    z-index: 21 !important;
+  }
+
+  #table-of-contents-layout {
+    width: 100% !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1rem !important;
+  }
+
+  #content-area {
+    width: auto !important;
+    max-width: none !important;
+    padding-right: 19rem !important;
+  }
+
+  #content {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
 #content thead {
