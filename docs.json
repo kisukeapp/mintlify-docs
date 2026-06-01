@@ -81,10 +81,6 @@
   "navbar": {
     "links": [
       {
-        "label": "GitHub",
-        "href": "https://github.com/kisuke-app"
-      },
-      {
         "label": "Support",
         "href": "mailto:support@kisuke.app"
       }
