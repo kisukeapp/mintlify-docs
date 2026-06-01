@@ -98,6 +98,12 @@ body {
   color: var(--kisuke-doc-fg) !important;
 }
 
+footer,
+.advanced-footer,
+[role="contentinfo"] {
+  display: none !important;
+}
+
 /* OpenAI-style top chrome */
 #navbar {
   background: var(--kisuke-doc-bg) !important;
