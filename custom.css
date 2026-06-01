@@ -299,28 +299,35 @@ header a.group:hover .bg-primary-dark {
   border-color: #35A77C !important;
 }
 
-/* Compact wordmark in the same spirit as developer docs sites */
+/* Kisuke logo + ASCII wordmark */
 #navbar a[href="/"] img.nav-logo,
 .advanced-footer a[href="/"] img.nav-logo {
-  height: 24px !important;
+  height: 31px !important;
 }
 
-/* Text mark next to Kisuke logo — navbar + footer */
 #navbar a[href="/"],
 .advanced-footer a[href="/"] {
   display: flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  gap: 8px !important;
 }
 
 #navbar a[href="/"]::after,
 .advanced-footer a[href="/"]::after {
-  content: "Kisuke Docs";
-  white-space: nowrap;
-  font-family: var(--kisuke-app-font) !important;
-  font-size: 18px;
-  line-height: 1;
-  font-weight: 650;
-  color: var(--kisuke-doc-fg);
-  opacity: 1;
+  content:
+    "██╗  ██╗██╗███████╗██╗   ██╗██╗  ██╗███████╗\A"
+    "██║ ██╔╝██║██╔════╝██║   ██║██║ ██╔╝██╔════╝\A"
+    "█████╔╝ ██║███████╗██║   ██║█████╔╝ █████╗  \A"
+    "██╔═██╗ ██║╚════██║██║   ██║██╔═██╗ ██╔══╝  \A"
+    "██║  ██╗██║███████║╚██████╔╝██║  ██╗███████╗\A"
+    "╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝";
+  white-space: pre;
+  font-family: var(--kisuke-mono-font) !important;
+  font-size: 4.5px;
+  line-height: 1.15;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  color: #a7c080;
+  opacity: 0.9;
 }
