@@ -3,17 +3,17 @@
   "theme": "mint",
   "name": "Kisuke",
   "colors": {
-    "primary": "#a7c080",
-    "light": "#35A77C",
-    "dark": "#a7c080"
+    "primary": "#bfd690",
+    "light": "#bfd690",
+    "dark": "#bfd690"
   },
   "appearance": {
-    "default": "system"
+    "default": "dark"
   },
   "background": {
     "color": {
-      "light": "#ffffff",
-      "dark": "#000000"
+      "light": "#0a0a0b",
+      "dark": "#0a0a0b"
     }
   },
   "favicon": "/favicon.ico",

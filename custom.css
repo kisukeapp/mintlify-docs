@@ -1,25 +1,43 @@
 :root {
   --kisuke-app-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --kisuke-mono-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --kisuke-doc-bg: #ffffff;
-  --kisuke-doc-fg: #111111;
-  --kisuke-doc-muted: #5f6368;
-  --kisuke-doc-border: #e6e6e6;
-  --kisuke-doc-surface: #f7f7f7;
-  --kisuke-doc-surface-hover: #eeeeee;
-  --kisuke-doc-active: #e8f4ee;
-  --kisuke-doc-active-text: #0b7f54;
+  --kisuke-doc-bg: #0a0a0b;
+  --kisuke-doc-bg-1: #161618;
+  --kisuke-doc-bg-2: #222226;
+  --kisuke-doc-bg-3: #2c2c30;
+  --kisuke-doc-fg: #ffffff;
+  --kisuke-doc-muted: #a1a1aa;
+  --kisuke-doc-dim: #71717a;
+  --kisuke-doc-border: #27272a;
+  --kisuke-doc-border-subtle: #1f1f22;
+  --kisuke-doc-surface: #161618;
+  --kisuke-doc-surface-hover: #222226;
+  --kisuke-doc-active: #222226;
+  --kisuke-doc-active-text: #bfd690;
+  --kisuke-doc-accent: #bfd690;
+  --kisuke-doc-accent-secondary: #e6d3a5;
+  --kisuke-doc-accent-glow: rgba(191, 214, 144, 0.15);
+  --kisuke-doc-shadow: rgba(0, 0, 0, 0.5);
 }
 
 :root.dark {
-  --kisuke-doc-bg: #000000;
-  --kisuke-doc-fg: #f5f5f5;
-  --kisuke-doc-muted: #a1a1a1;
-  --kisuke-doc-border: #242424;
-  --kisuke-doc-surface: #1f1f1f;
-  --kisuke-doc-surface-hover: #2a2a2a;
-  --kisuke-doc-active: #1f1f1f;
-  --kisuke-doc-active-text: #ffffff;
+  --kisuke-doc-bg: #0a0a0b;
+  --kisuke-doc-bg-1: #161618;
+  --kisuke-doc-bg-2: #222226;
+  --kisuke-doc-bg-3: #2c2c30;
+  --kisuke-doc-fg: #ffffff;
+  --kisuke-doc-muted: #a1a1aa;
+  --kisuke-doc-dim: #71717a;
+  --kisuke-doc-border: #27272a;
+  --kisuke-doc-border-subtle: #1f1f22;
+  --kisuke-doc-surface: #161618;
+  --kisuke-doc-surface-hover: #222226;
+  --kisuke-doc-active: #222226;
+  --kisuke-doc-active-text: #bfd690;
+  --kisuke-doc-accent: #bfd690;
+  --kisuke-doc-accent-secondary: #e6d3a5;
+  --kisuke-doc-accent-glow: rgba(191, 214, 144, 0.15);
+  --kisuke-doc-shadow: rgba(0, 0, 0, 0.5);
 }
 
 body,
@@ -58,8 +76,9 @@ body {
 
 /* OpenAI-style top chrome */
 #navbar {
-  background: color-mix(in srgb, var(--kisuke-doc-bg) 94%, transparent) !important;
-  border-bottom: 1px solid var(--kisuke-doc-border) !important;
+  background: rgba(22, 22, 24, 0.6) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -80,7 +99,7 @@ body {
   height: 40px !important;
   border-radius: 999px !important;
   background: var(--kisuke-doc-surface) !important;
-  border: 1px solid var(--kisuke-doc-border) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: none !important;
 }
 
@@ -135,6 +154,7 @@ body {
 #navigation-items a[class*="bg-primary"] {
   background: var(--kisuke-doc-active) !important;
   color: var(--kisuke-doc-active-text) !important;
+  box-shadow: inset 0 0 0 1px var(--kisuke-doc-accent-glow);
 }
 
 #content-area {
@@ -259,44 +279,45 @@ code, pre code {
 
 /* Navbar CTA button — same style in both modes */
 .bg-primary-dark {
-  background-color: #35A77C !important;
+  background-color: var(--kisuke-doc-accent) !important;
+  color: var(--kisuke-doc-bg) !important;
 }
 
 .bg-primary-light\/10 {
   background-color: transparent !important;
-  border-color: #35A77C !important;
+  border-color: var(--kisuke-doc-accent) !important;
 }
 
 header a.group span[class*="relative"],
 header a.group span:not([class*="absolute"]) {
-  color: #F2EFDF !important;
+  color: var(--kisuke-doc-bg) !important;
   font-weight: 600 !important;
 }
 
 header a.group:hover .bg-primary-dark {
-  background-color: #8DA101 !important;
+  background-color: var(--kisuke-doc-accent-secondary) !important;
 }
 
 
 /* Light mode: boost primary color contrast across the board */
 :root:not(.dark) .text-primary {
-  color: #2d7a5a !important;
+  color: var(--kisuke-doc-accent) !important;
 }
 
 :root:not(.dark) .bg-primary {
-  background-color: #35A77C !important;
+  background-color: var(--kisuke-doc-accent) !important;
 }
 
 :root:not(.dark) .bg-primary\/10 {
-  background-color: rgba(53, 167, 124, 0.15) !important;
+  background-color: var(--kisuke-doc-accent-glow) !important;
 }
 
 :root:not(.dark) .bg-primary\/30 {
-  background-color: rgba(53, 167, 124, 0.3) !important;
+  background-color: rgba(191, 214, 144, 0.3) !important;
 }
 
 :root:not(.dark) .border-primary {
-  border-color: #35A77C !important;
+  border-color: var(--kisuke-doc-accent) !important;
 }
 
 /* Kisuke logo + ASCII wordmark */
@@ -328,6 +349,6 @@ header a.group:hover .bg-primary-dark {
   height: 31px;
   display: flex;
   align-items: center;
-  color: #a7c080;
+  color: var(--kisuke-doc-accent);
   opacity: 0.9;
 }
