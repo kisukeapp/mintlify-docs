@@ -3,177 +3,114 @@
   "theme": "mint",
   "name": "Kisuke",
   "colors": {
-    "primary": "#a7c080",
-    "light": "#35A77C",
-    "dark": "#a7c080"
+    "primary": "#6C63DA",
+    "light": "#A49CF5",
+    "dark": "#6258CC"
   },
-  "appearance": {
-    "default": "system"
-  },
-  "fonts": {
-    "body": {
-      "family": "Berkeley Mono",
-      "source": "/font/BerkeleyMono-Regular.woff2",
-      "format": "woff2",
-      "weight": 400
-    },
-    "heading": {
-      "family": "Berkeley Mono",
-      "source": "/font/BerkeleyMono-Bold.woff2",
-      "format": "woff2",
-      "weight": 700
-    }
-  },
-  "background": {
-    "color": {
-      "light": "#F2EFDF",
-      "dark": "#2d353b"
-    }
-  },
-  "favicon": "/favicon.ico",
+  "favicon": "/images/kisuke-logo.png",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Getting Started",
-        "groups": [
-          {
-            "group": "Getting Started",
-            "pages": [
-              "what-is-kisuke",
-              "quickstart",
-              {
-                "group": "Kisuke",
-                "pages": [
-                  "installation/kisuke",
-                  "installation/ios",
-                  "installation/android",
-                  "installation/app-macos",
-                  "installation/app-windows",
-                  "installation/app-linux"
-                ]
-              },
-              {
-                "group": "Kisuke Connect",
-                "pages": [
-                  "installation/kisuke-connect",
-                  "installation/mac",
-                  "installation/windows",
-                  "installation/linux",
-                  "installation/cli"
-                ]
-              }
-            ]
-          }
+        "group": "Get started",
+        "pages": [
+          "index",
+          "get-started/install",
+          "get-started/desktop-setup",
+          "zen-mode",
+          "projects/open-a-project"
         ]
       },
       {
-        "tab": "Build with Kisuke",
-        "groups": [
-          {
-            "group": "Build with Kisuke",
-            "pages": [
-              "features/coding-with-ai",
-              "features/terminal",
-              "features/sessions",
-              "features/editor",
-              "features/browser"
-            ]
-          },
+        "group": "Models and providers",
+        "pages": [
+          "models/overview",
+          "models/providers",
+          "models/custom-models"
         ]
       },
       {
-        "tab": "Kisuke Connect",
-        "groups": [
-          {
-            "group": "Kisuke Connect",
-            "pages": [
-              "concepts/kisuke-connect",
-              "connect/desktop-app",
-              "connect/cli",
-              "concepts/relay-system"
-            ]
-          }
+        "group": "Conversations",
+        "pages": [
+          "conversations/find-conversations",
+          "conversations/organize-and-archive",
+          "conversations/attachments",
+          "conversations/permissions",
+          "conversations/planning",
+          "conversations/track-progress",
+          "conversations/subagents",
+          "conversations/answer-questions",
+          "conversations/follow-ups",
+          "conversations/stop-and-continue",
+          "conversations/continue-from-response",
+          "conversations/side-chat",
+          "conversations/goals"
         ]
       },
       {
-        "tab": "Administration",
-        "groups": [
-          {
-            "group": "Administration",
-            "pages": [
-              "advanced/admin-console"
-            ]
-          },
-          {
-            "group": "Security",
-            "pages": [
-              "concepts/security"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {}
-  },
-  "logo": {
-    "light": "/logo/kisuke-logo.png",
-    "dark": "/logo/kisuke-logo.png"
-  },
-  "navbar": {
-    "links": [],
-    "primary": {
-      "type": "button",
-      "label": "Download",
-      "href": "https://kisuke.dev/downloads/"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/kiuske"
-    },
-    "links": [
-      {
-        "header": "Product",
-        "items": [
-          {
-            "label": "Download",
-            "href": "https://kisuke.dev/downloads/"
-          },
-          {
-            "label": "Features",
-            "href": "/features/terminal"
-          },
-          {
-            "label": "Security",
-            "href": "/concepts/security"
-          }
+        "group": "Workspace",
+        "pages": [
+          "workspace/devices",
+          "workspace/device-sync",
+          "workspace/tasks",
+          "workspace/run-a-task",
+          "workspace/task-automation",
+          "projects/worktrees",
+          "projects/scripts",
+          "workspace/files",
+          "workspace/organize-files",
+          "workspace/search-files",
+          "workspace/import-files",
+          "workspace/git",
+          "workspace/commit-and-push",
+          "workspace/pull-requests",
+          "workspace/git-recovery",
+          "workspace/terminal",
+          "workspace/browser"
         ]
       },
       {
-        "header": "Resources",
-        "items": [
-          {
-            "label": "Documentation",
-            "href": "/what-is-kisuke"
-          },
-          {
-            "label": "Installation",
-            "href": "/quickstart"
-          },
-          {
-            "label": "Self-Hosting",
-            "href": "/advanced/self-hosting"
-          }
+        "group": "Customization",
+        "pages": [
+          "customization/project-instructions",
+          "customization/task-workflows",
+          "customization/skills",
+          "customization/commands",
+          "customization/mcp",
+          "customization/plugins",
+          "customization/plugin-marketplaces"
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "reference/glossary",
+          "reference/settings",
+          "reference/keyboard-shortcuts"
+        ]
+      },
+      {
+        "group": "Help",
+        "pages": [
+          "help/starting-a-chat"
         ]
       }
     ]
   },
-  "errors": {
-    "404": {
-      "redirect": true
-    }
+  "navbar": {
+    "links": [
+      {
+        "label": "Kisuke",
+        "href": "https://kisuke.dev"
+      }
+    ]
   },
-  "seo": {
-    "indexing": "navigable"
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "mcp"
+    ]
   }
 }

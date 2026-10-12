@@ -1,0 +1,107 @@
+---
+title: "Install Kisuke"
+description: "Choose the desktop download for your computer, install it, and continue into your first Zen workspace."
+---
+
+Download the desktop app from the [Kisuke downloads page](https://kisuke.dev/downloads/). Choose your operating system and processor under **For desktop**, then follow the steps below.
+
+Already installed? Continue with [desktop setup](/get-started/desktop-setup) to sign in, set up Connect, and connect an AI provider.
+
+## Choose and install your desktop app
+
+<Tabs>
+  <Tab title="macOS">
+    Open the Apple menu → **About This Mac**. A **Chip** entry identifies Apple silicon; a **Processor** entry naming Intel identifies an Intel Mac. See [Apple's processor identification guide](https://support.apple.com/en-us/116943).
+
+    | Your Mac | Download choice |
+    | --- | --- |
+    | Apple silicon | **Apple Silicon** |
+    | Intel processor | **Intel** |
+
+    1. Select the matching macOS download and wait for the `.dmg` file to finish downloading.
+    2. Open the downloaded disk image.
+    3. Drag **Kisuke** onto **Applications** in the installer window.
+    4. Open **Kisuke** from Applications. After copying the app, you can eject the installer disk image in Finder.
+
+    Continue with [desktop setup](/get-started/desktop-setup). If macOS prevents the app from opening, read the exact message and use the recovery guidance below.
+  </Tab>
+  <Tab title="Windows">
+    Open **Settings → System → About** and check **System type** under **Device specifications**. See [Microsoft's device information guide](https://support.microsoft.com/en-us/windows/experience/find-information-about-your-windows-device).
+
+    | Your processor | Download choice |
+    | --- | --- |
+    | x64-based processor | **64-bit** |
+    | ARM-based processor | **ARM64** |
+
+    1. Select the matching Windows download and wait for the `.exe` installer to finish downloading.
+    2. Open the installer and follow its prompts. You can choose the installation folder.
+    3. Finish installation and open **Kisuke**.
+
+    Continue with [desktop setup](/get-started/desktop-setup). The **64-bit** download is the x64 package; choose **ARM64** for an ARM computer.
+  </Tab>
+  <Tab title="Linux">
+    Choose the architecture row first. The downloads page's **X86** row contains x64 packages; **ARM** contains ARM64 packages.
+
+    You can check your machine architecture in a terminal:
+
+    ```sh
+    uname -m
+    ```
+
+    | Architecture reported | Download row |
+    | --- | --- |
+    | `x86_64` | **X86** |
+    | `aarch64` or `arm64` | **ARM** |
+
+    Then choose a format:
+
+    - **AppImage:** download the `.AppImage` file, open its properties in your file manager, and enable permission to execute it as a program. Then open the file. The exact control depends on your file manager; see the [AppImage quickstart](https://docs.appimage.org/introduction/quickstart.html).
+    - **Debian:** download the `.deb` file and install it with your distribution's package installer. Review its dependency and permission prompts, then open Kisuke from the application launcher.
+    - **Red Hat:** download the `.rpm` file and install it with your distribution's package installer. Review its dependency and permission prompts, then open Kisuke from the application launcher.
+
+    Use a package format your distribution supports. If `uname -m` reports a different architecture, do not assume either row matches it. Continue with [desktop setup](/get-started/desktop-setup) once the app opens.
+  </Tab>
+</Tabs>
+
+## Set up your first workspace
+
+Installing the app is the first step. The [setup guide](/get-started/desktop-setup) takes you through your Kisuke account, Connect on this computer, and provider access.
+
+After setup:
+
+1. [Open a project](/projects/open-a-project) and check its computer and working folder.
+2. Enter [Zen mode](/zen-mode) to keep the conversation and supporting tools together.
+3. [Choose an available model](/models/overview) from a connected provider such as OpenAI, Anthropic, or Google.
+4. Ask for a small read-only explanation of the project before requesting changes.
+
+## Use Kisuke on a phone or in a browser
+
+The [downloads page](https://kisuke.dev/downloads/) also has **For mobile** and **For web** sections. Use its current iOS or Android link to install the mobile app, or its web link to open the browser client.
+
+To work with a computer's project from either client, prepare that computer and follow [Connect devices and pair your phone](/workspace/devices). Installing a client does not make a project computer available by itself.
+
+### Need Connect on a server?
+
+The **For servers** section provides the **Kisuke Connect** command-line installation. Use that section for a server setup. For the desktop workspace described in these guides, choose a desktop installer above and follow the app's [Connect setup](/get-started/desktop-setup#set-up-connect).
+
+## Resolve an installation problem
+
+<AccordionGroup>
+  <Accordion title="The download does not start or reports an error">
+    Return to the [downloads page](https://kisuke.dev/downloads/) and select the current package for your operating system and processor. Check your browser's downloads list for the failed item and its error.
+
+    If the link returns **403 Forbidden**, **Not found**, or another server error, keep the selected package name, error, and time. Report the failing link through the [Kisuke community](https://discord.com/invite/49cFTCdZyR). A visible download button does not confirm that a file finished downloading.
+  </Accordion>
+  <Accordion title="The package will not open or the operating system blocks it">
+    Check the operating system and processor choice, confirm the download completed, and read the full message. A wrong architecture, incomplete file, dependency problem, or security warning requires a different next step.
+
+    Use the official downloads page to obtain the package. For a publisher or security warning, retain the exact wording and ask for help before changing security settings. Include your OS version and the installer filename when reporting the problem.
+
+    On Linux, check the package installer's dependency error or the AppImage's execute permission. Making an AppImage executable does not resolve a missing system dependency.
+  </Accordion>
+  <Accordion title="Kisuke opens, but setup or the first message fails">
+    Continue with the failed stage in [desktop setup](/get-started/desktop-setup). Signing in, making Connect ready, and connecting a model provider are separate steps.
+
+    If the workspace opens but a prompt cannot start, use [Troubleshoot a first message](/help/starting-a-chat). Keep the displayed error and selected provider and model. Review screenshots and logs for account information or private paths before sharing them.
+  </Accordion>
+</AccordionGroup>

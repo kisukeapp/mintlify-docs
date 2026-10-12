@@ -1,0 +1,11 @@
+# Maintainer-only research and draft content
+maintenance/
+drafts/
+*.draft.mdx
+.agents/
+.codex/
+skills-lock.json
+# Repository documentation
+AGENTS.md
+CONTRIBUTING.md
+README.md

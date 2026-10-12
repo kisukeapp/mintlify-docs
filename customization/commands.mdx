@@ -1,0 +1,130 @@
+---
+title: "Custom commands"
+description: "Turn a prompt you reuse into a slash command with optional arguments and project or user scope."
+---
+
+A custom command is a saved prompt template. Invoke it from the composer to reuse the prompt, and use `$ARGUMENTS` wherever you want Kisuke to insert the text you supply.
+
+Use a command for a repeatable request such as explaining a file or reviewing a change. Use a [skill](/customization/skills) when you want reusable instructions alongside a separate task.
+
+## Create a command file
+
+For a project command, create `.claude/commands/explain-file.md` in the project's working folder:
+
+```markdown
+---
+description: Explain a file and how it fits into the project.
+argument-hint: <file path>
+---
+
+Read $ARGUMENTS and explain its purpose, main responsibilities,
+and important dependencies. Include file references.
+Keep the explanation under 150 words.
+Do not edit files, run commands or tests, access the network, or delegate.
+```
+
+Then invoke it with:
+
+```text
+/explain-file index.html
+```
+
+Kisuke substitutes `index.html` for `$ARGUMENTS` before passing the prompt to the harness. The **Argument Hint** describes the expected input in the composer menu; the placeholder in the template performs the substitution.
+
+The file path is part of the prompt. This template asks the agent to read it; it does not attach the file or prove that the file exists. Check the agent's response and file references.
+
+## Create a command in Settings
+
+On desktop, open **Settings → Skills** and choose **+ Command**.
+
+1. Enter a **Name**, such as `explain-file`, and a **Description**.
+2. Set **Argument Hint** to a short label such as `<file path>`.
+3. Choose **User** or **Project** scope. If Project is disabled, use the project-file method above.
+4. Enter the prompt under **Command Template**, including `$ARGUMENTS` where the supplied text belongs.
+5. Choose **Create Command** and check that it appears in the list.
+
+The form creates a lowercase, hyphenated filename from the name. A name already used in that scope produces an error instead of replacing the existing command. Settings writes the description and argument hint as frontmatter, so enter only the prompt body in **Command Template**.
+
+## Invoke from the composer
+
+For the `explain-file` template above:
+
+1. Open a conversation in the project that contains the command file.
+2. Type `/explain-file`. Check the **Project** entry, its description, and the `<file path>` hint.
+3. Select the entry. Because this template contains `$ARGUMENTS`, Kisuke inserts a command chip and leaves the draft open.
+4. Type `index.html` after the chip, then send the message.
+5. Check the agent's file read and explanation.
+
+<Frame caption="The project command appears in Zen's slash menu with its file-path argument hint.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '180 / 70', width: '100%', maxWidth: '360px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-command-menu.jpg" width="1686" height="720" alt="The Project group in the slash menu contains explain-file and its file path argument hint." style={{ position: 'absolute', width: '936.666667%', maxWidth: 'none', left: '-265%', top: '-438.571429%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the command draft in Zen">
+  <img src="/images/screenshots/zen-command-draft.jpg" width="1686" height="720" alt="An unsent Zen draft contains the explain-file command chip followed by index.html. Pi and DeepSeek V4 Flash are selected with Ask first permissions." />
+</Accordion>
+
+In this example, Pi with DeepSeek V4 Flash received the template with `index.html` substituted, read that file, and returned an explanation. It did not change the project files. Check the response's line ranges against the file, and ask for corrected references if they do not match.
+
+When names collide, use the scope and path shown in the menu to choose the intended command. If you created the file while a chat was already open and it is missing from the menu, open a new conversation in the same project and try again.
+
+<Note>
+  A command whose template has no `$ARGUMENTS` placeholder can send as soon as you select it, including when you accept the highlighted menu entry with Enter. Read the saved template before invoking it. Choosing a command is not always a preview step.
+</Note>
+
+Put a command at the start of the message. Do not combine it with other skill selections in the same message; Kisuke rejects that combination. If you need a reusable procedure plus a separate request, use a skill instead.
+
+The expanded template becomes the request. It does not run as a shell script: any tools the agent uses remain subject to the conversation's harness and [permissions](/conversations/permissions).
+
+## Built-in commands and harness commands
+
+The slash menu also contains Kisuke actions and commands supplied by the active harness. Those entries are separate from saved prompt templates. Their behavior and availability depend on the action and harness.
+
+For example, `/compact` invokes Kisuke's [manual compaction request](/conversations/track-progress#continue-a-long-conversation). Its presence in the menu does not establish that every harness can compact on demand. Read the result before assuming context was reduced.
+
+## Scope and file locations
+
+| Scope | Location and purpose |
+| --- | --- |
+| Project | `.claude/commands/*.md` inside the working folder. Use it for requests that depend on this project's structure or conventions. |
+| User | `~/.claude/commands/*.md` on the host device. Use it for personal prompts across projects on that host. |
+
+For a remote project, put the command on the device that owns the project. A command on your viewing device alone is not the remote project's command file.
+
+The `.claude` directory is the supported location for these custom prompt templates; the expansion is part of Kisuke's shared submission path. Do not copy the command into every harness's directory to make this Kisuke template available.
+
+Direct name-based invocation searches the project directory before the user directory. Selecting a menu entry retains its particular file path. If that file is no longer available, select the command again.
+
+### Organize commands into folders
+
+You can group command files under subfolders:
+
+```text
+.claude/commands/
+  explain-file.md
+  review/
+    accessibility.md
+    tests.md
+```
+
+The nested files become `/review:accessibility` and `/review:tests`. Create nested structures in the filesystem; the Settings creation form normalizes a name into a single filename.
+
+Use distinctive lowercase names with hyphens. Avoid reusing built-in names such as `/plan`, `/review`, or `/clear`, which already have actions in the composer. Keep the filename as the command name rather than overriding it with a `name` frontmatter field; this makes typed invocation and catalog display agree.
+
+## Edit or remove a command
+
+Open its row or edit control in **Settings → Skills**, change the template, and choose **Save Changes**. You can also edit the `.md` file directly. Editing the Name field does not rename an existing command file; rename the file when you want to change its typed command name.
+
+The delete control removes the command file. Keep a copy or use version control if you may need to restore it.
+
+## Troubleshoot a command
+
+| Symptom | What to check |
+| --- | --- |
+| Command is missing | Check the project/device, `.claude/commands` location, and `.md` extension. Use **Refresh** in Settings to reload its list. Hidden files and folders are skipped. |
+| Arguments are absent from the prompt | Include the exact `$ARGUMENTS` placeholder in the template. An argument hint alone does not insert text. |
+| **The selected command is no longer available. Select it again.** | Remove the stale selection and choose the current entry. Check whether its file moved or the project changed. |
+| **Use a command at the start of the message, without other skill selections.** | Put the command first and remove other skill selections from that message. |
+| Command already exists | Edit the existing command or choose another name. |
+| A scope change fails | Check both locations and the current file contents before retrying; a failed move does not establish that the previous contents were restored. |

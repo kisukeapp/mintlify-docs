@@ -1,0 +1,154 @@
+---
+title: "Follow a response's progress"
+sidebarTitle: "Steps and progress"
+description: "Follow the agent's checklist, read context usage estimates, and check the actual outcome of a long conversation."
+---
+
+During a response, an agent can maintain a checklist of the work it is doing. Kisuke shows the current step and completion progress when the active harness supplies that checklist.
+
+Use it to follow a multi-step request while keeping your files, terminal, or Review panel beside the conversation in [Zen](/zen-mode).
+
+## Ask for a useful checklist
+
+Give the agent an outcome and verification criteria. For example:
+
+> Review how Trail Notes saves completed trails. Track three steps if your tools support a checklist: inspect README.md and index.html, confirm which behavior to emphasize, and propose acceptance checks. Ask me whether to focus on reload and Reset or keyboard operation. Keep the checklist updated. Label the checks proposed, not executed. Do not edit files, run commands or tests, access the network, or delegate.
+
+The checklist depends on tools available to the running session. If the agent supplies a numbered list only in its response, that is ordinary text; it does not necessarily create Kisuke's progress indicator. A session without a plan or task tool can still explain its steps in chat.
+
+A checklist is also separate from [Plan mode and plan approval](/conversations/planning). It describes progress; it does not change your permission mode or ask you to approve implementation. Check the composer permission menu when deciding what the agent may do.
+
+## Read Step n / total
+
+When the response has a current checklist, its status area shows a progress ring and a label such as **Step 2 / 3**.
+
+On desktop and web, hover over this label to inspect the checklist. Completed entries are crossed out. An entry can include **blocked by** followed by task IDs when the harness supplies dependencies.
+
+The phone shows the same step count and completion ring in the response's status area. It does not provide the desktop hover checklist.
+
+| What you see | How to read it |
+| --- | --- |
+| **Step 2 / 3** | The selected current entry is second in a three-item checklist. It does not mean two steps are complete. |
+| Progress ring | The proportion of entries marked complete. It is not an estimate of elapsed or remaining time. |
+| Crossed-out entry | The agent has reported that checklist item complete. Verify the corresponding result when it matters. |
+| **blocked by** | The item has reported dependencies. Read the referenced work before treating it as ready. |
+
+For example, if the first entry is complete, the second is in progress, and the third is pending, the label is **Step 2 / 3** and the ring is one-third complete.
+
+<Frame caption="A live Pi response using DeepSeek V4 Flash shows Step 2 / 3 above the Zen composer. The files have been read; the checklist still identifies confirming the review focus as the current step.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '92 / 26', width: '100%', maxWidth: '276px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-step-progress.jpg" width="1686" height="720" alt="The live progress indicator shows a partially filled ring beside Step 2 / 3." style={{ position: 'absolute', width: '1832.608696%', maxWidth: 'none', left: '-986.956522%', top: '-2192.307692%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the live checklist review in Zen">
+  <img src="/images/screenshots/zen-step-progress.jpg" width="1686" height="720" alt="A read-only Trail Notes review in Zen shows two checklist updates, Read 2 files, an answered question, and Step 2 / 3 above the composer. The environment identifies Pi as the harness." />
+</Accordion>
+
+In this example, the question has just been answered and the agent is continuing. The label reflects its latest checklist update; answering the question does not itself mark that item complete. The agent next updates the checklist and proposes five checks. When the response finishes, the live indicator disappears.
+
+The current-step choice prefers an unblocked in-progress entry, then an unblocked incomplete entry. If every remaining item is blocked, the label can still identify an incomplete item. Read the dependency text; the label alone does not prove the agent can proceed.
+
+The agent can revise the checklist as it learns more. New entries, changed dependencies, or a different ordering can change the displayed total and current step.
+
+## Distinguish the kinds of work
+
+Several features can describe work in progress:
+
+| Feature | What it tracks |
+| --- | --- |
+| Response checklist | The agent's steps for the current response. |
+| [Tasks and Linear](/workspace/tasks) | Team issues and the agent conversations attached to them. |
+| [Subagents](/conversations/subagents) | Child executions delegated by the main agent. |
+| Background command | A shell operation that can continue after its initial tool call. Read its output and terminal result separately. |
+| [Queued follow-up](/conversations/follow-ups) | Your message waiting to be dispatched to the conversation. |
+| [Goal](/conversations/goals) | An objective that can drive work over multiple responses. |
+| [Plan review](/conversations/planning) | A proposal waiting for your implementation decision. |
+
+An activity entry such as **Created task**, **Updated task**, or a plan-tool update records what the agent did at that moment. Historical tool entries are not another live copy of the current checklist.
+
+On desktop, expand **Worked for…** above a completed response to review its activity and earlier findings. In the Trail Notes example, this reveals the checklist updates and five proposed acceptance checks. Completing the review checklist did not execute those checks.
+
+## Check files separately from steps
+
+The status area can also show a file count and addition/deletion counts for changes reported during the current response. These are separate from checklist completion.
+
+On desktop and web, hover over the file count for the listed files, or select it to open the changes view. Use [Git Review](/workspace/git) to inspect the working tree, including changes that existed before the current response.
+
+Finishing a checklist does not commit changes or prove that tests passed. Read the final response for what changed, what was verified, and what remains untested. Check the actual files and test output for work you intend to keep.
+
+## Read context usage
+
+Context is the information available to the model for a response. In a long conversation, inspect context usage to understand how much of the displayed context window is occupied. This is separate from the step checklist and its completion ring.
+
+On desktop and web, select the small ring in the composer, labeled **Show context usage**. It normally appears at 70% usage or higher. To keep it visible below that threshold, enable **Always show context usage** in [Settings → General](/reference/settings#adjust-the-composer). An empty conversation can show **No context yet**.
+
+On your phone, tap the message field to expand the composer, then tap its context ring to open **Context Window**. The phone ring depicts remaining capacity; the desktop ring depicts used capacity. The phone ring also includes accumulated output tokens that the detail sheet does not, so the ring and sheet can disagree. Use the detail sheet's figures when inspecting the reported context.
+
+### Interpret the breakdown
+
+The header shows used tokens, the displayed window size, and the percentage used. The grid summarizes used space, free space, and any reported buffer. For example, `150k/200k tkns (75%)` describes the displayed context estimate; it does not mean the task is 75% complete.
+
+| Entry | How to read it |
+| --- | --- |
+| **System prompt**, **Memory files**, **Skills** | Estimated instruction-related categories, when a detailed breakdown is available. |
+| **System tools**, **MCP tools** | Estimated space attributed to tool definitions. |
+| **Messages** or **Context used** | Conversation usage, or an aggregate total when the harness does not supply separate categories. |
+| **Buffer** | Capacity reserved in the estimate for compaction or output overhead. A zero value does not establish that the harness has no overhead. |
+| **Free space** | Displayed window size minus used context and buffer, with a minimum of zero. |
+
+These are estimates, not a count of every token processed over the conversation's lifetime. Some harnesses supply an active-context total without category details; Kisuke then places that total under **Messages**. A missing **Skills** or **MCP tools** row does not prove those capabilities are absent.
+
+Window size comes from the reported context or available model information, with a fallback when neither is available. Do not assume every model has the same limit, or that selecting a model guarantees a fresh usage reading. Figures update when usage information arrives; resumed conversations and active responses can have incomplete or older readings.
+
+## Continue a long conversation
+
+Compaction reduces the context carried forward, typically by summarizing earlier work. Preserve critical decisions and verification results in project files or [project instructions](/customization/project-instructions), and restate constraints that must guide the next response.
+
+Kisuke exposes **Compact context** in the desktop context popover and **Compact Context** in the phone sheet. The composer also offers `/compact`.
+
+<Note>
+  Manual compaction depends on the harness. Kisuke sends `/compact` through its prompt path; it does not issue a dedicated native compaction operation for Codex or Pi. Do not rely on this control to force compaction in those harnesses. An ACP agent's handling also depends on that agent. Automatic compaction performed by a harness is separate from this manual action.
+</Note>
+
+If your harness handles the command:
+
+1. Wait until the current response has stopped and resolve any pending request.
+2. Choose the compact action once, or submit `/compact` by itself. In the desktop/web composer, extra text after `/compact` is not passed through as custom compaction instructions.
+3. Read the subsequent activity and result. **Compacting…**, a closing phone sheet, or a **Compacted** row alone is not a reliable success signal across harnesses. In Pi, the row can appear when compaction starts, before a later failure.
+4. Recheck context usage after fresh information arrives, then send a focused follow-up with the remaining outcome and essential constraints.
+
+If the agent answers `/compact` as an ordinary message or reports an error, stop repeating the command. Continue with a concise request if the session can still respond, or start a new conversation with a handoff summary. Include the goal, relevant files, decisions, completed checks, and remaining work; ask the new conversation to inspect the actual project before editing.
+
+## Step away and return
+
+Use [attention notifications](/reference/settings#notifications-and-sounds) to learn when a conversation needs permission, an answer, or plan review. Desktop alerts are suppressed while the Kisuke window is focused. Android can also alert for a different conversation from the one you are viewing; on iOS, check the conversation while the app is in the foreground.
+
+The separate [desktop completion sound](/reference/settings#choose-a-desktop-completion-sound) can play when a response stops streaming. An interrupted or failed response can also trigger it. Return to the conversation, read its current state and final message, and inspect the work before deciding what to do next.
+
+## When progress disappears or looks wrong
+
+<AccordionGroup>
+  <Accordion title="There is no step indicator">
+    The agent may not have emitted a supported checklist, or the response may already have ended. Asking for a plan in prose does not guarantee that the active session has a plan tool.
+
+    A pending question can also replace the normal composer and its status row. In the Pi example above, the step indicator returns after submitting the answer. Resolve the visible [question](/conversations/answer-questions) and inspect the continuing response before assuming the checklist was lost.
+
+    Read its activity and answer. Ask for a concise progress summary if you need one; avoid resubmitting an implementation request solely because the step indicator is absent.
+  </Accordion>
+  <Accordion title="The checklist disappeared after the response">
+    The live status area is scoped to the current running or pending response. It is not a persistent project task list. Read the completed response and its activity for the recorded work.
+
+    To continue, send a [follow-up](/conversations/follow-ups) describing the remaining outcome. Use a [goal](/conversations/goals) when you want to track an objective across responses.
+  </Accordion>
+  <Accordion title="A step looks complete, but the result is missing">
+    Checklist entries report the agent's progress. Check the actual file, command result, or test output and tell the agent what is missing. A completed entry is not an independent verification result.
+
+    If you interrupted the response, review partial changes before continuing. [Stop does not undo completed side effects](/conversations/stop-and-continue).
+  </Accordion>
+  <Accordion title="Progress stopped after losing the connection">
+    Restore the connection to the conversation's computer and inspect the current response and workspace before sending the same request again. If files, terminal, and Git are also unavailable, follow [device connection recovery](/workspace/devices#diagnose-missing-or-unavailable-devices).
+
+    An unchanged step count alone does not tell you whether the agent stopped, is waiting for input, or is still working remotely.
+  </Accordion>
+</AccordionGroup>

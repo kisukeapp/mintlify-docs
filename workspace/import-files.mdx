@@ -1,0 +1,115 @@
+---
+title: "Import files into a project"
+sidebarTitle: "Import files"
+description: "Copy files and photos into a project, choose the destination, handle existing files, and retrieve a local copy."
+---
+
+Import a reference image, data file, or document when you want it to become a file in your project. Kisuke copies it to the selected project on that project's device. The original remains in its source location.
+
+To send context with a message, use [Attach files](/conversations/attachments). To rearrange files already in the same checkout, use [Copy, Cut, Paste, or Duplicate](/workspace/organize-files). Those are separate workflows from importing files from your computer or phone.
+
+## Choose the destination first
+
+[Open the project](/projects/open-a-project) and confirm its device and checkout. In Zen on desktop or web, open **Files** in the right panel and choose **Browse Files** if the tree is hidden. Wait for the folder listing to load.
+
+If the project is on another computer, importing sends the file to that computer. It does not change the project's location or create a local copy of the whole project.
+
+Keep the project open while importing. If you intend to replace an existing file, preserve any version or unsaved edits you still need before starting.
+
+## Drop files into desktop or web
+
+<Steps>
+  <Step title="Prepare the source">
+    In your computer's file manager, select the saved files you want to copy. Drag them into Kisuke's project tree. Dropping files onto the composer follows the attachment workflow instead.
+  </Step>
+  <Step title="Check the drop destination">
+    Hover over the target folder and read the **Destination:** path shown at the bottom of the tree. A hovered folder can expand while you hold the drag, letting you reach a child folder.
+  </Step>
+  <Step title="Drop and handle conflicts">
+    Release over the intended destination. If **Overwrite file?** appears, check the filename and choose **Overwrite** only when you want to replace the saved destination. **Cancel** skips that file; the remaining files can continue importing.
+  </Step>
+  <Step title="Verify the imported files">
+    Wait for **Imported … file(s)** or a failure message. Expand the destination and open the imported files. Check their contents, not only their names. The success message can also report skipped files.
+  </Step>
+</Steps>
+
+| Where you drop | Destination |
+| --- | --- |
+| A folder row | Inside that folder |
+| A file row | Inside that file's parent folder |
+| Empty space in the tree | The project root |
+
+Drag a folder when you want to retain the containing paths of its files. Folder support depends on the drag source exposing its entries. Empty folders are not imported on this path. If Kisuke reports that no readable files were provided, select the files themselves and try again.
+
+<Note>
+An import may stop at an existing destination without showing an overwrite dialog, particularly for a larger file. Do not assume the incoming file replaced it. Inspect the destination, then rename the incoming file or choose another folder when you want to keep both versions.
+</Note>
+
+Only one external file import can run in a tree at a time. Wait for the current result before dropping another batch. Importing does not stage or commit files; use [Review](/workspace/git) to inspect changes in a Git project.
+
+## Import from a phone or tablet
+
+In the mobile file tree, the **Import files into project** header control imports at the project root. It opens **Import into project**, where you can choose **Files** or **Photos**.
+
+To choose a subfolder:
+
+1. Open the project's file tree and locate the destination folder.
+2. Long-press that folder and choose **Import Files** or **Import Photos**. Long-pressing a file instead targets its parent folder.
+3. Select the files or photos in the system picker.
+4. If **Replace existing file?** appears, choose **Replace** to replace that saved file, or **Cancel** to skip it.
+5. Wait for **Importing file** to finish, then inspect the destination. Kisuke opens the last successfully imported file.
+
+The progress dialog shows the current filename, its position in the selection, and a percentage. **Cancel** requests cancellation; **Cancelling…** means the request is still being handled. Files imported earlier remain in the project. Check the current file too before restarting an interrupted import.
+
+The Files picker can use your device's document providers. If a provider cannot supply a readable local copy, the import reports an error. The Photos picker requires access to the selected photos; if permission is denied, resolve it through your device's photo permission controls before retrying.
+
+Mobile imports selected files and photos. It does not use the desktop folder-drop workflow. A folder already occupying a target filename is reported as a conflict rather than replaced by the incoming file.
+
+## Get a copy back out
+
+### Open a local project file in your file manager
+
+For a project on the same computer as the desktop app, right-click its file in **Browse Files** and choose:
+
+- **Reveal in Finder** on macOS.
+- **Reveal in Explorer** on Windows.
+- **Reveal in File Manager** on Linux.
+
+Use the file manager to open or copy that saved file. Revealing a path does not download it from another project device. For a remote project, open the project on the computer that owns its files and use that computer's file manager.
+
+### Understand the preview's Download control
+
+Some files, such as ZIP archives, show **Binary file preview not supported.** The desktop and web preview includes a **Download** button for these files. An unsupported preview does not mean the import failed.
+
+In the web app, Download requests the saved file and hands it to the browser's download mechanism. Check the browser's downloads and the resulting file before treating that copy as complete.
+
+<Warning>
+The desktop preview's Download button currently does not save a copy: the desktop shell blocks that browser-style download. For a local project, use the file-manager action above. The mobile editor's unsupported-binary view does not currently provide this download action.
+</Warning>
+
+The web preview/download path has a 128 MiB in-memory file limit. Download from that preview does not bypass the limit. For larger files, retrieve the original from the project's device through its file manager or another file-transfer tool.
+
+## Recover from an interrupted import
+
+<AccordionGroup>
+  <Accordion title="File drop failed or some files were not imported">
+    Read the reported path and error. A batch can fail after earlier files have already arrived, and created folders may remain. Inspect the destination before retrying. Retry only the files you still need; dropping the whole batch again can encounter files from the first attempt.
+
+    On mobile, **Some files were not imported** lists failures after the selection has been processed. A successful file can still open even when other files failed.
+  </Accordion>
+  <Accordion title="Project or connection changed">
+    Reconnect to the original project and device, then use **Reload** in the file tree. Inspect the destination before importing again: a file may have arrived before the connection changed. Stay in that project until the next import finishes.
+  </Accordion>
+  <Accordion title="An import is already in progress">
+    Wait for the existing desktop/web batch to report its result. A second drop does not join that batch. If the connection failed, check the original destination before trying again.
+  </Accordion>
+  <Accordion title="The source file could not be read">
+    Make sure the file is available from the source application or document provider. Select it again in the picker or drag it again from your file manager. For a folder drop with no readable files, select the individual files.
+  </Accordion>
+  <Accordion title="The imported file is missing from the tree">
+    Confirm the destination folder, project device, and checkout, then use **Reload**. Check [file visibility settings](/workspace/files#show-hidden-or-ignored-files): an imported file can be hidden or ignored. The tree's appearance alone does not confirm whether the transfer succeeded.
+  </Accordion>
+  <Accordion title="An open editor reports that the file changed">
+    Importing a replacement changes the saved file. Preserve your unsaved editor text before accepting **Reload**. See [external file changes](/workspace/files#respond-to-a-file-changed-elsewhere) for Reload, Dismiss, and failed reloads.
+  </Accordion>
+</AccordionGroup>

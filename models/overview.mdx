@@ -1,0 +1,219 @@
+---
+title: "Models and harnesses"
+description: "Choose models from connected providers and understand how your agent harness affects availability."
+---
+
+Kisuke brings model choice into the conversation. You can connect providers such as OpenAI, Anthropic, and Google, then choose from the models available to your selected harness.
+
+Three choices work together:
+
+| Choice | Meaning and control |
+| --- | --- |
+| Provider | The service that supplies model access and authentication. Manage it in **Settings → Providers**. |
+| Harness | The agent runtime that carries out the conversation and uses tools. Choose it in the model picker when starting a new conversation. |
+| Model | The model you want that harness to use. Choose it in the composer model picker. |
+
+A provider connection does not make every model available through every harness. The picker reflects the selected device, harness, and available catalog.
+
+For related terms such as turn, goal, Side Chat, and worktree, use the [glossary](/reference/glossary).
+
+## Harnesses in Kisuke
+
+Kisuke has native integrations for these agents:
+
+| Harness | Setup on the Connect computer |
+| --- | --- |
+| **Claude Code** | Bundled with Kisuke Connect. |
+| **OpenAI Codex** | Uses a detected Codex CLI or Codex desktop installation. |
+| **Pi** | Bundled with Kisuke Connect. |
+
+OpenAI Codex is labelled **Codex** in the composer picker.
+
+The harness catalog also includes the following agents. Open **Settings → Harnesses** and search by name to inspect their availability on your computer.
+
+<Accordion title="Browse the other harnesses" id="other-harnesses">
+  - **A–F:** Agoragentic, Amp, Auggie CLI, Autohand Code, Cline, Codebuddy Code, Cortex Code, Corust Agent, crow-cli, Cursor, DeepAgents, DeepSeek Harness, Devin, DimCode, Dirac, Factory Droid, fast-agent.
+  - **G–O:** Gemini CLI, GitHub Copilot, GLM Agent, goose, Grok Build, Junie, Kilo, Kimi CLI, Minion Code, Mistral Vibe, Nova, OpenCode.
+  - **P–Z:** Poolside, Qoder CLI, Qwen Code, siGit Code, Stakpak, VT Code.
+</Accordion>
+
+A catalog entry identifies an integration Kisuke recognizes. Check its [installation status](#read-the-availability-report) before starting a conversation. Available models, tools, permissions, and history support differ by harness and installed version; verify the workflow you intend to use with that agent.
+
+For browser work, [check browser access for your agent](/workspace/browser#check-browser-access-for-your-agent). Reading a public URL, viewing a preview yourself, and controlling a desktop tab require different capabilities.
+
+Connect model access separately in [Providers](/models/providers#choose-an-integration), which lists OpenAI, Anthropic, Google, and the other built-in integrations. Then [choose the harness and model](#choose-a-harness-and-model) in a new Zen conversation. For installation and default selection, see [Manage harnesses on a computer](#manage-harnesses-on-a-computer).
+
+## Choose a harness and model
+
+Start with the access or agent you already use:
+
+| Your starting point | What to do in Kisuke |
+| --- | --- |
+| An OpenAI, Anthropic, Google, or other provider account or API key | [Connect the matching provider](/models/providers#choose-an-integration), then choose a model offered by your harness. Check the provider heading as well as the model name. |
+| A particular coding agent, such as Claude Code, Codex, Pi, Gemini CLI, or OpenCode | Check **Settings → Harnesses** on the computer running Connect, then select the available harness in a new conversation. Installing the agent and connecting model access are separate steps. |
+| Your own compatible model endpoint | [Add a custom model](/models/custom-models), then look under **Custom** in a harness that exposes it. |
+| An existing conversation you want to continue with another model | [Change the model in that conversation](#change-a-selection-before-sending). To change its harness, start a new conversation. |
+
+Then make the selection in Zen:
+
+1. Start a new conversation in the project you want to work on.
+2. Open the model button in the composer. You can also use **Cmd+/** on macOS or **Ctrl+/** on Windows and Linux.
+3. If the picker opens on a reasoning slider, select the model name above it, labelled **Choose harness and model**, to open **Select model**.
+4. Choose an available harness in the left column. Wait for its model list; changing the harness clears the search, so enter your search again afterward.
+5. Search for a model name or provider. Models are grouped by provider.
+6. Select a model, review its reasoning setting if one is offered, and return to the composer.
+7. Check the project, device, model, reasoning level, and permission mode before sending. Changing the harness can change the displayed model, reasoning, and permissions; do not assume the previous choices carried over.
+
+The harness column is available for a new conversation. To work with a different harness, start another conversation.
+
+<Frame caption="Review the model and reasoning control before your first prompt. This new Zen draft has Pi, DeepSeek V4 Flash, and High selected; nothing has been sent.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '330 / 132', width: '100%', maxWidth: '32rem', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-model-choice.jpg" width="1686" height="720" alt="DeepSeek V4 Flash and High appear above the reasoning slider and beside the Pi icon in the empty Zen draft's composer." style={{ position: 'absolute', width: '510.909091%', maxWidth: 'none', left: '-265.151515%', top: '-270.454545%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the model choice in the full Zen draft">
+  <img src="/images/screenshots/zen-model-choice.jpg" width="1686" height="720" alt="An empty zen-walkthrough draft shows its project, branch and device above the composer, Ask first permissions, and the Pi DeepSeek V4 Flash High reasoning control open." />
+</Accordion>
+
+Before using a new combination for project work, [verify a complete response](/models/providers#verify-a-complete-response). To compare models, give separate conversations the same bounded prompt and inspect their completed results.
+
+## OpenAI, Anthropic, and Google
+
+Connect accounts in [Providers](/models/providers), then return to the composer to see what is available.
+
+- **OpenAI:** connect the provider using an authentication method offered in Settings. Available models appear under the OpenAI provider group.
+- **Anthropic:** the direct Anthropic provider integration is restricted to Claude Code. Do not expect its models in every harness's list.
+- **Google:** the Google provider's API-key integration is distinct from **Antigravity**, which has its own Google sign-in flow and account-dependent model catalog.
+
+Provider names describe the route used to access a model. A model family can appear through another provider, so check the group heading as well as the model name.
+
+## Adjust reasoning
+
+When the selected model supports configurable reasoning, the picker offers a **Reasoning level** slider. Available levels depend on the model and harness. Some combinations manage their own settings and do not offer the same controls.
+
+Changing the model may also change the available reasoning levels. Kisuke keeps your previous level when the new model supports it; otherwise, it uses an available default. Check the setting again after switching models. **Off** appears only when the selected model offers it.
+
+### Antigravity model families
+
+Some Antigravity models group effort variants under one model family. For these entries, select the family and use the reasoning control to choose an available level. Other models can keep variant labels such as Low, Medium, or High in separate model rows. Review both the selected row and any reasoning control it offers.
+
+For example, the Gemini family below offers Medium in the reasoning control. The selected account's available models determine which families and levels you can use; this illustration is not a fixed catalog.
+
+<Frame caption="The reasoning control for an Antigravity Gemini family in a new Pi conversation. Medium is selected.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '275 / 132', width: '100%', maxWidth: '24rem', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-gemini-reasoning.jpg" width="1920" height="971" alt="Gemini 3.6 Flash with Medium selected on the reasoning slider and displayed beside the Pi composer icon." style={{ position: 'absolute', width: '698.181818%', maxWidth: 'none', left: '-360%', top: '-363.636364%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full Gemini draft">
+  <img src="/images/screenshots/zen-gemini-reasoning.jpg" width="1920" height="971" alt="Empty Trail Notes draft in Zen with Pi, Gemini 3.6 Flash, Medium reasoning and Ask first selected; the reasoning popup is open." />
+</Accordion>
+
+An older saved Antigravity selection can now appear under its family name, with its former variant's effort represented separately. Review both the model name and reasoning level before continuing that conversation.
+
+## Change a selection before sending
+
+Choosing a model or reasoning level stages the selection in the composer. Send your next prompt to submit that choice for validation. A picker click alone does not reconfigure an already running turn.
+
+To use another model in an existing conversation:
+
+1. Let the current response finish, or [stop it](/conversations/stop-and-continue) and check its result before continuing.
+2. Open the composer model button. If it shows **Reasoning level**, select the model name above the slider to open **Select model**.
+3. Search by model or provider name, then select an available result. The harness column is hidden because this conversation already has a harness.
+4. Review the reasoning level, close the picker with **Escape**, and check the model name in the composer.
+5. Enter and send your next prompt. Wait for a complete response before relying on the new combination.
+
+An existing conversation keeps its earlier messages when you change models. If you are checking a different model after a failed response, first review any completed tool work, then send a small new request from the composer. A successful response with the new selection does not establish that the original combination is working. See [response failure recovery](/help/starting-a-chat#if-a-response-starts-then-fails).
+
+<Frame caption="Detail of a provider-name search in an existing Codex conversation in Zen. The checkmark identifies the selected model. This is an example catalog, not a complete availability list.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '12 / 13', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-model-search.jpg" width="1920" height="971" alt="Zen model picker filtered by OpenAI, with GPT-6-Astra checked and other model choices listed beneath the provider heading." style={{ position: 'absolute', width: '533.3333%', maxWidth: 'none', left: '-138.8889%', top: '-148.718%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full Zen workspace">
+  <img src="/images/screenshots/zen-model-search.jpg" width="1920" height="971" alt="Full Zen workspace with an OpenAI model search in the existing Trail Notes conversation." />
+</Accordion>
+
+For a precise comparison between models, use separate conversations with the same prompt, project context, and permissions. This makes it easier to distinguish model differences from differences in conversation history.
+
+Before relying on a new combination, [verify a complete response](/models/providers#verify-a-complete-response). A selected model, a saved credential and visible response text establish different stages of access.
+
+## Choose on iOS or Android
+
+Open **Chat settings** from the composer. In a new conversation, choose **Harness**, then **Model**. Search by model or provider, select a result, and return to Chat settings to review **Effort** when it is offered.
+
+Model and effort selection are unavailable while the mobile conversation is streaming. Wait for that response to finish or [stop it](/conversations/stop-and-continue) before changing the next selection. An existing conversation keeps its harness; start a new conversation to choose another one.
+
+## Manage harnesses on a computer
+
+Open **Settings → Harnesses** to inspect agent software, choose a default for new chats, or install an agent when an **Install** button is offered. Connecting a [provider](/models/providers) and installing a harness are separate steps.
+
+On desktop, use this panel on the computer running Kisuke Connect for the chat. Its inventory includes bundled agents, such as Claude Code and Pi, and external agents that Kisuke can detect.
+
+<Note>
+  Global Harnesses settings do not necessarily follow the device of your open project. The panel has no device selector. If you use several computers, open the desktop app on the intended computer before changing its default or installation. Mobile controls manage a connected computer; they do not install the agent on your phone.
+</Note>
+
+### Read the availability report
+
+Search for the agent by name. After detection, the list uses these groups:
+
+| Group | What it tells you |
+| --- | --- |
+| **Installed** | Kisuke reports a bundled runtime or a detected installation. Provider access and a successful model response still need checking. |
+| **Runs on demand** | A package runner such as `npx` or `uvx` is present, but the agent is not reported as installed. Its package may need downloading at launch. |
+| **Not installed** | Detection did not find a usable installation or runner. Read the row's installation hint or failure detail. |
+
+The composer normally lists installed harnesses. An agent under **Runs on demand** can be absent from that picker; use its offered installation method and check detection again. A previously selected harness can remain visible even after it becomes unavailable.
+
+Rows can show several installations, their versions and paths. **used** marks the selected installation when there is more than one candidate. This helps when updating one copy leaves Kisuke using another.
+
+Choose **Re-scan** after installing or updating an agent outside Kisuke. This checks the agent software again; it does not sign you into a provider or verify a model response.
+
+### Set the default for new chats
+
+Under **Default harness → New chats run on**, choose an available agent. Desktop and web use a dropdown; iOS and Android show selectable rows. Wait for the displayed selection to update, then return to your workspace and inspect the harness in a new conversation before sending.
+
+This setting supplies a default. You can choose another harness in a new conversation's composer. Existing conversations retain their harness. Review [Device Sync](/workspace/device-sync) if you share agent preferences between computers.
+
+### Install or update an agent
+
+When an **Install** button is offered:
+
+1. Review the displayed installation command. On desktop, hover or focus the button to see it; mobile shows a command row.
+2. Choose **Install** to run that package manager on the Connect computer. **Copy install command** only copies the command.
+3. Watch **Installing…** and the output or error below the agent. After success, let detection finish and check the resulting group and selected installation.
+4. Return to a new conversation, select the harness and model, and [verify a complete response](/models/providers#verify-a-complete-response).
+
+An installed external agent may instead offer **Copy update command**. On mobile, tap its **Update** command row. Copying does not execute it: run the command yourself in a terminal on the computer hosting Connect, then return to **Harnesses → Re-scan**. Check the version and **used** installation again.
+
+<AccordionGroup>
+  <Accordion title="Installation failed or the connection was lost">
+    Read the agent's error. An `npm` or `uv` not-found message means the required package manager is unavailable to Connect on that computer. Follow the agent's installation guidance, then re-scan.
+
+    If the connection disappears during installation, a missing success message does not establish that nothing was installed. Reconnect and re-scan before starting another attempt. If files were installed but validation failed, preserve that error and inspect the selected installation.
+  </Accordion>
+  <Accordion title="The agent is installed, but its model list looks stale">
+    On desktop and web, some harness rows offer **Refresh this agent's model list**. Hover or focus the row's refresh icon, activate it, then return to the composer and check its catalog state. Mobile Harnesses settings do not have this per-agent model refresh control.
+
+    Re-scan checks installations; model refresh requests a new catalog. A returned model count does not verify provider access or a completed response. Use the picker's error and **Retry** when offered.
+  </Accordion>
+</AccordionGroup>
+
+## When a model is missing
+
+| What you see | What to check |
+| --- | --- |
+| **Loading models…** | Allow the selected device and harness to finish loading their catalog. |
+| **No models match** | Clear the search or search by provider name. |
+| **No models available** | Check the provider connection and the selected harness. |
+| A disabled model | Check the error or availability state before sending. |
+| A catalog error with **Retry** | Use Retry after addressing the reported problem. |
+| **Automatic model** | This harness manages its model rather than exposing the usual catalog selection. |
+| **Agent Update Required** | Follow the [agent update steps](/help/starting-a-chat#agent-update-required) on the computer running the conversation. |
+
+Model lists can change as provider catalogs and account access change. Use the current picker instead of treating a screenshot or example model name as an exhaustive list.
+
+If sending the first prompt fails even though a model is visible, see [Troubleshoot a first message](/help/starting-a-chat). For controls that govern what the agent may do, see [Permissions](/conversations/permissions).

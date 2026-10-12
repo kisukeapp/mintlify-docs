@@ -1,0 +1,136 @@
+---
+title: "Glossary"
+description: "Understand Kisuke's models, agents, conversations, project environments, and reusable tools."
+---
+
+Use this reference when two controls sound similar or you need to find the guide for a concept. The distinctions matter: a model choice, a conversation, a goal, and a working folder each control a different part of your work.
+
+## Models and agents
+
+### Provider
+
+The service through which you access a model. OpenAI, Anthropic, and Google are examples of providers you can connect in **Settings → Providers**. The authentication options offered by Kisuke vary by provider and client.
+
+A provider group identifies the route used to access a model; it does not necessarily identify the company that developed that model. See [Connect providers](/models/providers).
+
+### Harness
+
+The agent runtime that manages the conversation's execution and tools. Examples include Codex, Claude Code, and Pi. Harness support affects model availability, permissions, delegation, and other conversation controls.
+
+Choose an available harness in the model picker for a new conversation. An existing conversation already has a harness. See [Models and harnesses](/models/overview).
+
+### Model
+
+The model selected for a conversation through its harness. The composer picker shows choices available for the selected device and harness, grouped by provider.
+
+Choosing a model stages a selection for the next prompt. It does not replace the model in an already running turn. A connected provider does not make every model available through every harness. See [Change a selection before sending](/models/overview#change-a-selection-before-sending).
+
+### Reasoning level
+
+A model setting offered when that model and harness support configurable reasoning. The picker can show a **Reasoning level** slider with the available levels.
+
+Check this control after changing models; the choices can differ. It is separate from the conversation's permission mode. See [Adjust reasoning](/models/overview#adjust-reasoning).
+
+## Conversations and work
+
+### Conversation or chat
+
+The discussion containing your requests, the agent's responses, and recorded tool activity. A conversation can contain multiple turns. Ordinary conversations can be found again through the sidebar and history controls, subject to the availability of their device and working folder.
+
+The composer is where you prepare the next message, attachments, model selection, and permissions. A new draft is not an accepted first request. See [Find a conversation](/conversations/find-conversations) and [Troubleshoot a first message](/help/starting-a-chat).
+
+### Turn
+
+One execution cycle in the conversation. It can include reasoning, tool calls, questions, and response text before it completes, fails, or is interrupted. A tool result or paragraph is not necessarily the end of the turn.
+
+Your next instruction can wait as a queued follow-up or request steering while work is active. See [Queue and steer follow-ups](/conversations/follow-ups) and [Stop a response](/conversations/stop-and-continue).
+
+### Goal
+
+An objective attached to a conversation that can drive work over multiple turns. A goal has its own status and controls, such as pause, resume, edit, and clear when available.
+
+The end of a response does not necessarily mean the goal is achieved. Read the goal state and verify the result. See [Keep working toward a goal](/conversations/goals).
+
+### Task and Tasks
+
+**Tasks** is the issue workspace with Inbox and Board views for Linear work. An issue can have an associated agent conversation and execution status. Browsing an issue and starting its agent are separate actions. See [Tasks and Linear](/workspace/tasks) and [Run and review a task](/workspace/run-a-task).
+
+The word also appears elsewhere: **New task** in the Zen sidebar opens a new conversation draft. In **Continue from this response**, **New task** continues into another chat in the same checkout. Those controls do not mean “create a Linear issue.” See [Continue from an earlier response](/conversations/continue-from-response).
+
+### Response checklist
+
+The agent's reported steps for a response, shown as **Step n / total** when the harness supplies a supported checklist. The progress ring represents entries marked complete, not an estimate of time remaining.
+
+A checklist is separate from a Linear issue, goal, and permission decision. See [Steps and progress](/conversations/track-progress).
+
+### Plan mode and plan review
+
+**Plan** is a permission mode for investigating and proposing an approach before implementation. A plan review is a pending proposal with actions such as **Implement** or **Dismiss plan** when the harness submits it through that workflow.
+
+An ordinary response containing a numbered plan does not necessarily create a review request or select Plan mode. See [Plan before implementing](/conversations/planning).
+
+### Subagent
+
+A child execution delegated by the main agent. Its assignment, status, and available transcript can appear beside the parent conversation in Zen.
+
+Delegation tools and transcript support depend on the harness. A subagent is not automatically an isolated worktree, and closing its inspector does not stop it. See [Follow delegated work](/conversations/subagents).
+
+### Side Chat
+
+A temporary discussion you open beside an existing conversation in Zen. It has its own messages and agent session. Inherited context depends on the harness; with Codex or Pi, supply the relevant excerpt yourself.
+
+Side Chat shares the parent's project folder, so its tools can affect the same files. Use an ordinary conversation for work you need to return to through history. See [Explore a question in Side Chat](/conversations/side-chat) for its lifetime and supported harnesses.
+
+## Projects and layout
+
+### Project and device
+
+A project starts with a folder on a device. The device containing that folder can differ from the phone or computer displaying Kisuke. Check both the folder and device before sending a request or using project tools.
+
+A **Project** filter inside the Tasks issue view means the issue's Linear project. It does not choose the repository where an agent runs. See [Open a project](/projects/open-a-project), [Connect devices](/workspace/devices), and [Tasks views](/workspace/tasks#save-a-reusable-view).
+
+### Workspace
+
+The working surface that brings the conversation, files, editor, terminals, browser, and Git together for the selected project context. A visible panel can still be loading or recovering; check its state before interacting.
+
+Use [Zen mode](/zen-mode) to keep the conversation central and bring supporting tools into the right panel.
+
+### Worktree
+
+A separate Git working folder for the same repository, usually used to work on another branch. An ordinary new worktree starts from a selected branch's committed files; it does not automatically copy all current uncommitted work.
+
+Creating a worktree and continuing a conversation's history are separate operations. See [Worktrees](/projects/worktrees) and [Continue from a response](/conversations/continue-from-response) for their different file-copy and setup behavior.
+
+### Zen mode, Classic, and Worktree style
+
+**Zen** and **Classic** are workspace layouts. Zen centers the conversation and brings tools beside it. Classic provides the traditional editor and terminal workspace.
+
+**Default workspace mode** chooses the launch layout. **Toggle Zen Mode** changes the current layout. **Worktree style**, under **General → Work mode**, is a separate preference for worktree-focused presentation; choosing it does not create a worktree. See [Settings and defaults](/reference/settings#make-zen-your-launch-layout).
+
+## Instructions and extensions
+
+### Project instructions
+
+Files that describe repository conventions and expectations for the agent. Which filenames and loading rules apply depends on the harness. See [Project instructions](/customization/project-instructions) before assuming every harness reads the same file.
+
+### Skill
+
+A folder containing `SKILL.md` with reusable instructions for a procedure. Invoking a skill adds its contents as context alongside your request. It does not by itself connect an external service or grant new tools. See [Skills](/customization/skills).
+
+### Custom command
+
+A saved prompt template invoked from the composer. `$ARGUMENTS` in the template is replaced by the text you supply. The expanded template becomes the request; it is not itself a shell script.
+
+A command without an argument placeholder can send when selected. See [Custom commands](/customization/commands) before invoking one.
+
+### MCP server
+
+A Model Context Protocol server that exposes tools or data sources an agent may use. This serves a different role from a model provider or an instruction file.
+
+Saved configuration, a successful connection check, and tools loaded in a running conversation are separate states. See [MCP servers](/customization/mcp).
+
+### Plugin and marketplace
+
+A plugin packages contributions such as skills, commands, agents, MCP servers, or hooks. A marketplace supplies a catalog of plugins. What a plugin contributes and what the selected harness supports determine what you can use.
+
+A saved enablement setting is not proof that the current conversation loaded the plugin. See [Plugins](/customization/plugins) and [Plugin marketplaces](/customization/plugin-marketplaces).

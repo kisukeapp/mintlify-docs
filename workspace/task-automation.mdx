@@ -1,0 +1,148 @@
+---
+title: "Configure task defaults and Auto-run"
+sidebarTitle: "Task automation"
+description: "Route Linear issues to a repository, set agent defaults, and understand Auto-run's scope, capacity, status, and stop behavior."
+---
+
+Use team settings to choose where issue work runs and which agent it uses. **Run task** uses these defaults for an individual issue. **Auto-run** repeatedly checks the team's issues and prepares work for eligible ones while the executing computer's Kisuke daemon is running.
+
+Start with [one task](/workspace/run-a-task) to check your project, model, permissions, and review process. This guide follows the desktop [Tasks layout](/workspace/tasks).
+
+<Warning>
+  Auto-run is broader than the issues visible on screen. Search, toolbar filters, status categories, and a saved view are not launch restrictions. **Only my Linear issues** filters the Linear refresh request, but other issues already loaded on the board can still be eligible. Use individual task starts when only a specific subset may run.
+</Warning>
+
+## Set the team's defaults
+
+<Steps>
+  <Step title="Open Team settings">
+    In Tasks, check the organization and team, then select **All team issues**. Choose the **Team settings** gear. The dialog is titled **Board settings**.
+
+    A saved view's settings change its filters. Use the team's settings for execution defaults.
+  </Step>
+  <Step title="Choose the project and agent">
+    Under **Task execution**, select **Project** and **Base branch**. **Current HEAD** uses the repository's current commit when creating a new task worktree.
+
+    Wait for **Agent** to load, then choose the harness, model, reasoning setting where available, and permission mode. These choices come from the selected project's computer. Tasks needs a [harness with goal support](/workspace/run-a-task#before-you-start).
+
+    A default project applies to issues that no routing rule redirects. Leave it unset only when your enabled rules supply the intended projects; issues without a resolved project will not start automatically.
+  </Step>
+  <Step title="Choose workflow destinations">
+    Under **Workflow statuses**, choose **Ready for review** for agent completion and **Finished** for work you have reviewed and are ready to close.
+
+    Choose actual statuses from this Linear team. Preserve task files before moving work to a completed or cancelled state; those states make its worktree eligible for [startup cleanup](/workspace/run-a-task#review-and-finish).
+  </Step>
+  <Step title="Save and check the result">
+    Choose **Save board**. Reopen the settings if you need to confirm a save after a connection problem.
+
+    Defaults affect new starts. An existing task conversation remains attached to its workspace. The manual **Start task** dialog also lets you inspect its own project, branch, prompt, and composer choices before sending.
+  </Step>
+</Steps>
+
+<Note>
+  The workflow selectors offer **No automatic move**, but clearing the configured destination can still fall back to a detected review or completed column. Do not treat that option as a guarantee that issue transitions are disabled.
+</Note>
+
+## Add routing rules
+
+In **Board settings → Routing rules**, choose **Add rule**. Name it, keep **Enabled** selected, and define the issues it matches:
+
+- **Linear projects:** enter one or more project names, separated by commas. These are Linear projects, distinct from local repository folders.
+- **Labels:** enter labels separated by commas. Choose **match any** or **match all**.
+- If both projects and labels are specified, the issue must satisfy both groups. Names and labels ignore capitalization.
+- A rule with no project or label conditions does not match. Use the team's defaults for a general fallback.
+
+Select the rule's destination **Project** and optional **Base branch**. The rule form overrides those environment choices; the team's Agent controls provide the agent defaults.
+
+Rules apply from top to bottom. A later matching rule replaces the fields it specifies, while other values carry forward. Use the arrow controls to put broad rules above narrower exceptions, then **Save board**.
+
+For example, route issues in the **Trail Notes** Linear project to its repository. A later rule matching that project and the **Urgent** label can use the same repository's `hotfix` branch. An issue matching both rules receives the later branch choice.
+
+When redirecting an issue to another repository, check any inherited base branch and agent selection on that computer. A rule matching the issue does not prove that its branch, model, credentials, or project connection are available.
+
+## Understand which issues can start
+
+Auto-run refreshes the board's linked Linear organization and team before deciding what to dispatch. A failed refresh prevents dispatch in that cycle.
+
+The current selection considers issues that:
+
+- Have no attached task conversation and are not marked missing from Linear.
+- Are in a Backlog, Todo, or started workflow type. A custom review column classified as started can qualify too.
+- Have no known parent on the same board in a nonterminal state.
+- Resolve to a project through defaults or routing rules and fit the available capacity.
+
+The parent check is not a complete implementation of Linear's blocking relationships. A parent outside the loaded board does not block dispatch through this check.
+
+Eligible issues are considered by priority, with Urgent first and no priority last, then by the age of their local task records. A task that already has a conversation is not a new Auto-run candidate; its goal continuation and failure retries have their own lifecycle.
+
+Inspect **All team issues** when evaluating the scope. A saved view helps organize work but does not define a separate, supported automation boundary. Start and stop Auto-run from the team's main board.
+
+## Enable Auto-run
+
+Before enabling it, review the scope above and any repository [task workflow file](/customization/task-workflows). A workflow file can override concurrency settings shown in the menu.
+
+<Steps>
+  <Step title="Open Auto-run">
+    Choose **Auto-run** in the Tasks top bar. If Start is disabled, configure a project or an enabled project routing rule in Team settings, and check that the board is linked to a Linear team.
+  </Step>
+  <Step title="Set the controls">
+    **Poll interval** is the delay between completed checks, in seconds, with a minimum of five. The first check starts immediately after enabling.
+
+    **Max agents** is the board's concurrency setting, with a minimum of one. It counts attached tasks in active, blocked, stalled, retry-queued, and ready-for-review states. Work waiting for your review can therefore occupy capacity even when no response is streaming.
+
+    **Only my Linear issues** requests an assignee-filtered refresh. It does not remove other cached issues from the dispatch candidates. Do not use this checkbox as an authorization boundary.
+  </Step>
+  <Step title="Start and inspect actual tasks">
+    Choose **Start**, then check **Auto-run ON** and the status below the controls. Open the resulting task conversations to verify their goals and first responses.
+
+    A prepared workspace or a dispatched count is not proof that a model accepted the goal. Resolve approvals, questions, or failures in each task's Chat view.
+  </Step>
+</Steps>
+
+Auto-run's enabled state is stored on the executing computer. Enabled boards are resumed when its daemon starts again. Switching layouts or browsing another board is not a Stop action.
+
+## Read the status
+
+The open menu refreshes its status periodically. **Refresh status** asks for the current loop status; it does not itself launch an extra check.
+
+| Display | Meaning |
+| --- | --- |
+| **Last tick** | Time the last check completed successfully. A later failure can leave the old time visible. |
+| **Next tick** | Expected next check while running. A slow refresh or preparation affects the schedule. |
+| **Synced** | Newly imported issues in that check, not every issue inspected or updated. |
+| **dispatched** | Task workspaces and conversations prepared for dispatch; inspect Chat for actual agent execution. |
+| **reconciled** | Attached task runs handled after their issues reached terminal workflow states. |
+| **Error** | A check-level failure, such as an unsuccessful Linear refresh. Individual task preparation can fail without making the whole check fail. |
+
+Review completed work to release capacity through the intended workflow. Do not mark an issue Done merely to make room: review and preserve its files first.
+
+## Stop and change settings
+
+Open **Auto-run** and choose **Stop**. Confirm **Auto-run OFF**; the next scheduled check should no longer be shown. The interval, capacity, and assignee controls become editable while it is off. Apply changed menu values with the next **Start**.
+
+Stopping prevents future scheduled checks. A check already in progress can still finish preparing tasks, and agents already running are not interrupted. Pending retries for individual tasks are separate from Auto-run too.
+
+To stop work as well as scheduling, inspect the tasks and use [Interrupt agent](/workspace/run-a-task#interrupt-a-task) where available. Check their conversation and goal states afterward. Do not clear a workspace merely to turn off automation.
+
+## If Auto-run is not doing what you expect
+
+<AccordionGroup>
+  <Accordion title="Auto-run is ON, but no task starts">
+    Check the error, last successful check, and selected team. Then inspect capacity: blocked, retry-queued, and ready-for-review tasks can fill it.
+
+    Check whether the intended issues already have conversations, are stale, are in eligible workflow types, have a blocking parent on the board, and resolve to a project. An unavailable branch or model can fail an individual start without a check-level error. Inspect the task and daemon logs rather than repeatedly toggling Start.
+  </Accordion>
+  <Accordion title="An issue outside my filter starts">
+    Stop Auto-run and inspect any work already dispatched. Toolbar filters, saved views, and the assignee checkbox do not provide a strict launch boundary. Use individual starts for a restricted list.
+  </Accordion>
+  <Accordion title="The effective concurrency differs from Max agents">
+    Check the selected policy project's workflow file. Even a file containing only prompt text supplies default concurrency settings. See [Workflow configuration](/customization/task-workflows#settings-that-affect-execution).
+
+    Capacity is per board, not a computer-wide limit across all teams, manual starts, and ordinary chats. It is not a provider usage budget.
+  </Accordion>
+  <Accordion title="Stop timed out or the computer disconnected">
+    Restore the connection to the owning computer, reopen the same team's Auto-run menu, and check both enabled state and recent tasks. The missing acknowledgement does not establish that Stop succeeded or failed.
+
+    Check task goals separately. Turning off the loop does not cancel work already in progress or remove its files.
+  </Accordion>
+</AccordionGroup>

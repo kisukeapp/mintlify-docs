@@ -1,0 +1,169 @@
+---
+title: "Run and review a task"
+description: "Choose a project and agent for a Linear issue, follow its goal, review the changes, and interrupt or clear the workspace deliberately."
+---
+
+A task connects a Linear issue to an agent conversation and a separate Git worktree. Use it to give the agent a defined outcome, follow its progress, and review the resulting files before moving the issue through your team's workflow.
+
+This guide follows the desktop [Tasks layout](/workspace/tasks). For a conversation without a Linear issue, start in [Zen](/zen-mode).
+
+## Before you start
+
+- Connect the issue's Linear organization and open the correct team in Tasks.
+- Open the project on the computer where the agent will run. That computer needs an available project connection, Git, and the selected harness and model.
+- Check the repository and starting branch. A new worktree starts from a commit; do not assume uncommitted files from your current checkout will appear there.
+- Decide what the agent should achieve, how it should verify the result, and which actions need your approval.
+
+Tasks submits its first prompt as a [goal](/conversations/goals), which can continue across multiple responses. The task execution path supports Codex's native goals and Claude Code's goal integration. Other harnesses can appear in the model picker without supporting task goals. A provider or model being available for an ordinary chat does not establish task support.
+
+<Note>
+  Pi can run a goal in an ordinary Zen conversation, as shown in [Verify a completed goal](/conversations/goals#verify-a-completed-goal). The Linear task launcher currently rejects Pi with `harness-does-not-support-goals:pi`. Choose Codex or Claude Code for an issue-linked task, or use an ordinary conversation for the Pi goal workflow.
+</Note>
+
+## Start one issue
+
+<Steps>
+  <Step title="Open the issue's start dialog">
+    Select the issue's title or card, read its description, and choose **Start task** under **Agent**.
+
+    The row's **Run task** shortcut can start immediately using configured defaults. Use the issue details when you want to inspect and edit the start choices first.
+  </Step>
+  <Step title="Choose the project and starting branch">
+    Select the project folder. This is the repository where the agent will work, distinct from the issue's Linear project.
+
+    Wait for its connection and repository check. The branch selector starts at **Current HEAD**; select another available branch when needed.
+
+    Choose the project before editing the prompt. Changing projects resets the branch choice and regenerates the proposed prompt.
+  </Step>
+  <Step title="Review the prompt, model, and permissions">
+    Edit the proposed prompt to state the result you want. Include acceptance criteria, tests, files to preserve, and any limits on committing or publishing.
+
+    Check the harness, model, reasoning choice where available, and [permission mode](/conversations/permissions) in the composer. **Ask first** keeps approval decisions in the conversation. Availability comes from the selected project's computer.
+
+    Task defaults or project workflow instructions can contribute context. Read the proposed prompt even when the issue description is already detailed.
+  </Step>
+  <Step title="Send and inspect the conversation">
+    Choose **Send message**. Kisuke prepares the worktree and conversation, then dispatches the goal.
+
+    When the dialog closes, use **Open agent chat**. Check that the intended task is open and look for the accepted goal, the agent's response, or a pending approval. A closed dialog or visible workspace is not proof that the first response started successfully.
+  </Step>
+</Steps>
+
+For example, refine a persistence issue's proposed prompt with:
+
+```text
+Keep completed trails checked after a page refresh. Add a reset action
+that clears the saved progress. Test refresh and reset, then explain
+the changes and any remaining limitations. Do not commit or push.
+```
+
+### Initialize a project without a first commit
+
+If the selected folder has no repository or no first commit, the dialog offers **Initialize Git repository**. Read the confirmation and choose **Confirm initialization** to proceed, or **Cancel** to leave it alone.
+
+Initialization creates a local repository when needed and an empty initial commit so a worktree can be created. It leaves your files uncommitted, including files already staged in an unborn repository. It does not publish a repository or push to GitHub.
+
+<Note>
+  An empty initial commit contains no project files. If the task needs files that exist only in your current checkout, prepare the intended starting commit before launching it. Initializing Git alone does not copy those files into the task's worktree.
+</Note>
+
+The dialog rechecks the repository before enabling branch selection and sending. If Git reports a missing author identity, configure it on the project computer and use **Check repository again**. Do not repeatedly initialize a folder whose existing Git metadata cannot be read.
+
+## Follow the work
+
+The issue's **Details**, **Chat**, and **Changes** views serve different purposes. **Details** shows the issue properties, workspace, and agent status. **Chat** contains the instructions, goal, responses, and decisions. **Changes** lets you inspect the task worktree's files and Git changes.
+
+Keep the task conversation open when switching to **Zen** if you want its workspace tools alongside the discussion. Check the selected project and branch before using [Files](/workspace/files), [Terminal](/workspace/terminal), or [Review](/workspace/git); work in the task's checkout when inspecting its result.
+
+| Agent status | What to check |
+| --- | --- |
+| **Ready** | No active response is reported. Inspect the goal and conversation before deciding to resume. |
+| **Working** | Follow the response and its tool activity. |
+| **Needs input** | Open Chat for an approval, question, or stopped goal that needs attention. |
+| **Stalled** | Inspect recent activity and connection state. Quiet output alone does not prove failure. |
+| **Retry queued** | A retry is pending after a failure. Read the error before starting more work. |
+| **Failed** | Read the error and check the conversation and retained workspace. |
+| **Ready for review**, **Done** | Review the actual result and verification. These labels do not establish that tests passed or changes were merged. |
+
+Answer [permission requests](/conversations/permissions) and [questions](/conversations/answer-questions) in Chat. A goal does not answer them for you. You can add a [follow-up](/conversations/follow-ups), or use the goal controls to change the objective or pause automatic continuation.
+
+One response ending does not necessarily finish the task. While the goal remains active, the agent can continue working. A paused, blocked, or limited goal needs attention; an achieved goal moves the run toward review.
+
+<Note>
+  Reopening a task after a process restart can restore its conversation. For a prepared task whose first response never started, or a failed task awaiting recovery, opening Chat can also dispatch work again. Treat that recovery as potentially active execution.
+</Note>
+
+## Review and finish
+
+Read the final explanation and verify the task's acceptance criteria. Open **Changes**, inspect the diff, and run the relevant checks in its workspace. If a project Setup script is configured, confirm its result too: ordinary worktree setup can run separately from the agent's first response.
+
+When the run reaches a completed state, workflow controls can offer **Move to review** and **Mark as done**. The chat composer uses **Move to done** for the latter action. The available destinations depend on the team's configured or detected workflow columns.
+
+Task completion can also move the issue to its review destination automatically. Check the resulting issue status in Linear when handing work to someone else. A local status change is not a guarantee that Linear accepted it.
+
+Moving an issue to Done does not itself commit, push, or merge the changes. Use [Commit and push](/workspace/commit-and-push) and [Pull requests](/workspace/pull-requests) when those actions are part of your workflow.
+
+<Warning>
+  Preserve the work before moving an issue to a completed or cancelled workflow state. When the project computer's Kisuke daemon starts, it can remove task worktrees in those states, including uncommitted and untracked files. This cleanup also runs with **Auto-run off**. A Ready for review agent label alone does not trigger it; the issue's workflow state matters.
+</Warning>
+
+Keep any work you need outside the task checkout before cleanup or a fresh start. Preserve commits on a separate branch or in your normal remote workflow, and copy files that are not committed. Starting the task afresh can reset its task branch to the newly selected base, so the task branch alone is not a durable backup of an earlier attempt.
+
+## Interrupt a task
+
+Choose **Interrupt agent** in the issue details when that control is available. It requests interruption, pauses an active goal, and cancels a pending task retry. The existing conversation and workspace remain attached so you can inspect the result.
+
+Check the conversation afterward. Interruption does not undo file edits, external actions, or necessarily stop every command or service the agent started. If the goal update or connection fails, do not assume the work stopped.
+
+To continue, open the same task conversation, resolve the reason for stopping, and use the available [goal controls](/conversations/goals). Resuming the goal can start automatic work again.
+
+Interrupting one task is separate from the board's **Auto-run** control. It does not disable automatic dispatch of other eligible issues. Conversely, stopping Auto-run does not interrupt agents already working.
+
+See [Task automation](/workspace/task-automation) for board scope and scheduling, and [Task workflows](/customization/task-workflows) for repository instructions and hooks.
+
+## Clear the task workspace
+
+Use **Clear task workspace** only when you want to discard the attached attempt and start again with fresh choices. Read and confirm the destructive action.
+
+Clearing attempts to end the agent session, removes the task worktree, and clears its conversation binding and run counters. Indexed transcript history is archived under the parent project; that history is not a backup of the worktree's files.
+
+<Warning>
+  Clearing can permanently delete uncommitted and untracked files. Preserve the work first. Use **Interrupt agent** when your intent is to stop work while keeping the checkout.
+</Warning>
+
+If teardown or file removal takes too long, Kisuke can clear the task's displayed binding while physical cleanup is still incomplete. Do not treat a reset-looking issue as proof that the old process and folder are gone. Inspect the folder and logs before starting another attempt, especially after a timeout.
+
+## Recover a failed start
+
+<AccordionGroup>
+  <Accordion title="Start task is unavailable">
+    Check that a project is open and its computer is connected. If the issue is **Missing from Linear**, refresh or restore its availability before starting. See [Tasks and Linear](/workspace/tasks#refresh-and-recover).
+
+    In the start dialog, wait for the selected project's connection, repository check, and model choices. Sending also requires a nonempty prompt. Use **Retry** after resolving a connection error.
+  </Accordion>
+  <Accordion title="The model selection changed or is unavailable">
+    Review the composer controls against the selected computer's current catalog. Choose an available model and reasoning level on a harness that supports task goals.
+
+    If an attached run reports `harness-does-not-support-goals`, repeated retries with the same harness will not fix it. Interrupt any pending retry. Preserve its files before clearing the attempt to choose a supported harness.
+  </Accordion>
+  <Accordion title="The workspace is ready, but the agent could not start">
+    Check the harness and model setup on the project computer. When Kisuke reports this bootstrap failure, it retains the workspace for a retry with the same project.
+
+    Inspect the task before retrying. If it already has a conversation, opening it may recover and dispatch the goal. A partial workspace associated with another project must be preserved or deliberately cleared before starting elsewhere.
+  </Accordion>
+  <Accordion title="Worktree setup took too long">
+    Check the issue for an attached workspace and conversation before trying again. A timeout can mean that the app missed the result, rather than that no worktree was created.
+
+    For a repository or branch error, inspect Git on the selected computer. If the workspace exists, preserve its files before any cleanup. Avoid repeatedly clearing and recreating it to troubleshoot a connection problem.
+  </Accordion>
+  <Accordion title="The task shows Failed or Retry queued">
+    Read the error in Details and the conversation. Explicit agent failures can schedule a retry with increasing delays; a quiet or stalled response alone does not trigger the same retry policy.
+
+    Resolve unavailable credentials, model access, goal support, or project setup before continuing. Use **Interrupt agent** when a retry is pending and you need work to stop. Reopening a failed task can itself trigger recovery.
+  </Accordion>
+  <Accordion title="Linear or the task chat will not open">
+    Reconnect the issue's own Linear organization for a Linear-connection error. Restoring another organization does not restore that issue's access.
+
+    For a task chat connection error, check the computer and folder that own its worktree. If Files, Terminal, Git, and Chat are all unavailable, follow [device connection recovery](/workspace/devices#diagnose-missing-or-unavailable-devices). Do not choose a different project's route merely because it is online.
+  </Accordion>
+</AccordionGroup>

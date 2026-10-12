@@ -1,0 +1,148 @@
+---
+title: "Sync your agent setup"
+description: "Choose which provider connections, preferences, and user-level tools Device Sync shares between your computers."
+---
+
+Device Sync shares selected agent configuration between computers signed into your Kisuke account. Use it to bring provider connections, preferences, and supported user-level tools to another computer.
+
+On a fresh installation, **Enable Device Sync**, **Model providers**, and **Agent preferences** are on. Other data categories, **Install missing software**, and **Sync deletions** are off. Review the actual settings on each computer; an existing installation can have different choices.
+
+<Note>
+  **Model providers** includes provider credentials and account metadata. **Plugins**, when enabled, can include user-scoped secrets. Review these categories when deciding what to share between your computers.
+</Note>
+
+To access a project's existing files and runtime remotely, [connect to its computer](/workspace/devices). Device Sync transfers the configuration described here; it does not copy project repositories, worktrees, conversation transcripts, or running terminals.
+
+## Review the choices on each computer
+
+Start with Connect running and Kisuke signed into the intended account. Both computers need to be available to exchange new configuration.
+
+1. On the computer you want to configure, open **Settings → Device Sync**.
+2. Wait for the settings to load. Controls are unavailable while disconnected, loading, or saving a change.
+3. Under **Data**, choose the categories you want this computer to share and receive.
+4. Review **Allowed changes** separately. Enabling a data category does not also enable installations or deletions.
+5. Keep **Enable Device Sync** on to synchronize the selected categories. You can configure the categories while the master switch is off.
+6. Wait for each change to finish before making another. If an error appears, follow the [settings recovery guidance](#recover-from-a-settings-error) before retrying.
+
+Changes save when you operate each switch; there is no separate Save button. A change that has not been acknowledged can have an uncertain result. Use **Reload** to read the computer's current settings instead of repeatedly toggling it.
+
+These choices belong to each computer and do not themselves synchronize. To exchange a category, allow it on the computers involved. A category disabled on one computer is excluded from that computer's Device Sync.
+
+### Phone and web controls
+
+The phone app also exposes **Settings → Device Sync**, under **Connections**. Phone and web controls operate through a connected computer; they do not turn the phone or browser into a configuration-file host.
+
+For deliberate configuration of a particular computer, use its desktop settings. With several computers connected, the remote settings connection is not guaranteed to follow the project you most recently selected.
+
+## Choose the data to synchronize
+
+The categories cover supported configuration sources. A category name does not mean every harness uses the same format or that every external tool's settings are included.
+
+| Category | Included configuration |
+| --- | --- |
+| **Model providers** | Provider credentials and account metadata saved by Kisuke. |
+| **Agent preferences** | Preferred model, default harness, Kisuke appearance theme, question preview format, and task prompt template. |
+| **Permission rules** | Claude Code's user-level permission rules. This is a separate choice from Agent preferences. |
+| **MCP servers** | Portable server definitions from supported user-level MCP configuration files. |
+| **Plugins** | Supported Claude Code user plugins: enabled state, configuration, marketplaces, plugin policy, and user-scoped secrets. |
+| **Hooks** | Claude Code user hook definitions and files under its user hooks directory. |
+| **Skills** | Skill folders containing `SKILL.md` in supported user skill directories. |
+| **Subagents** | User-level definitions under `~/.claude/agents`. This does not transfer running subagent conversations. |
+| **Commands** | User-level definitions under `~/.claude/commands`. |
+| **Harness availability** | The intent to make supported harnesses available on the other computer. Installation and local availability still need checking. |
+
+Project-scoped instructions, skills, commands, plugin configuration, and repository files remain part of the project. Keep those with the project through your normal file or Git workflow.
+
+<AccordionGroup>
+  <Accordion title="Which skill directories are included?">
+    Device Sync scans user skills in these directories:
+
+    - `~/.agents/skills`
+    - `~/.claude/skills`
+    - `~/.codex/skills`
+    - `~/.config/opencode/skills`
+    - `~/.gemini/skills`
+
+    Each skill must be a child folder containing `SKILL.md`. The folder's supporting files travel with it. Hidden child folders and top-level symlinks are skipped; a package containing an absolute or escaping symlink is not portable.
+
+    Synchronizing between computers is separate from Kisuke's [skill links between harness directories on one computer](/customization/skills#existing-skill-locations). Check that the intended harness can discover and use the skill after it arrives.
+  </Accordion>
+  <Accordion title="Do custom models and local applications synchronize?">
+    [Custom model definitions](/models/custom-models) belong to one Connect installation. Device Sync does not copy them. Configure the endpoint, model ID, and credentials on the computer that will use them.
+
+    MCP definitions tied to a local application or a detected machine-specific path are excluded. Other definitions can still need a command, package runner, environment variable, or sign-in on the destination. See [MCP servers](/customization/mcp) to check the actual connection.
+
+    Harness availability does not make an OS-specific executable portable. Conductor is excluded from this synchronization path.
+  </Accordion>
+</AccordionGroup>
+
+## Allow installations and deletions separately
+
+### Install missing software
+
+Turn on **Install missing software** if you want Device Sync to install missing supported harnesses and plugins. Their data category must also be enabled. Installation depends on the destination's tools, supported installation method, and any required setup.
+
+If installation is not allowed, a received item that requires it can remain pending your attention. Enabling **Plugins** or **Harness availability** alone does not establish that its software is installed or ready to run.
+
+Healthy external harness installations are kept. An externally installed plugin with a different detected version can be left unchanged and reported as needing attention. Inspect the named item rather than assuming all computers now run identical versions.
+
+### Sync deletions
+
+Turn on **Sync deletions** only when you want supported local deletions to propagate and deletion records from other computers to remove matching local items. Kisuke asks for confirmation when you enable it. The relevant data category must also be enabled.
+
+Deletion can remove provider credentials or configuration entries, move supported skill or definition files into recovery storage, or uninstall software owned by Device Sync. A recovery copy is not available for every kind of item. External software installations are not uninstalled by this path.
+
+Turning **Sync deletions** off blocks deletion records. It does not freeze existing configuration: a synchronized update can still replace an item's contents, including fields removed in the newer version. Keep backups of configuration you need to recover.
+
+## Understand updates and progress
+
+Synchronization runs in the background while enabled. Different computers can contribute different items. For competing versions of the same item, Kisuke selects a recorded version; it does not merge the text of a skill or command line by line. Avoid editing the same item independently on several computers while diagnosing a disagreement.
+
+During initial setup, the Device Sync step can show discovery, transfer progress, and items needing attention. **Continue manually**, when offered, lets setup proceed without establishing that every item synchronized. If there is no other computer to copy from, finish setting up this computer directly.
+
+Background notices use these labels:
+
+| Notice | What to check |
+| --- | --- |
+| **Updating this device** | Read the named item or source computer and let the transfer continue. |
+| **Device Sync complete** | The reported run has finished. Check the provider or tool you intend to use. |
+| **1 item needs attention**, or several items | Read the item's setup or failure message. Other items may have completed. |
+
+A full progress bar counts processed items; it is not proof that every provider, package, or tool works. Check attention messages even when setup says it is ready. **Hide Device Sync** dismisses the notice; it does not disable synchronization.
+
+After sync, return to [Zen](/zen-mode), open the intended project, and inspect its [model picker](/models/overview). A copied provider credential or preferred model does not prove that the destination harness can run that model. Send a small request to check actual access. Likewise, verify a synchronized skill, command, plugin, or MCP server before relying on it for a larger task.
+
+## Recover from a settings error
+
+<AccordionGroup>
+  <Accordion title="The controls are unavailable">
+    For **Connect to a device to change these settings**, restore the connection to the computer. Let the policy load before interpreting the displayed switch positions as saved choices.
+
+    If settings take too long to respond, use **Reload** once the connection is available. See [device connection troubleshooting](/workspace/devices#diagnose-missing-or-unavailable-devices) when several workspace tools are also unavailable.
+  </Accordion>
+  <Accordion title="A change may not have been acknowledged">
+    Choose **Reload** and inspect the returned values before trying again. A missing confirmation does not prove that the computer rejected or never received your change.
+
+    If the message says the device disconnected, restore its connection, reload, and then apply the choice you still want.
+  </Accordion>
+  <Accordion title="Settings changed on another client">
+    The screen supplies the latest values after rejecting a conflicting change. Review them, then make the intended change again. Do not restore an older set of switches without considering the other client's changes.
+  </Accordion>
+  <Accordion title="Settings storage is unavailable or Device Sync is restarting">
+    Keep the exact error. For a restart message, reload after the computer reconnects. A storage error needs attention on that computer; repeated toggles do not repair its storage.
+
+    If stored policy is unreadable or malformed, synchronization can be disabled rather than using the normal fresh-install defaults. Review and save your intended choices after the storage problem is resolved.
+  </Accordion>
+</AccordionGroup>
+
+## An item is missing or needs attention
+
+1. Confirm both computers are signed into the intended account, online, and running Connect.
+2. Check the master switch and the item's category on both computers.
+3. Confirm that the item is in a supported user-level location. Project-local configuration and custom models are separate.
+4. Read its attention message. Check installation permission, required package runners, local application availability, and any provider or tool sign-in.
+5. Let background sync retry after resolving the cause, then verify the actual provider or tool.
+
+If Kisuke says another device needs an update, check versions and connectivity on both computers. That message can also accompany an unavailable peer; it does not identify the cause by itself.
+
+To stop future synchronization on a computer, turn off **Enable Device Sync** there and wait for the change to finish. Previously copied credentials, files, and installed software remain. Disabling sync is not a credential-revocation or rollback operation.

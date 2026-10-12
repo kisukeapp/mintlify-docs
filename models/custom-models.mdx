@@ -1,0 +1,78 @@
+---
+title: "Use a custom model"
+description: "Add an OpenAI-compatible endpoint, test its connection, and select it for a conversation."
+---
+
+Use **Custom Models** to connect an endpoint you operate or obtain from a hosted service. You supply its address and exact model identifier, then choose the saved model from the composer in [Zen mode](/zen-mode).
+
+For built-in integrations such as OpenAI, Anthropic, or Google, start with [Connect providers](/models/providers).
+
+## Before you start
+
+Have these details ready:
+
+- An OpenAI-compatible API base URL reachable from the computer running Kisuke Connect.
+- The exact model ID accepted by that endpoint.
+- An API key or additional request headers, if the endpoint requires them.
+
+Start the model server before testing. A custom model definition belongs to one Connect device; it does not automatically synchronize to your other devices. An address using `localhost` refers to the computer running Connect, which may be different from the device displaying Kisuke.
+
+## Add the endpoint
+
+<Steps>
+  <Step title="Open custom models">
+    Open **Settings → Providers**, find **Custom Models**, and choose **+ Add custom model**.
+  </Step>
+  <Step title="Enter the connection details">
+    Enter a **Name**, **Base URL**, and **Model ID**. Add the **API key** if required. Expand **Advanced — custom headers** for any extra headers required by your gateway.
+  </Step>
+  <Step title="Test before saving">
+    Select **Test connection**. Review the result and any reply sample. Testing uses the current form values and does not save the definition.
+  </Step>
+  <Step title="Save and select">
+    Choose **Add model**, then open a new conversation's [model picker](/models/overview#choose-a-harness-and-model). Look for your saved name under **Custom** in a harness that exposes custom models.
+  </Step>
+</Steps>
+
+## Understand the fields
+
+| Field | What to enter |
+| --- | --- |
+| **Name** | A display name you will recognize in Settings and the picker. It can differ from the server's model ID. |
+| **Base URL** | The API root. Kisuke appends `/chat/completions`; do not include that suffix yourself. Include `/v1` only when your server's API root requires it. |
+| **Model ID** | The exact identifier your server accepts. Kisuke trims surrounding whitespace and sends this value as the requested model. |
+| **API key** | The endpoint's key, sent as a Bearer credential. Leave it empty when the server does not require one. |
+| **Advanced — custom headers** | One `Header-Name: value` pair per line, using the names and values required by your endpoint. |
+
+For example, a base URL of `http://localhost:11434/v1` makes the connection test call `http://localhost:11434/v1/chat/completions`. This illustrates the URL format; it does not install a server or download a model.
+
+## What the connection test proves
+
+**Test connection** sends a small, non-streaming request containing `ping`, your model ID, and a one-token output limit. It then tries to read the endpoint's advertised model list.
+
+**Connected** means the completion request returned a successful HTTP status. Kisuke may also display a reply sample and the number of models advertised by the endpoint. The advertised list is optional; failure to retrieve it does not make the completion check fail.
+
+<Note>
+  A successful test does not validate the full response format. An endpoint can return a successful HTTP status without a usable model reply. It also does not verify streaming, tool use, image input, or a complete agent turn.
+</Note>
+
+After saving, try a small request in a new conversation and verify the actual response. Check the endpoint's capabilities against the tools and input types you intend to use. Do not assume that every endpoint or harness supports the same features.
+
+## Edit or remove a definition
+
+In **Settings → Providers → Custom Models**, choose **Edit** beside a model. Update the fields, test the edited values, and choose **Save**. **Cancel** closes the form without saving.
+
+Choose **Delete**, then **Confirm**, to remove the saved definition from that Connect device. This removes Kisuke's connection entry; it does not uninstall your model server. Choose **Cancel** at the confirmation prompt to retain it.
+
+## Resolve connection problems
+
+| Result | What to check |
+| --- | --- |
+| **Test connection** is disabled | Enter both **Base URL** and **Model ID**. A name is also required to save. |
+| **Could not connect** | Confirm the server is running and the URL is reachable from the Connect computer. Check the host, port, and network access. |
+| **Timed out** | Check server readiness and responsiveness. A server loading a model may not answer the small request promptly. |
+| HTTP error or an endpoint error message | Use the returned message to check authentication, the API root, and the exact model ID. |
+| **Connected**, but a conversation fails | Inspect the conversation's error and the server's logs. The basic check does not exercise streaming or agent tools. |
+| Saved model is missing from the picker | Check that you are using the device where you saved it and a harness that exposes custom models. Clear the picker search. |
+
+If the composer rejects a first message before the endpoint receives it, see [Troubleshoot a first message](/help/starting-a-chat).

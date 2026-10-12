@@ -1,0 +1,137 @@
+---
+title: "MCP servers"
+description: "Configure tool connections, check a server, and distinguish saved configuration from the tools available in a conversation."
+---
+
+MCP, the Model Context Protocol, connects AI applications to external tools and data sources. A server might expose search, project management, or a specialized tool. See the [MCP introduction](https://modelcontextprotocol.io/docs/getting-started/intro) for the protocol's purpose.
+
+In Kisuke, use **Settings → MCPs** to inspect configured servers and add a connection. This is separate from [connecting a model provider](/models/providers): a provider supplies the model, while an MCP server supplies capabilities the agent may use. A [skill](/customization/skills) supplies instructions, not a server connection.
+
+## Before you configure a server
+
+Get the server's setup instructions, including its transport, endpoint or launch command, and authentication requirements. Use the exact MCP endpoint rather than the service's normal website URL.
+
+The configuration belongs to the connected host device. For a **Stdio** server, its executable and dependencies must be available on that host. For **HTTP**, the host must be able to reach the endpoint. `localhost` in an endpoint refers to that host, which may differ from the computer where you are viewing Kisuke.
+
+## Add a shared server on desktop
+
+Open **Settings → MCPs → Add server**. The form is titled **New MCP Server**.
+
+1. Enter a distinctive **Server Name** using letters, numbers, dashes, or underscores. Avoid reusing an existing name unless you intend to update that configuration.
+2. Choose **Stdio** or **HTTP** and fill in the corresponding fields below.
+3. Leave **Scope** set to **Global** for a shared user configuration on the connected host.
+4. Choose **Add**. Check the resulting list for the server and any error.
+5. Open its details and use **Check connection** when available.
+
+Adding the configuration does not itself prove that the server connects or that an existing conversation has loaded its tools.
+
+### Stdio: launch a process
+
+| Field | What to enter |
+| --- | --- |
+| **Command** | The executable from the server's instructions, such as `node` or `python`. |
+| **Arguments** | One argument per line. Keep these separate from the executable. |
+| **Environment Variables** | One `KEY=value` pair per line, using the names required by the server. |
+
+For example, if the server's documented command is `node /absolute/path/to/server.mjs`, enter `node` as Command and the absolute script path as one line in Arguments. Replace that example path with the installed server's real path on the host.
+
+Checking a Stdio connection launches that configured process. It does not install missing dependencies for you.
+
+### HTTP: connect to an endpoint
+
+Enter the server's **URL**, then select its **Authentication** method:
+
+| Choice | Use it when |
+| --- | --- |
+| **None** | The endpoint does not require authentication. |
+| **OAuth** | The server supports a browser sign-in flow. |
+| **Bearer** | The server requires a bearer token. Enter the token in **Bearer Token**; Kisuke adds the `Bearer` prefix. |
+
+When a shared server shows **Needs auth**, use **Auth** on its row or **Authenticate** in its details to begin sign-in. Follow the browser flow, return to Kisuke, and check the connection again.
+
+Use Kisuke Desktop connected to the intended host for MCP OAuth. Mobile directs you to Desktop; a web view without a supported callback adapter cannot complete this flow. A server managed by Codex or a Claude Code session has its own authentication owner, shown in the row.
+
+## Configure a project with a file
+
+For a project-specific configuration, place `.mcp.json` in the project's root folder on its host device. This example shows the file structure; replace the URL with your server's real MCP endpoint:
+
+```json
+{
+  "mcpServers": {
+    "docs-example": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp"
+    }
+  }
+}
+```
+
+For a Stdio server, use `command`, `args`, and optionally `env` instead of `url` and `type`. `args` is a JSON array, with each argument as a separate string.
+
+<Note>
+  The desktop Add server form currently shows a **Project** option but does not supply the required project path. It can report **Project path required for project scope**. Use the project file above for this setup.
+</Note>
+
+Shared settings added through the form are saved in `~/.claude.json` on the connected host. Project `.mcp.json` files are another configuration source. A project entry stored in the host's `~/.claude.json` can override a same-named entry in the project file, so inspect both sources if your edits appear not to take effect.
+
+Environment references such as `${MY_MCP_TOKEN}` in shared/project configuration values are expanded from the daemon's environment on that host. A variable set only in an unrelated terminal may not be available there. Keep actual credentials out of a project file you commit or share.
+
+## Understand Check connection
+
+Open the server row or its details button and choose **Check connection**. Kisuke initializes a separate MCP client, lists tools when the server advertises them, and closes the check connection. It does not invoke a tool or send a model prompt.
+
+| Status | Meaning |
+| --- | --- |
+| **Not checked** | There is no matching check result for the current configuration. |
+| **Check passed** | The configuration completed the connection check. |
+| **Check failed** | The check failed. Read the error in details. |
+| **Needs auth** | The configuration needs authentication or the server rejected its current sign-in. |
+| **Disabled** | The entry is disabled. Enable it before checking. |
+
+A passed check describes that configuration at the time of the check. It is not proof that a running conversation has loaded the same server, credentials, or tools. **Connected** can also reflect saved authentication or a harness's reported runtime state; read the row's origin and details to understand which one it represents.
+
+When a check returns tools, their names appear in **Tools** in the details view. Tool discovery does not exercise those tools.
+
+## Distinguish shared, native, and managed entries
+
+The list combines several sources. Use **All**, **Shared & Claude Code**, and **Codex** filters where available, and read the scope or origin below the name.
+
+- **Shared user configuration** and project entries describe configurations Kisuke can check. They can be used by supporting harnesses, but loading and authentication differ by harness.
+- **Codex native configuration** is managed in Codex on the connected host. Kisuke can check supported configurations, but the check does not use Codex-managed OAuth or keychain sign-in.
+- **Codex-managed plugin** entries show the plugin's qualified identity and configured enablement. **Enabled in Codex** is not a connection-check result or proof that a particular conversation has loaded the plugin.
+- **Codex app internal transport** entries belong to the owning app. They are not ordinary server toggles and have no connection-check action here.
+- Runtime entries with a **session** in their origin belong to that harness session. Manage them in that session rather than treating a same-named saved configuration as the same connection.
+
+If **Check connection** is unavailable, read its explanation. Native execution environments, missing environment credentials, or native-only authentication may require the owning harness. Do not create a duplicate entry just to get a check button.
+
+## Use the connection in Zen
+
+Choose the intended [harness and model](/models/overview), then ask for a specific task that uses the server. Check the actual tool calls and results in the conversation.
+
+For example, if your configured server offers a search tool:
+
+```text
+Use the connected documentation search tool to find the project's
+release process. Summarize the steps and include the source references.
+```
+
+In **Settings → General → Composer**, **Show MCP status in chat** enables an optional `MCP connected/total` indicator. When the active conversation reports server information, hover over the indicator to see the reported status for each server. The indicator may be absent when the conversation has not supplied that information.
+
+Settings changes do not establish that an already-running harness has reloaded. If a server is missing from a conversation, check its harness, scope, authentication, and native configuration before relying on it. In particular, Codex can retain its own same-named native server instead of Kisuke's shared entry; shared HTTP projection also requires a usable token in the current implementation.
+
+## Disable or remove a saved entry
+
+For an editable shared entry, use its switch to enable or disable it. Its details also offer **Uninstall**, followed by a **Delete MCP** confirmation.
+
+This removes the entry from the settings-managed configuration; it does not uninstall the server executable. An entry supplied by a project file, another configuration source, or a plugin can still appear after that removal. Update its original source when that is the configuration you intend to remove. Native and runtime-managed entries remain under their owning app or session.
+
+## Troubleshoot setup
+
+| Problem | What to check |
+| --- | --- |
+| Command cannot connect | Verify the executable, arguments, dependencies, and environment on the connected host. |
+| HTTP check fails | Verify the MCP URL, host reachability, authentication method, and the reported error. |
+| Authorization header rejected | Correct that configuration's token or header. The check does not substitute OAuth for an explicit rejected header. |
+| Configuration changed | Choose **Refresh**, then check the current entry again. |
+| Device did not respond | Reconnect to the intended host, refresh the list, and retry the check. |
+| Check passes but a tool is missing | Inspect the actual conversation and its harness. A Settings probe is separate from the running agent. |

@@ -1,0 +1,118 @@
+---
+title: "Answer the agent's questions"
+sidebarTitle: "Answer questions"
+description: "Choose options or write your own answer when the agent needs a decision before continuing."
+---
+
+The agent may need a decision before it can continue: where to save progress, which behavior to preserve, or how much of a change to implement. You can answer through a structured question panel or an ordinary chat reply, depending on how the agent asks.
+
+## Recognize the question panel
+
+In [Zen mode](/zen-mode), a structured question replaces the normal composer with the question, answer options, **Type your answer...**, and **Next** or **Submit**. A request with several questions also shows your position, such as **1 of 2**.
+
+The panel appears when the active [harness](/models/overview) sends a supported question request. Asking the agent to clarify something does not guarantee this panel will appear. A numbered list of questions in the transcript is ordinary response text; use [a chat reply](#answer-a-question-written-in-chat) when the normal composer remains available.
+
+<Frame caption="A two-question request from Pi in Zen. The first option is preselected; Next advances the draft to the next question.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '745 / 319', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-structured-questions.jpg" width="1686" height="720" alt="Storage question 1 of 2 in the Zen composer, with This browser selected, Account sync unselected, an empty custom-answer field, and Next." style={{ position: 'absolute', width: '226.308725%', maxWidth: 'none', left: '-41.073825%', top: '-121.943574%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the question in the full Zen workspace">
+  <img src="/images/screenshots/zen-structured-questions.jpg" width="1686" height="720" alt="A pending two-question request in Zen replaces the composer with choices and Next; the environment summary identifies Pi as the harness." />
+</Accordion>
+
+## Review and submit an answer
+
+1. Read the question and the descriptions under its options.
+2. Choose the answer you want, or enter a response in **Type your answer...**.
+3. If there are several questions, choose **Next** to review each one. Use **Back** to revisit your answers.
+4. Choose **Submit** to send the answers together.
+
+**Next** moves through your draft answers; it does not send each answer separately. After Submit, read the agent's next response and check that it uses your decisions. If it keeps waiting or the connection changes, follow [question recovery](#if-the-question-disappears-or-returns).
+
+The first option is preselected for each question that has options. A selected option is a draft answer, not an automatic submission. Review the defaults before choosing Submit, including when the first answer already looks suitable.
+
+For a question marked **(select multiple)**, you can select several options. Click a selected option again to remove it. Keep at least one answer selected, or provide custom text, before continuing.
+
+## Write a custom answer
+
+Use **Type your answer...** when none of the options fits or your decision needs more detail. For example:
+
+> Save progress in this browser for now. Keep the storage format versioned so we can add account sync later. Do not add a sign-in flow in this change.
+
+Custom text replaces the selected options for that question; it is not an additional note sent alongside them. If you want an option plus a qualification, include both in your written answer.
+
+Selecting an option again switches the answer back to that option, even if text remains visible in the custom field. Check the selected state before submitting. Clearing custom text does not automatically restore the initial option—select an option yourself if you want to use it.
+
+An answer containing only spaces is empty. **Next** requires an answer to the current question, and **Submit** requires answers to all questions in the request.
+
+## Use the keyboard on desktop
+
+When focus is in the options area:
+
+| Key | Action |
+| --- | --- |
+| Up or Down arrow | Move focus between options and the custom-answer field. |
+| Home or End | Move focus to the first or last answer control. |
+| Enter on an unselected option | Select that option. |
+| Enter on a selected option | Advance to the next question, or submit on the last question when all answers are valid. |
+| Cmd+Enter on macOS or Ctrl+Enter on Windows/Linux | Submit all valid answers. |
+
+Moving keyboard focus does not itself change the selected answer. Because options start preselected, Enter can advance or submit immediately. Review every question before using the submit shortcut.
+
+## Cancel a question
+
+On desktop or web, use the **×** control at the top of the question panel, labelled **Cancel question**. This sends a request to cancel the question without submitting your drafted answers.
+
+Cancellation does not mean the agent's entire task is finished. Some harnesses can continue without the missing information or ask another question. Use the conversation's Stop control if you need to stop current work, and check the resulting status. For an ongoing [goal](/conversations/goals), also check whether automatic work remains active.
+
+## Answer on mobile
+
+On iOS and Android, the question also appears in the composer area:
+
+1. Tap an option, or scroll to **Type your answer...** beneath **or type your own response**.
+2. Use **Next** and **Back** to review a request with several questions.
+3. Tap **Submit** on the last question to send the complete set of answers.
+
+The same draft rules apply: the first option starts selected, custom text replaces option selections, and every question needs an answer before submission.
+
+<Note>
+The mobile question panel's **×** control currently does not cancel the request from the main chat. To cancel without supplying an answer, open the same conversation on desktop or web with access to its connected device, check that the question is still pending, and use **Cancel question** there.
+</Note>
+
+## Answer a question written in chat
+
+When questions appear as ordinary response text, write your decisions in the normal composer. Include enough context to identify which question each answer resolves. For example:
+
+> For the Trail Notes plan: save progress in this browser, and have Reset clear only trail progress. Summarize these two decisions in one sentence. Do not use tools or edit files.
+
+Send the message, then check the acknowledgment. In this example, it should confirm browser storage and a reset limited to trail progress. A summary confirms the decision was understood; it does not mean the storage feature has been implemented.
+
+<Frame caption="A normal reply supplies both decisions after this Codex conversation reported that structured questions were unavailable. The agent acknowledges the choices without editing files.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '760 / 181', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-question-reply.jpg" width="1920" height="971" alt="A Trail Notes message chooses browser storage and reset of trail progress only; the agent confirms both decisions beneath it." style={{ position: 'absolute', width: '252.631579%', maxWidth: 'none', left: '-17.894737%', top: '-109.392265%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the reply in the full Zen workspace">
+  <img src="/images/screenshots/zen-question-reply.jpg" width="1920" height="971" alt="The completed decision acknowledgment in the left Zen conversation, with the normal composer below and Review Checks open on the right." />
+</Accordion>
+
+If the agent is still running, use the appropriate [Queue or Steer](/conversations/follow-ups) control for the reply. If it is only waiting without a usable question panel, [Stop the response](/conversations/stop-and-continue), wait for the interruption to finish, and send the answer as a new message.
+
+If the conversation shows an error before any question appears, follow [Help with starting a chat](/help/starting-a-chat#if-a-response-starts-then-fails). Review the error before retrying; a failed response is not a pending question you can answer through Submit.
+
+## If the question disappears or returns
+
+The panel can close as soon as you submit or cancel. Its disappearance alone does not confirm that the agent received the response. Check the next response or the conversation's waiting state.
+
+If the connection drops, restore it and inspect the current question before answering again. Another client may already have resolved it. If it returns, check the selections and custom text before submitting; do not assume an unsent draft survived a reload or app restart.
+
+Within the same open question panel, **Back** preserves your answers. Replaying the same request also preserves the panel's draft, while a replacement request starts with new defaults. This is local editing behavior, not a saved answer shared across your devices.
+
+## Continue the work
+
+Answering a question supplies information. It does not change your [permission mode](/conversations/permissions) or approve a separate [plan review](/conversations/planning). Handle those decisions when they appear.
+
+Once the agent continues, use [Queue or Steer](/conversations/follow-ups) if you need to add a correction or another constraint.

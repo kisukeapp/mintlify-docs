@@ -1,0 +1,75 @@
+---
+title: "Troubleshoot a first message"
+description: "Resolve model, provider, reasoning and connection errors before or during a first response."
+---
+
+When a new conversation cannot start, use the error message to choose your next action. A provider sign-in problem needs a different remedy from an unavailable model or a disconnected device.
+
+When a start-error notice says that your message has been restored, check the composer before resending, especially if you had attachments or changed your selection. A response that starts and later fails has a different outcome; do not assume that its prompt is restored to the composer.
+
+## Model and selection errors
+
+| Message | Next action |
+| --- | --- |
+| **Pick a model to start the chat** | Open the composer model picker, select a model, and resend. |
+| **That model is not available right now** | Choose another available model and try again. Check the provider connection if you expected access. |
+| **That reasoning level is not available** | Open the model control and select a reasoning level supported by the current model. |
+| **That permission mode is not available** | Choose a mode offered by the current harness. |
+| **Models are still loading** | Let the catalog finish loading, review the model selection, and retry. If the notice persists, follow the checks below. |
+
+See [Models and harnesses](/models/overview) for the relationship between your provider connection, selected harness, and available models.
+
+### When “Models are still loading” persists
+
+This notice can also mean the selection was submitted against a catalog that is no longer current. Seeing a model name in the composer is not proof that the start request has a valid current selection.
+
+1. Open the model picker and check its loading or error state.
+2. If the picker offers **Retry**, address the reported problem and use it.
+3. Review the selected device and harness, choose an available model, and try sending again.
+4. If the same notice returns, keep the draft and record the exact error, harness, model, and device involved when reporting the problem. Repeatedly sending an unchanged selection does not establish that the catalog has recovered.
+
+## Agent update required
+
+**Agent Update Required** means the installed agent is too old for the selected model. The notice can name the required version, the detected installed version and an update command.
+
+1. Note the harness and the computer running the conversation.
+2. Use **Agent settings** if the notice offers it, or open **Settings → Harnesses** on that computer.
+3. Review the selected installation. Copy its update command when offered and run it on the Connect computer. Opening Settings or copying the command does not perform the update.
+4. Choose **Re-scan**, check the reported version and selected installation, then return to the conversation and retry the request deliberately.
+
+If you have multiple computers, do not assume global Settings opened the device of the failed chat. Use the desktop app on the intended computer. See [Manage harnesses on a computer](/models/overview#manage-harnesses-on-a-computer) for installation states and mobile controls.
+
+If the same version error returns, preserve the required version, detected version and selected path for investigation. Repeatedly resending the prompt, reconnecting a provider or changing permissions does not update the agent.
+
+## Expired provider session
+
+If the notice says **Your provider session expired** or **Your OpenAI session expired** (with the affected provider's name), sign in to that provider again from the desktop app. Then return to the conversation and resend. An error that merely names a provider does not establish that its sign-in expired.
+
+Use [Settings → Providers](/models/providers) to review the connection. Retrying the prompt alone does not renew expired credentials.
+
+## Connection or unclassified start failure
+
+For **Could not start the chat**, check the connection to the device running the project and try again after it is available. If the failure repeats, retain the error text and the project/device context for investigation.
+
+Avoid using **Full control** as a remedy for a model or connection error. [Permissions](/conversations/permissions) govern actions after the relevant runtime accepts them; they do not repair provider authentication or model availability.
+
+## If a response starts, then fails
+
+A model can produce text before the conversation reports an error. Treat that text as a partial result until the response finishes successfully. For example, **Something Went Wrong** with **An unexpected error occurred. Please try again.** does not identify whether the failure came from the provider, the harness or their integration.
+
+<Frame caption="A response can fail even while the composer still shows the selected model. This generic notice does not identify an expired sign-in.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '334 / 42', width: '100%', maxWidth: '32rem', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-response-error.jpg" width="1686" height="720" alt="Something Went Wrong notice with the message An unexpected error occurred. Please try again." style={{ position: 'absolute', width: '504.790419%', maxWidth: 'none', left: '-95.808383%', top: '-1166.666667%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the failed response in Zen">
+  <img src="/images/screenshots/zen-response-error.jpg" width="1686" height="720" alt="A text-only Trail Notes request ends with Something Went Wrong in Zen. The composer shows GPT 5.4 Mini High and Ask first; the environment summary shows the Pi harness." />
+</Accordion>
+
+1. Check whether the response is still active or has ended with an error. Avoid sending another copy while it is active.
+2. Preserve the visible error and the approximate time. Note the project device, provider group, harness, model and reasoning level so the failing combination can be investigated.
+3. Review any completed tool work before retrying. A failed response does not roll back edits or commands.
+4. Resolve a specific reported authentication, availability or connection problem before retrying. If the generic error repeats, report that combination rather than repeatedly resending an unchanged request.
+
+To check a different model in the same conversation, [change the composer selection](/models/overview#change-a-selection-before-sending), review its reasoning level, and send a small new request. To compare a different harness, start a new conversation. Success through another combination does not prove the original one works. You can use the [provider access check](/models/providers#verify-a-complete-response) to keep the comparison small.

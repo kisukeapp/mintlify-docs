@@ -1,0 +1,149 @@
+---
+title: "Connect providers"
+description: "Connect OpenAI, Anthropic, Google, and other providers, then choose their models in Zen mode."
+---
+
+Connect an AI provider before choosing its models in the composer. You can use different providers for different conversations while keeping the same [Zen workspace](/zen-mode).
+
+Provider settings group integrations into **Official Providers**, **Third-Party Providers**, and **Custom Models**. Your AI provider connection is separate from [signing in to Kisuke and setting up Connect](/get-started/desktop-setup). Keep Connect available while saving provider access.
+
+The walkthroughs below use the desktop app. [Other clients](#web-ios-and-android) offer different sign-in options.
+
+If your provider is already connected, go straight to [choosing a harness and model in Zen](/models/overview#choose-a-harness-and-model).
+
+## Choose an integration
+
+| Provider | Desktop setup |
+| --- | --- |
+| **OpenAI** | **Sign In** for account access, or **API Key** for an API credential. |
+| **Anthropic** | **Sign In**, then **Claude account** or **Anthropic Console**; alternatively, **API Key**. |
+| **Google** | **API Key**. |
+| **Antigravity** | **Sign In** through its Google authorization flow. |
+| **Cerebras** | **API Key**. |
+| **DeepSeek** | **API Key**. |
+| **Groq** | **API Key**. |
+| **Kimi** | **Sign In** using a device code, or **API Key**. |
+| **OpenRouter** | **API Key**. |
+| **Qwen** | **API Key**. |
+| **Together** | **API Key**. |
+| **Vercel** | **API Key**. |
+| **xAI** | **Sign In** or **API Key**. |
+| **Zai** | **Sign In** or **API Key**. |
+
+These are the built-in providers in the current catalog, using their names in Settings. The table describes the desktop connection controls; [web, iOS, and Android](#web-ios-and-android) have different sign-in options. Catalogs can change, so check the controls offered by your client.
+
+Provider access and agent installation are separate. For example, **Google** is a provider, while **Gemini CLI** is a harness; **Kimi** and **Kimi CLI** are separate entries too. See [the harness inventory](/models/overview#harnesses-in-kisuke) before choosing the agent that will use your models.
+
+## Sign in with an account
+
+1. Open **Settings → Providers** and choose **Sign In** beside the provider.
+2. For Anthropic, choose **Claude account** or **Anthropic Console**, according to the account you want to connect.
+3. Complete the provider's authorization in the browser that opens.
+4. Return to Kisuke and let the sign-in flow finish. The waiting dialog can progress through authorization, token exchange, and saving the sign-in.
+5. Check the provider card. It should show your account information or **Signed in** instead of **Not connected**.
+
+An authorization page in the browser is only one stage of setup. Kisuke still needs to save the resulting access through Connect. If the card remains disconnected, check Connect and the sign-in result before sending a prompt.
+
+Kimi uses a device code instead on desktop and web. When Kisuke displays a code, choose **Open sign-in page**, enter that code on the provider's page, and return to Kisuke while it waits for authorization. The code is for the provider's sign-in page, not the API-key field.
+
+## Connect with an API key
+
+Obtain the key from the provider you want to connect. Its official setup guide explains where to create or manage one:
+
+- [OpenAI API quickstart](https://developers.openai.com/api/docs/quickstart)
+- [Anthropic API authentication](https://platform.claude.com/docs/en/manage-claude/authentication)
+- [Google Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
+
+Then add it in Kisuke:
+
+1. Open **Settings → Providers**.
+2. Choose **API Key** beside the matching provider.
+3. Enter the key in the password field and choose **Save**.
+4. Wait for the form to close, then check for **API key configured** on the provider card.
+5. Choose a model in a new conversation and [verify a complete response](#verify-a-complete-response).
+
+<Note>
+  **API key configured** confirms that Kisuke has stored a credential. Saving a key does not test a model request or prove that the key has access to every model in the catalog.
+</Note>
+
+Use **Edit** beside an API-key connection to enter a replacement key and save it. Enter credentials in Settings, not in a conversation prompt or a project file.
+
+## Google and Antigravity
+
+Choose **Google** when connecting with a Gemini API key. Choose **Antigravity** for its separate account sign-in integration. Connecting one does not connect the other, and their model identifiers and catalogs are not interchangeable.
+
+Antigravity offers sign-in without an API-key field. Use the desktop app for this flow. If you expect a particular Gemini model, search by model name and check the provider heading before selecting it.
+
+Older saved Google sign-ins do not establish support for the current Google integration. Its current route uses an API key; use Antigravity for the separate sign-in route.
+
+## Choose a model in Zen
+
+Return to your project and start a new conversation. Open the composer model picker, choose the harness, and search by provider or model name. Select the model and review its reasoning setting if available.
+
+The direct Anthropic integration runs through Claude Code. Other provider and harness combinations have their own available catalogs. See [Models and harnesses](/models/overview) for selection steps and missing-model checks.
+
+Provider setup alone does not change a running turn. Select the model you want in the composer before submitting your next prompt.
+
+## Verify a complete response
+
+Use a small request in a separate conversation before relying on a new provider, model or harness combination:
+
+1. Select the intended project and device. Open the model picker and check the provider group, harness, model and reasoning level.
+2. Send a small request whose result is easy to inspect. For example:
+
+   > Use only the text in this message. Do not use tools, read files, edit anything, or delegate. For a trail checklist, explain one way to preserve checked items after a page reload. Reply in exactly two short sentences.
+
+3. Wait for the response to finish. Read the answer and check that the conversation reports no error. Text appearing while the response is still active does not establish successful completion.
+4. If the request fails, record the error, approximate time, device, provider, harness, model and reasoning level before changing one of those choices.
+
+A completed text response verifies that combination for a basic conversation. It does not establish image support, tool compatibility, reconnect behavior or access to every model from the same provider. Verify the capabilities you intend to use next.
+
+The examples below show completed responses from two combinations. In each, the picker identifies the provider and model, and the environment summary identifies the harness. Available models can change.
+
+<Tabs sync={false}>
+  <Tab title="OpenAI with Codex">
+    <Frame caption="A completed text-only response using GPT-6.1-Sol with Low reasoning. Codex appears as OpenAI Codex in the environment summary.">
+      <img src="/images/screenshots/zen-openai-response.jpg" width="1686" height="720" alt="Completed two-sentence response in Zen, with OpenAI Codex in the harness summary, GPT-6.1-Sol checked under OpenAI in the model picker, and Low reasoning in the composer." />
+    </Frame>
+  </Tab>
+  <Tab title="DeepSeek with Pi">
+    <Frame caption="A completed text-only response using DeepSeek V4 Flash through Pi.">
+      <img src="/images/screenshots/zen-deepseek-response.jpg" width="1686" height="720" alt="Completed two-sentence response in Zen, with Pi shown in the harness summary and DeepSeek V4 Flash checked under the DeepSeek provider heading in the model picker." />
+    </Frame>
+  </Tab>
+</Tabs>
+
+If a response starts and then ends with an error, follow [response failure recovery](/help/starting-a-chat#if-a-response-starts-then-fails). A generic failure is not, by itself, a reason to replace credentials or increase permissions.
+
+## Web, iOS, and Android
+
+| Client | Provider setup |
+| --- | --- |
+| Desktop | Account sign-in and API-key entry where offered by the integration. |
+| Web | API-key entry. Device-code integrations can offer sign-in; flows requiring a local browser callback are unavailable. |
+| iOS | API-key entry and supported native account sign-in, including OpenAI and Anthropic. Use desktop for Antigravity sign-in. |
+| Android | API-key entry. Provider account sign-in is unavailable; use desktop for that flow. |
+
+Check the connection on the device that will run your conversation before relying on a setup completed elsewhere.
+
+[Device Sync](/workspace/device-sync) can share provider credentials and account metadata between computers on your Kisuke account. **Model providers** is on by default in a fresh installation. Review that choice on each computer; copied access still needs a successful model request to verify it works.
+
+## Custom models
+
+For an endpoint you configure yourself, use **Custom Models** in the Providers panel. These definitions are separate from built-in provider accounts and belong to one Connect device.
+
+See [Use a custom model](/models/custom-models) for the exact fields, connection test, model selection, and troubleshooting steps.
+
+## Resolve connection problems
+
+| What you see | Next step |
+| --- | --- |
+| **Loading providers...** | Let the provider catalog arrive. If a loading error appears, use that error to investigate the connection or catalog. |
+| **Not connected to the local daemon** | Restore the connection to Connect before saving again. Completing browser authorization alone is insufficient. |
+| **The daemon did not confirm the provider sign-in.** | Check the provider card and Connect before retrying. A missing confirmation does not prove nothing was saved. |
+| Browser authorization completes, but the card remains disconnected | Return to Kisuke and check whether saving finished. Keep any error message for troubleshooting. |
+| Key saved, but the first request fails | Read the request error; check the key's provider, validity, and model access. |
+| Signed in, but the expected model is absent | Check the selected device, harness, provider group, and model-picker search. |
+| **Your provider session expired** | Reconnect that provider, then retry the prompt. |
+
+For a rejected first prompt, see [Troubleshoot a first message](/help/starting-a-chat). Changing agent permissions does not repair a provider connection.

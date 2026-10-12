@@ -1,0 +1,129 @@
+---
+title: "Pull requests from Zen"
+description: "Create a draft pull request, review checks, update its description, and confirm the merge result beside your conversation."
+---
+
+Use **Review → Checks** to work with the GitHub pull request for your branch while keeping your Zen conversation open. You can prepare a draft, edit its title and description, inspect reported checks, and open the PR on GitHub.
+
+This guide follows desktop Zen with a repository on **github.com**. The PR controls use GitHub CLI on the device that owns the project. A model's ability to edit files and your Kisuke sign-in do not establish GitHub access.
+
+## Prepare the branch
+
+Before creating a PR:
+
+- Check the selected project device, folder, and branch. Use a feature branch or [worktree](/projects/worktrees) for the change.
+- [Review, commit, and push](/workspace/commit-and-push) the changes you want reviewed. The Create pull request dialog does not commit or push them for you.
+- Check that the project has the intended GitHub remote and that GitHub CLI is installed and authenticated on that computer. See [Restore GitHub access](/workspace/git-recovery#restore-github-access).
+- Identify the destination branch, such as `main`. The dialog's branch choices come from local branches with configured upstreams; it does not list every branch that exists on GitHub.
+
+**Head** is the branch containing your changes. **Base** is the branch you want to merge into. They must differ, and the head must have commits beyond the selected base.
+
+## Create a draft
+
+<Steps>
+  <Step title="Open Checks">
+    In Zen's right panel, open **Review**, then **Checks**. Under **Git status**, choose **Create PR**.
+
+    If a PR already appears for the branch, open and inspect that PR before creating another.
+  </Step>
+  <Step title="Check the two branches">
+    In **Create pull request**, the left branch is the head and the right branch is the base. Check both even when Kisuke fills them in.
+
+    Keep the head set to the branch whose work you just reviewed and pushed. If you choose another head, inspect that branch's commits first; changing this selector does not switch the files in your workspace.
+  </Step>
+  <Step title="Describe the change">
+    Enter a **Title** and a description. The description supports Markdown. The title can initially use the newest commit message; replace it if a broader description would help reviewers.
+
+    Explain the problem, the resulting behavior, and how you checked it. Include any remaining limitations. Expand the commit preview to check what differs from the base. It displays up to 20 commits, so a long branch needs a fuller review on GitHub or in Git.
+  </Step>
+  <Step title="Choose draft or ready">
+    The dialog initially offers **Create draft**. Use **Create options** if you want a regular PR and check the primary button before submitting.
+
+    A draft lets you put the proposed change on GitHub while you are still preparing it. If a default-branch confirmation appears, recheck the head and base before accepting.
+  </Step>
+  <Step title="Verify the created PR">
+    Wait for the result. On success, the dialog displays **PR created** with an **open** link. Open it and verify the repository, head, base, commits, and draft state.
+
+    Newly edited or unpushed files are not included merely because they are visible in your workspace. Commit and push subsequent updates to the PR's head branch when they are ready.
+  </Step>
+</Steps>
+
+Do not interpret a closed dialog or a lost connection as cancellation after submission. If the result is uncertain, inspect GitHub before submitting again.
+
+## Read the PR status
+
+Return to **Review → Checks**. The PR row can show:
+
+| Status | What to do |
+| --- | --- |
+| **Draft #…** | Keep preparing the change, or choose **Ready for review** when you want to leave draft state. |
+| **Merge conflicts** | Open **View PR**, verify its base, and [resolve the conflict](/workspace/git-recovery#github-reports-a-conflict). |
+| **Changes requested** | Read the review on GitHub and address it before merging. |
+| **Awaiting review** | Check the repository's review requirements on GitHub. |
+| **Ready to merge** | Review the checks and GitHub's merge requirements before choosing **Merge**. |
+| **No PR open** | Verify the branch, refresh, and check GitHub if you expect an existing PR. |
+
+Use **More → Refresh** to refresh Git status and the branch's PR lookup. **More → Open PR on github.com** opens the linked PR when one is available. The branch lookup focuses on open PRs; use GitHub to find older closed or merged PRs.
+
+<Note>
+  **No PR open** is not proof that creation never happened. A lookup or connection failure can leave no PR displayed. After a timeout or failed submission, verify the repository on GitHub before trying again.
+</Note>
+
+## Edit the title and description
+
+Once the PR details have loaded, click its title or description in Checks.
+
+- **Title:** press **Enter** or move focus out of the field to save.
+- **Description:** press **Cmd+Enter** on macOS or **Ctrl+Enter** on Windows/Linux, or move focus out of the field to save.
+
+In the description, **Enter** adds a new line. Moving focus away saves, so use **Esc** when you want to abandon an edit. The compact description preview is shortened; open the editor to read the full text.
+
+If **Save failed** appears, retain your text and check access or connectivity before retrying. Confirm the final content on the PR, especially after a connection interruption.
+
+## Inspect checks
+
+The **Checks** section lists reported check names and their statuses. Use its **Refresh** button for another check lookup. Open the PR on GitHub for logs, review discussions, and the repository's complete merge requirements.
+
+**No checks reported on this PR yet** does not establish that the change passed validation. Zen's list displays GitHub check runs; it is not a complete account of every external status or branch rule.
+
+<Accordion title="Why does the pending total include a finished check?">
+  The summary groups checks that are neither passed nor failed into its pending total. Individual rows can still say **cancelled**, **skipped**, **neutral**, or **stale**. Read the row's text and inspect GitHub before deciding whether more work is running.
+</Accordion>
+
+## Merge and verify
+
+The **Merge** action in Checks asks for confirmation and requests a regular merge. It does not offer squash or rebase selection in that row. If your repository requires a different method, use the PR's GitHub page.
+
+**Ready to merge** describes the displayed merge/review state; it does not mean that every check passed. Before confirming:
+
+1. Open the PR and check the destination branch, latest commits, reviews, and required checks.
+2. Confirm that the regular merge method is appropriate.
+3. Choose **Merge**, read the confirmation, and wait for the result.
+4. Verify the PR's actual state on GitHub, then refresh Zen.
+
+GitHub can reject the operation or handle it according to the repository's rules. A repository with a required merge queue can queue the PR or enable auto-merge instead of merging immediately; see the [GitHub CLI merge reference](https://cli.github.com/manual/gh_pr_merge). If the row remains unchanged, inspect GitHub before repeating Merge.
+
+A merged PR does not establish that your local checkout is up to date or that worktree and branch cleanup is complete. Verify those separately before starting the next change.
+
+## Troubleshoot creation
+
+<AccordionGroup>
+  <Accordion title="Push the branch to remote first or No remote branches">
+    The selected head needs an upstream, and the branch menus only offer local branches that have one. Check the remote and branch tracking on the project device, push the intended branch, then reopen the dialog. A base that exists only as a remote-tracking reference may not appear in this selector.
+
+    Use your normal Git tools to configure the intended local branch and upstream. Do not add or change a remote merely to make a choice appear without verifying its destination.
+  </Accordion>
+  <Accordion title="No commits to merge">
+    Check head and base, then confirm that your changes were committed. Unsaved edits, unstaged files, and a branch equal to the base do not supply commits for the preview. The dialog compares the local branch references, so refresh your repository's remote information when those references may be outdated.
+  </Accordion>
+  <Accordion title="GitHub access failed or the provider is unavailable">
+    Check GitHub CLI on the device that owns the repository. Follow [Git recovery](/workspace/git-recovery#restore-github-access) for installation, account, host, and network checks. Ordinary Git operations on another hosting provider do not imply support for this GitHub PR workflow.
+  </Accordion>
+  <Accordion title="Creation timed out or an existing PR was returned">
+    Inspect open PRs for the head branch on GitHub. Creation can reuse a detected existing PR; verify its base and contents rather than assuming it matches the new form. Preserve the error and PR URL while investigating. Refreshing or rechecking authentication does not itself retry creation.
+  </Accordion>
+</AccordionGroup>
+
+## On other clients
+
+These form and Checks instructions describe desktop Zen. The phone's **Create Change Request** action uses a different flow and can push ahead commits as part of creation. Do not assume it has the desktop dialog's draft, title, or branch controls. GitHub access still belongs to the device running the repository.

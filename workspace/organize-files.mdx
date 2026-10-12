@@ -1,0 +1,128 @@
+---
+title: "Copy, move, and rename files"
+sidebarTitle: "Organize files"
+description: "Organize files and folders in Zen, keep track of unsaved edits, and recover from a conflict or interrupted transfer."
+---
+
+Use Zen's **Files** tree to rearrange a project while keeping your conversation and editor in view. You can copy, cut, paste, duplicate, and rename entries in the selected checkout.
+
+This guide describes desktop and web. Mobile has a separate [file destination picker](#move-or-duplicate-on-mobile).
+
+For files coming from outside the project, use [Import files](/workspace/import-files).
+
+## Before you start
+
+[Open the project](/projects/open-a-project), confirm its device and checkout, then open **Files** in Zen's right panel. Choose **Browse Files** if the tree is hidden. Wait for the project listing to load before selecting entries.
+
+Save any edits you want a copy to contain. **Copy** and **Duplicate** use the saved file on the project's device; they do not copy unsaved editor text. Press **Cmd+S** on macOS or **Ctrl+S** on Windows and Linux, and resolve any save error before copying.
+
+<Note>
+Explorer copy and paste works within the same project checkout and Kisuke window. It cannot paste into another project, worktree, or device, even when the destination has the same folder name. It is separate from copying files in Finder or Explorer and from [attaching a file to a message](/conversations/attachments).
+</Note>
+
+## Choose an action
+
+| Action | Result |
+| --- | --- |
+| **Copy**, then **Paste** | Creates a saved-file copy in the destination and keeps the source. |
+| **Cut**, then **Paste** | Moves the entry to the destination. Choosing Cut alone does not remove it. |
+| **Duplicate** | Creates a copy beside the source, with a new name. |
+| **Rename** | Changes the entry's name within its current folder. |
+| Drag within the tree | Moves the selected entries to the destination folder. |
+| **Copy Path** or **Copy Relative Path** | Copies path text for pasting into a message or document. It does not prepare a file transfer. |
+
+These explorer actions operate on project files. For a Git project, inspect the result in [Review](/workspace/git) before staging or committing it.
+
+## Copy a file or folder
+
+<Steps>
+  <Step title="Choose the source">
+    Right-click a file or folder and choose **Copy**. For example, copy `route.txt` before making a variation of its route notes.
+  </Step>
+  <Step title="Choose the destination">
+    Right-click the destination folder and choose **Paste**. To paste at the project root, right-click empty space in the tree or the root header. If you right-click a file, Paste targets that file's parent folder.
+  </Step>
+  <Step title="Check the copy">
+    Expand the destination and open the copied file. The source remains in place. Check the content before editing the copy, especially if the source editor had unsaved changes.
+  </Step>
+</Steps>
+
+Copying a folder includes its contents. Hidden-file settings only affect what the tree displays; a copied folder can contain files hidden from the explorer. A folder that changes while it is being copied is not a frozen snapshot.
+
+### Make a copy beside the source
+
+Choose **Duplicate**, or use Copy and Paste in the source's own folder. Kisuke adds ` copy` to the name: `route.txt` becomes `route copy.txt`. If that name already exists, it tries `route copy 2.txt`, then further numbered names.
+
+A folder named `drafts` becomes `drafts copy`. The same-folder naming behavior does not apply when pasting into a different folder: a conflicting destination name stops that transfer.
+
+## Move entries to another folder
+
+1. Right-click the source and choose **Cut**.
+2. Right-click the destination folder and choose **Paste**.
+3. Confirm that the destination contains the entry and the original location no longer does.
+
+You can also drag entries between folders inside the tree. Dragging is a move. A folder cannot be moved into itself or one of its descendants.
+
+For multiple entries, make a selection before opening the menu. Right-click an already selected row to act on that selection. Right-clicking a different row makes that row the target. If you select both a folder and its child, the folder carries the child once.
+
+Keep the project open until you have checked the result. A batch can stop after some entries have already moved; an error does not mean the entire batch was undone.
+
+### Continue editing a moved file
+
+After a confirmed move or rename, an open editor follows the new path and retains its unsaved text. Check the path above the document, then save when ready. Moving the file does not itself save those edits.
+
+You may see **has been updated remotely. Reload?** while working with a changed file. Choose **Dismiss** to keep your current buffer. Choose **Reload** only when you want to replace it with the disk version. See [external file changes](/workspace/files#respond-to-a-file-changed-elsewhere) for failed reloads and recovery.
+
+If Kisuke reports that the move completed but the editor could not confirm its buffer, keep that editor open and preserve its text. Refresh the tree and inspect the destination before continuing.
+
+## Rename an entry
+
+Right-click a file or folder and choose **Rename**. Enter the new name in the inline field and press Enter. Use a filename, including the extension you want, rather than a full path. Use Cut and Paste when you want a different parent folder.
+
+If the name is already in use, choose a different name and inspect the error. After a successful rename, check the new tree entry and the path of any open editor. Renaming a file does not update references to that filename elsewhere in your project.
+
+## Use the keyboard in the tree
+
+The file tree must have keyboard focus. When you are editing text or typing a filename, the usual text clipboard shortcuts apply instead.
+
+Use **Cmd** on macOS or **Ctrl** on Windows and Linux.
+
+| Action | Shortcut |
+| --- | --- |
+| Copy selected entries | Cmd/Ctrl+C |
+| Cut selected entries | Cmd/Ctrl+X |
+| Paste into the focused folder | Cmd/Ctrl+V |
+
+Click the root header or empty tree space before pasting at the project root. If a file row has focus, Paste uses its parent folder. Use the context menu when focus is unclear.
+
+See [Keyboard shortcuts](/reference/keyboard-shortcuts) for opening panels and navigating the rest of Kisuke.
+
+## Move or duplicate on mobile
+
+In the mobile editor's file menu, choose **Move** or **Duplicate**. The dialog shows **From** and **To**, the file name, and the project device. Select a folder or the **Project root** row, then choose **Move here** or **Duplicate here**. Duplicate also lets you edit the destination filename.
+
+This picker handles regular files within the project, rather than desktop-style folder or multi-selection transfers. Open a file outside a diff before using these actions. A new unsaved file needs **Save As…** first.
+
+If the source has unsaved edits, Duplicate asks whether to copy the saved version. Cancel and save first if you want those edits included. If a destination name conflicts, edit the duplicate name or choose another folder.
+
+## Recover from a stopped transfer
+
+<AccordionGroup>
+  <Accordion title="Paste is unavailable">
+    Copy or cut an entry in this same checkout and window. Wait for any running transfer to finish. If you switched projects, return to the original checkout. If the previous operation lost its connection, check its result before capturing a new selection.
+  </Accordion>
+  <Accordion title="File transfer stopped: Target exists">
+    Copy, Cut/Paste, and Duplicate do not merge into or overwrite an existing destination. Inspect the existing entry, then rename the source or choose another folder. Same-folder duplication can choose a numbered name; a paste into another folder does not automatically rename the incoming file.
+  </Accordion>
+  <Accordion title="The connection was lost or the workspace changed">
+    An interrupted request may already have changed files on the original device. Reconnect to that project and use the tree's **Reload** control. Inspect the source and destination, then explicitly copy or cut again if another transfer is needed. Kisuke does not automatically repeat an uncertain transfer.
+
+    Reloading the tree refreshes the listing. It is different from the editor's **Reload** prompt, which can discard unsaved text.
+  </Accordion>
+  <Accordion title="A folder transfer may be partial">
+    Inspect both folders before trying again. Some children may already have copied or moved, and the destination is not automatically removed after failure. Preserve the files you need and reconcile the remaining entries individually; repeatedly pasting the whole folder can encounter the partial destination.
+  </Accordion>
+  <Accordion title="Moving between filesystems is not supported">
+    Copy the file into the destination instead and verify its content. A project can contain mounted folders on different filesystems even though both appear under one root. This message is separate from the restriction on pasting between projects or devices.
+  </Accordion>
+</AccordionGroup>

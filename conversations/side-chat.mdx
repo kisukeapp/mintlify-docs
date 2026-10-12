@@ -1,0 +1,123 @@
+---
+title: "Explore a question in Side Chat"
+sidebarTitle: "Side Chat"
+description: "Open a temporary discussion in Zen, supply the context it needs, and bring useful conclusions back to your main conversation."
+---
+
+Use **Side Chat** for a related question you want to explore separately: explain a design choice, compare approaches, or ask about an earlier response while keeping the main conversation in view.
+
+Side Chat has its own messages and agent session. It uses the same project folder as its parent, so tools can still change the same files. Choose your [permissions](/conversations/permissions) and describe the scope of the question before sending it.
+
+For work delegated by the main agent, see [Subagents](/conversations/subagents). A subagent inspector shows that child's recorded work; Side Chat gives you a separate composer for your own discussion.
+
+<Note>
+With **Codex** or **Pi**, include the relevant context in your question. These harnesses currently open Side Chat without the parent conversation's snapshot. See [Inherited context](#understand-the-inherited-context) before relying on an earlier discussion.
+</Note>
+
+## Open a Side Chat in Zen
+
+Start from an existing conversation with a ready model selection. A new, unsent draft cannot open a Side Chat from the panel launcher.
+
+1. Open the right panel in [Zen mode](/zen-mode). If it already has tabs, select **+** to open the new-tab menu.
+2. Choose **Side Chat**.
+3. Wait for **Creating Side Chat…** to finish. The empty conversation identifies itself with **This chat is temporary.**
+4. Check the model and permissions beneath the **right-hand composer**. Write your question there, including any context it needs, and send it.
+5. Wait for the response to finish and check it for errors. Continue in that composer for related follow-ups. The main conversation keeps its own messages and draft.
+
+On desktop and web, **Shift+Tab** cycles agent mode. To choose a mode for a specific conversation, use the permission menu beneath its composer. Check both composers' selections before sending, especially after using a [keyboard shortcut](/reference/keyboard-shortcuts#composer).
+
+<Frame caption="The empty panel identifies the project and marks the discussion as temporary. Expand the full workspace below to see both composers.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '370 / 140', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-side-chat.jpg" width="1920" height="971" alt="Side chat for trail-notes with the message This chat is temporary beneath it." style={{ position: 'absolute', width: '518.918919%', maxWidth: 'none', left: '-348.648649%', top: '-267.857143%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View both conversations in Zen">
+  <img src="/images/screenshots/zen-side-chat.jpg" width="1920" height="971" alt="Main Trail Notes conversation on the left and an empty temporary Side Chat on the right, each with its own composer." />
+</Accordion>
+
+Provide the facts the Side Chat needs. For example:
+
+> Use only these facts: Trail Notes stores checked trails in browser storage. Reset unchecks the trails; if clearing saved progress fails, old checks may return after reload. Write one short warning sentence for that failure. Do not use tools, read files, edit anything, or delegate.
+
+The Side Chat replied: “Warning: If clearing saved progress fails, your previously checked trails may come back after a reload.” It used the facts supplied in the question.
+
+<Frame caption="Pi with DeepSeek V4 Flash answers in the right-hand Side Chat while the main conversation remains visible on the left.">
+  <img src="/images/screenshots/zen-side-chat-response.jpg" width="1686" height="720" alt="Zen shows the main Trail Notes conversation on the left and a completed Side Chat warning on the right: previously checked trails may return after reload if clearing saved progress fails." />
+</Frame>
+
+### Start with a slash command
+
+You can also submit `/side` followed by a question in the **main conversation's composer**:
+
+> /side Our reset action can fail to clear saved progress. Suggest a short warning that explains why old completions may return after reopening. Do not use tools or edit files.
+
+This command creates a Side Chat and sends the question there. The question appears in the new panel, not as a request for the main agent. `/side` on its own needs a question before it will submit. Keep a copy of a longer question until creation succeeds if you may need to retry it.
+
+## Understand the inherited context
+
+Context inheritance depends on the harness:
+
+| Harness | Context to expect |
+| --- | --- |
+| **Claude Code** | Receives a bounded snapshot of the parent conversation at creation. The inherited messages are not repeated in the panel. |
+| **Codex** or **Pi** | Currently require you to supply the relevant excerpt or summary in your question. Opening the panel does not transfer the parent discussion to these harnesses. |
+
+When a snapshot is supplied:
+
+- Recent completed conversation content is included within a size limit. Older content and very long items can be omitted or shortened.
+- Assistant text from an unfinished turn is excluded. If your question depends on the answer currently streaming, wait for it to finish first.
+- Inline image data is removed from the inherited context. [Attach the image](/conversations/attachments) in the Side Chat if it needs to inspect it.
+- Later messages in the main chat are not automatically added to that snapshot. Supply new information in the Side Chat when it matters.
+
+The Side Chat uses the parent's harness and the model, reasoning, and permission selection submitted when you open it. Changing the main conversation afterward does not keep the two conversations' settings synchronized.
+
+### If the answer is missing context
+
+Paste the relevant decision, excerpt or constraint into the Side Chat and ask the question again with that information. For example:
+
+> The plan is named Moss. Reset should uncheck the trails and clear only its saved progress. If clearing fails, old completions may return after reopening. Write one short warning for that failure.
+
+Check that the answer uses the supplied details before relying on it. An empty panel is expected, but a successful first reply does not establish that the agent received the parent history. Repeatedly opening new Side Chats does not resolve the current Codex/Pi context limitation.
+
+## Bring a conclusion back to the main chat
+
+Side Chat does not automatically append its discussion to the parent's transcript.
+
+1. Use **Copy response** beneath the answer you want to keep.
+2. Select the main conversation's composer and paste it there.
+3. Add what you want the main agent to do with it: adopt a decision, revise a plan, or investigate a remaining question.
+4. Review the draft and send it when you are ready.
+
+For example, add: “Use this warning in the plan. Explain where it should appear before changing any files.” Copying and pasting creates a draft; it does not send a request or apply a file change by itself.
+
+## Keep shared files in mind
+
+A separate discussion does not create a separate worktree or copy of your project. An edit or command from either conversation can affect the files the other one reads.
+
+For an explanation or comparison, say what you want investigated and whether files should be changed. Review any resulting changes in [Git Review](/workspace/git). Closing or expiring the Side Chat does not undo file changes or remove files its tools created.
+
+## Choose a supported harness
+
+Side Chat depends on the [harness](/models/overview), not only the model provider. Claude Code, Codex, and Pi have temporary-session implementations. ACP harnesses currently reject Side Chat creation because Kisuke cannot request a portable temporary session from them.
+
+An available model still needs a working provider connection and a valid selection. A visible **Side Chat** option does not prove creation or the first response will succeed. You cannot create another Side Chat from inside a Side Chat.
+
+## Preserve anything you need later
+
+Treat Side Chat as temporary working context. Use an ordinary conversation when you need a discussion you can return to through chat history.
+
+Use the close control on the Side Chat tab when you are finished. Save any useful text first. Closing the tab is not an interrupt command: use **Stop response** in that Side Chat before closing it if you want active work to stop. See [Stop and continue](/conversations/stop-and-continue) for what interruption does and does not undo.
+
+An unobserved, inactive Side Chat becomes eligible to expire after one hour. Active work, a pending interaction, or an active view can keep it alive longer. Restarting the daemon ends these temporary sessions; their transcripts cannot be resumed after that restart.
+
+If the panel shows **Side chat has expired**:
+
+- **Return to main chat** returns to the parent conversation.
+- **Start a new Side Chat** returns to the parent and places `/side ` in its composer. Add your question and submit it to create a new discussion; this does not restore the expired transcript.
+
+## If creation fails
+
+Check that you opened an existing main conversation, that its project connection is available, and that its model selection has finished loading. For a rejected or stale selection, follow [Help with starting a chat](/help/starting-a-chat).
+
+If the error says the harness does not support temporary sessions, use an ordinary new conversation and provide the context it needs. If the Side Chat has expired, create a new one from the main conversation. Repeatedly reopening the expired panel cannot recover its transcript.

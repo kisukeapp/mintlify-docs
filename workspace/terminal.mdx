@@ -1,0 +1,163 @@
+---
+title: "Terminal"
+description: "Run commands beside a Zen conversation, share selected output, use the mobile controls, and recover an unavailable terminal."
+---
+
+Use a terminal to run commands yourself while keeping the conversation in view. The shell runs on the [device](/workspace/devices) that owns the project. Use it to inspect files, run tests, or keep a development server open beside your Zen conversation.
+
+These opening steps describe desktop Zen. See [Use a terminal on mobile](#use-a-terminal-on-mobile) for the phone controls.
+
+## Open a terminal
+
+1. [Open your project](/projects/open-a-project) and confirm its device.
+2. Open the right panel and choose **Terminal**. If you already have a panel tab, choose Terminal from the new-tab menu.
+3. Wait for the shell to appear, then click inside the terminal to focus it.
+4. Enter a command and press Enter.
+
+For a macOS or Linux shell, start with:
+
+```sh
+pwd
+ls
+```
+
+The first command shows the current directory; the second lists its contents. Check the result before running commands that depend on the project path. Shell commands and startup prompts depend on the host device's environment.
+
+To inspect a web app, start its development server here, then [open its address in Browser](/workspace/browser).
+
+<Frame caption="A terminal created for the Trail Notes project, showing real pwd and ls output beside a Zen draft.">
+  <img src="/images/screenshots/zen-terminal.jpg" width="1920" height="971" alt="Kisuke terminal showing the Trail Notes working directory and README.md and index.html files beside the conversation composer." />
+</Frame>
+
+You can open a terminal before sending the first conversation message. Opening one does not depend on a successful model response.
+
+## Work with terminal tabs
+
+Choose Terminal from the new-tab menu when you need another shell. Each terminal has its own tab in the Zen panel. Select a tab and focus its terminal before typing.
+
+Drag the divider between the conversation and panel to give commands and output more room. A tab's title can change to reflect the process or working directory.
+
+Keep the intended project and conversation selected when returning to a terminal. After switching projects or [worktrees](/projects/worktrees), check the working directory again before running a command. A familiar prompt or retained output is not enough to identify the current project.
+
+For example, use one tab for a development server and another for tests. To reuse a command as a project action, see [Run project scripts](/projects/scripts).
+
+## Focus and input control
+
+Click inside the selected terminal before typing. When you view the same terminal from more than one client, input control can move between those views. Output can remain visible in a view that does not currently control the shell.
+
+If typing has no effect, bring the intended client to the foreground, select the terminal, and focus it again. Check the project connection before trying more input. Coordinate with anyone using the same terminal so that commands and resizing do not compete between clients.
+
+After an interruption, inspect the shell's current line and output before resending a command. Missing feedback does not prove the original input was discarded. This matters especially for commands that create files, commit changes, or start another process.
+
+## Copy output into a conversation
+
+On desktop and web, you can move selected output into a draft without sending a message:
+
+1. Drag across the command output you want to discuss. Check that the intended lines are highlighted.
+2. Right-click the selection and choose **Add to Chat**.
+3. Check the composer: the selected text appears inside a code block, and focus moves to the draft.
+4. Add your question, check the destination conversation, and send when you are ready.
+
+<Frame caption="Select the relevant output, then choose Add to Chat from the terminal's context menu.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '190 / 132', width: '100%', maxWidth: '285px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-terminal-selection.jpg" width="1686" height="720" alt="The terminal context menu offers Copy, Paste, and Add to Chat." style={{ position: 'absolute', width: '887.368421%', maxWidth: 'none', left: '-676.315789%', top: '-250.757576%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the resulting draft in Zen">
+  <img src="/images/screenshots/zen-terminal-draft.jpg" width="1686" height="720" alt="Zen shows the selected Trail Notes terminal output on the right and the same line inside an unsent code block in the conversation composer on the left." />
+</Accordion>
+
+**Copy** needs a selection, and **Add to Chat** needs selected text with more than whitespace. If either is unavailable, dismiss the menu, select the output again, and reopen it.
+
+Add to Chat prefers the main conversation when it is open. To put output in a particular [Side Chat](/conversations/side-chat), use **Copy** and paste into that conversation's composer yourself. Always inspect the draft before sending.
+
+For example, select the failing test and its error, choose **Add to Chat**, then ask:
+
+```text
+Explain this test failure.
+Find the likely cause before
+changing code.
+```
+
+If Kisuke cannot find a chat input, or reports more than one available input, open the intended conversation and paste the copied text into its composer. Check the resulting draft before sending it. See [Attach files and context](/conversations/attachments) when the agent also needs the relevant source files.
+
+## Use Copy and Paste
+
+Use **Copy** when you want to choose where the selected text goes:
+
+1. Highlight the terminal text, right-click it, and choose **Copy**.
+2. Click the destination, such as a particular conversation's composer, and use its paste shortcut.
+3. Inspect the pasted text. In a conversation, add your question and review the draft before choosing **Send**.
+
+To paste a command into the shell:
+
+1. Copy the command and review its contents, including any line breaks.
+2. Select the intended terminal tab and check its project, working directory, and current input line.
+3. Right-click inside the terminal and choose **Paste**. If the shell is still waiting for Enter, inspect the line before submitting it.
+4. Read the resulting output and check whether the shell has returned to a prompt.
+
+Paste sends text to the active shell or terminal program. Pasted newlines can submit commands, depending on that program's paste handling. Review the text before choosing **Paste**; do not assume you will always get a separate confirmation step.
+
+<Frame caption="In this macOS shell, the single-line command was pasted, then submitted with Enter. It printed paste-ok and returned to the prompt.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '704 / 220', width: '100%', maxWidth: '44rem', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-terminal-paste.jpg" width="1686" height="720" alt="Terminal shows the pasted printf command, its paste-ok output, and the next shell prompt." style={{ position: 'absolute', width: '239.488636%', maxWidth: 'none', left: '-139.488636%', top: '-111.818182%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the clipboard example in Zen">
+  <img src="/images/screenshots/zen-terminal-paste.jpg" width="1686" height="720" alt="The Trail Notes conversation has an empty composer on the left; the terminal on the right shows the project directory and the completed pasted command." />
+</Accordion>
+
+## Interrupt, hide, clear, or close
+
+Choose the action that matches what you want to stop or remove:
+
+- **Interrupt a command:** focus the terminal, clear any text selection, and press **Ctrl+C**. The running program decides how to handle the interrupt; check for its result or a returned prompt. This is separate from [stopping an agent response](/conversations/stop-and-continue).
+- **Hide the panel:** choose **Hide Panel** when you want more space for the conversation. Hiding is a presentation action and does not request that the shell exit. Reopen the panel and select the existing tab to return.
+- **Clear the display:** on desktop, choose **Terminal → Clear Terminal** for the focused terminal. This clears the terminal display buffer and can remove the visible prompt too. The shell remains running; clearing does not erase its command history or create a new session.
+- **Close the session:** use the close control on its terminal tab. This requests termination of that shell. Finish or stop work you need before closing it. Closing the last panel tab hides the panel; reopen it to check whether the terminal is still listed.
+
+If Kisuke reports **Could not close terminal**, closure was not confirmed. Restore the project connection if needed and check whether the terminal still exists before trying again. A close request is not proof that every process launched by the shell has stopped.
+
+## Use a terminal on mobile
+
+The iOS and Android terminal screens use the project's device connection. [Connect to the device](/workspace/devices) and select the intended project first.
+
+1. Open **Terminal** in the workspace and wait for the shell to appear.
+2. Open the terminal sidebar to view the **Terminals** list. Select an existing session, or use **+** in that list's header to create another.
+3. Use **Show keyboard** to enter input. If the command bar is shown, type in **Terminal command** and use its send arrow or the keyboard's send key to submit the line.
+4. Check the terminal output for the command's result before moving on.
+
+The command bar is connected to the terminal's input line: edits can be sent as you type, and submission sends Enter. Do not use it as a place to prepare a private draft for later execution. An empty command bar after submission is not a completion indicator; read the terminal output.
+
+The scrollable key row provides **esc**, **tab**, arrow keys, and modifiers. Tap **ctrl** to reveal controls such as **^C** for an interrupt, or **F** for function keys. **Show more keys** opens the larger key panel. **Close input panel** hides the input controls; it does not close the shell.
+
+The mobile terminal list only offers closing when more than one terminal remains. If the last session has no close control, stop its foreground command using the appropriate terminal key rather than treating the missing control as a connection failure.
+
+While reconnecting, the command-send button is unavailable and can show a spinner. An offline terminal can retain its previous output. Wait for the project connection and current terminal to become available before entering more commands. Mobile keyboard behavior and command-line readback also depend on the active shell or terminal program.
+
+## If the terminal will not start or accept input
+
+<AccordionGroup>
+  <Accordion title="Starting terminal or Loading terminal…">
+    Wait for the shell to appear. A tab or loading label alone does not establish that a terminal is ready for input. Confirm the project's device is connected. If startup remains stuck, keep the current tab while checking the connection instead of creating several replacements.
+  </Accordion>
+  <Accordion title="Too many terminals open. Close one first.">
+    Close a session you no longer need, wait for it to disappear, then request another. Hiding a panel does not free a terminal session.
+  </Accordion>
+  <Accordion title="Terminal request timed out">
+    Check the connection and existing terminal tabs before requesting another. A timeout can leave you uncertain whether creation succeeded; a terminal may already have appeared.
+  </Accordion>
+  <Accordion title="Could not create terminal while this project is disconnected">
+    Restore the connection to the project's device, return to the intended project and conversation, then check the terminal list. Use the device guide's [connection checks](/workspace/devices#diagnose-missing-or-unavailable-devices) if the project remains unavailable.
+  </Accordion>
+  <Accordion title="Output is visible but input is unavailable">
+    Select and focus the intended terminal. Check whether another client is using it, whether the project is connected, and whether the shell is waiting for a startup prompt or a running command. On mobile, dismiss the terminal list and return the app to the foreground. Inspect any partially entered line before retrying.
+  </Accordion>
+  <Accordion title="The output or prompt looks stale after reconnecting">
+    Return to the same project, conversation, and terminal tab. Wait for the connection and refreshed output, then use a harmless command such as `pwd` at a shell prompt to confirm interaction. Do not assume the process survived a host restart or that an earlier command failed merely because the display has not caught up.
+  </Accordion>
+</AccordionGroup>
+
+If recovery still fails, retain the project and device names, terminal title, exact error, and whether the problem began on first open, after switching projects, or after reconnecting. Note whether chat, [Files](/workspace/files), and [Git](/workspace/git) are also unavailable. This helps distinguish a terminal-specific problem from a shared project connection failure.

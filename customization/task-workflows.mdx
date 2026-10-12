@@ -1,0 +1,148 @@
+---
+title: "Configure a task workflow"
+sidebarTitle: "Task workflows"
+description: "Add repository instructions and lifecycle hooks with WORKFLOW.md, and understand configuration precedence, effective limits, and failure behavior."
+---
+
+A task workflow file supplies repository instructions and optional shell hooks for [Linear task execution](/workspace/run-a-task). It can also change some [Auto-run settings](/workspace/task-automation). It is separate from general [project instructions](/customization/project-instructions) and [Setup, Run, and Archive scripts](/projects/scripts).
+
+Read the current limits below before using it to control unattended work. A parsed configuration field is not necessarily an enforced execution limit.
+
+## Put the file in the project
+
+Kisuke looks for these files in order under the selected project folder and uses the first file it finds:
+
+1. `.kisuke/WORKFLOW.md`
+2. `.kisuke/workflow.md`
+3. `WORKFLOW.md`
+
+Use one definition to make the source clear. The file lives on the computer running the task. Editing a copy on another device does not update that computer's filesystem.
+
+The file can contain YAML frontmatter followed by Markdown instructions. For a Node project, this example limits the workflow's Auto-run concurrency to one and checks that the task checkout contains `package.json` before dispatching its goal:
+
+```markdown
+---
+agent:
+  max_concurrent_agents: 1
+  max_retry_backoff_ms: 120000
+hooks:
+  before_run: |
+    node -e "require('node:fs').accessSync('package.json')"
+  timeout_ms: 60000
+---
+Work on {{ issue.identifier }}: {{ issue.title }}.
+Read the issue acceptance criteria.
+Verify changes before reporting completion.
+```
+
+Adapt the prerequisite check to your repository. The example needs Node on the executing computer and a `package.json` in the task worktree. It does not install dependencies, run tests, or cap the number of goal turns.
+
+<Warning>
+  Hooks execute shell commands on the project computer, outside the agent's tool-approval flow. Review their contents before starting tasks. The conversation's **Ask first** setting is not a confirmation prompt for each workflow hook.
+</Warning>
+
+## Write task instructions
+
+The Markdown body is added to the task's repository context and proposed first prompt. Use it for conventions such as required checks, acceptance criteria, or whether committing and publishing are part of the workflow.
+
+For a manual start, read the complete proposed prompt before sending. Already prepared conversations and retained first prompts can contain an earlier version; editing the file does not replace an accepted goal.
+
+The supported substitutions are plain values:
+
+| Variable | Value |
+| --- | --- |
+| `{{ issue.identifier }}` | Linear identifier, or the local task ID when absent. |
+| `{{ issue.id }}` | Linear issue ID, or the local task ID. |
+| `{{ issue.title }}` | Task title. |
+| `{{ issue.description }}` | Loaded task description, or empty text. |
+| `{{ issue.priority }}` | Numeric priority: 0 means none; 1–4 are Urgent through Low. |
+| `{{ issue.url }}` | Issue URL when linked to Linear. |
+| `{{ issue.labels }}` | Labels joined with commas. |
+| `{{ issue.assignee }}` | Stored assignee text, or empty text. |
+
+Liquid filters, loops, and conditionals are not supported. `{{ attempt }}` is recognized by the renderer, but current task prompt callers do not supply an attempt value, so it renders empty. Do not use it to control retries.
+
+An unknown simple variable, such as `{{ issue.repository }}`, causes that optional workflow instruction block to be omitted from task prompt construction and a warning to be logged. It does not reliably prevent the task from starting. Inspect the proposed prompt to confirm your instructions appear.
+
+## Settings that affect execution
+
+Use positive whole numbers for numeric settings.
+
+- **`agent.max_concurrent_agents`** sets the Auto-run board's effective capacity. The file default is **3**. It is not a limit on manual starts, all boards combined, or ordinary conversations.
+- **`agent.max_retry_backoff_ms`** caps the delay between task failure retries. The default is **300000** milliseconds, or five minutes. It does not cap the number of attempts, tokens, or total runtime.
+- **`agent.assignee`** changes the assignee sent with the Auto-run Linear refresh, for example `me`. It does not exclude other tasks already cached on the board from dispatch. When absent, the board's assignee choice carries forward.
+- **`hooks.timeout_ms`** sets the time before Kisuke requests termination of a hook. The default is **60000** milliseconds. This is not a guaranteed deadline for every descendant process to stop.
+
+<Note>
+  A workflow file supplies defaults for omitted fields. Even a prose-only file replaces the board's concurrency with 3 and clears its per-state caps. Include `agent.max_concurrent_agents` explicitly when the board must keep a lower setting; the Auto-run menu can still display the stored board value rather than this effective override.
+</Note>
+
+`agent.max_concurrent_agents_by_state` accepts a mapping from workflow column names to counts. Names are compared in lowercase. The current runner checks the issue's column before starting and then moves work toward In Progress. This is not a strict cap on the number of tasks in the destination column; use the global concurrency setting for the board-wide limit.
+
+### Fields that do not enforce their apparent limit
+
+These fields can be parsed without providing the control their names suggest:
+
+- **`polling.interval_ms`:** does not set the actual next-check schedule. Use **Poll interval** in the Auto-run menu.
+- **`tracker.active_states`** and **`tracker.terminal_states`:** do not replace dispatch and terminal-state classification. The runner uses the imported Linear workflow types.
+- **`tracker.project_slug`:** does not choose the Linear team. The board's linked team and organization do.
+- **`agent.max_turns`:** does not cap task goal turns.
+- **`agent.stall_timeout_ms`:** does not configure the task runner's stall handling.
+
+Do not depend on these fields for a usage budget, launch restriction, or safety stop. Use the available [goal controls](/conversations/goals) and [task interruption](/workspace/run-a-task#interrupt-a-task) to manage work.
+
+## Choose the policy source when routing projects
+
+Auto-run reads its board-level workflow policy from the default project. If no default is set, it uses the first routing-rule entry with a project path; that selection can include a disabled rule. It does not choose an independent scheduling policy for every matching issue.
+
+Each prepared task also reads its own selected project's workflow for repository context and hooks. With multiple routed repositories, the Auto-run prompt can therefore include instructions from the board's policy project alongside the task repository's context.
+
+Keep the policy source explicit and its instructions suitable for every project the board can dispatch. Use individual starts when you need to inspect each repository's exact proposed prompt.
+
+## Add lifecycle hooks
+
+Hooks run with the task worktree as their working directory, using the executing computer's shell and environment. Keep commands appropriate to that computer. The names describe lifecycle points, not an exactly-once guarantee across retries or restarts.
+
+| Hook | Current behavior |
+| --- | --- |
+| `after_create` | Scheduled for a newly created task workspace. First dispatch waits for it to finish, but a failed hook does not itself block dispatch. |
+| `before_run` | Runs before task goal dispatch. Failure marks that attempt failed and prevents that dispatch. |
+| `after_run` | Runs after task completion, an explicit agent failure, or interruption through task controls. Failure is logged and does not undo the result. |
+| `before_remove` | Runs before removal when the task worktree can be matched to its owner. Failure does not veto deletion. |
+
+These hooks do not necessarily run for every response in a continuing goal. For example, an active goal can continue or resume without a fresh task-first-prompt dispatch. Put checks that must happen before every particular action in that action's own workflow too.
+
+Kisuke supplies `KISUKE_HOOK`, `KISUKE_TASK_ID`, and `KISUKE_TASK_TITLE` to task hooks. Linked issues also receive `KISUKE_LINEAR_ID` and `KISUKE_LINEAR_ISSUE_ID`. Hooks inherit the daemon's other environment variables; the project-script environment variables are not automatically a separate task-hook contract.
+
+Use `before_run` for a prerequisite whose failure must block that dispatch. Do not rely on `after_create` failure to stop the agent, or on `before_remove` failure to preserve files. Save work before [clearing a task or completing its issue](/workspace/run-a-task#review-and-finish).
+
+Ordinary project Setup/Archive scripts and task workflow hooks can both apply to a worktree. They have different timing and failure behavior. A task's waiting for `after_create` does not establish that its ordinary Setup script finished.
+
+## Apply changes and recover
+
+File watching invalidates the workflow cache for a watched project; otherwise cached definitions can remain for up to a minute. Changes apply when the relevant configuration or prompt is read again. They are not an acknowledgement from a running agent that its goal changed.
+
+For changes to automatic execution policy, stop Auto-run, inspect tasks already dispatched, edit the file, and verify the settings and intended scope before enabling it again. Stopping the loop does not cancel an in-flight check or existing task retries.
+
+<AccordionGroup>
+  <Accordion title="My workflow instructions are missing">
+    Check the file on the executing computer, its location, and whether a higher-priority candidate exists. Inspect the manual Start task prompt and look for a template warning in the daemon logs.
+
+    Remove unsupported variables and syntax. An optional template failure can fall back to ordinary task context, so the agent running is not proof that the workflow instructions were included.
+  </Accordion>
+  <Accordion title="A YAML mistake did not stop the task">
+    Invalid YAML can fall back to defaults while retaining the Markdown body. An unclosed frontmatter block can be treated as prompt text. The loader is not a strict configuration validation gate.
+
+    Correct the file and inspect effective behavior before using it for unattended work. Do not use malformed or omitted settings as a way to disable automation.
+  </Accordion>
+  <Accordion title="A hook fails or times out">
+    Check the command, executable availability, task checkout contents, and daemon hook log. Fix the prerequisite before deliberately retrying; `before_run` failure does not itself queue the same automatic retry as an agent failure.
+
+    A timeout requests termination of the hook process. If it launched another service, inspect that service separately. Keep hooks repeatable and avoid assuming interruption undoes their effects.
+  </Accordion>
+  <Accordion title="I edited the file, but an existing task uses the old instructions">
+    Check the conversation's accepted goal and retained prompt. Workflow reload does not rewrite them. Use an explicit follow-up or the goal's edit controls when you intend to change work already underway.
+
+    Do not clear the workspace just to refresh instructions; clearing can delete its uncommitted files.
+  </Accordion>
+</AccordionGroup>

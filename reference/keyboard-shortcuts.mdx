@@ -1,0 +1,59 @@
+---
+title: "Keyboard shortcuts"
+description: "Navigate the desktop workspace, open tools, and work with the composer from the keyboard."
+---
+
+These are the shared desktop and web shortcuts. A browser or operating system may reserve a key combination. Commands also depend on which workspace or control has focus. Open **Settings → Keybindings** for the searchable in-app reference; see [Settings and defaults](/reference/settings) for layout and composer preferences.
+
+**Cmd/Ctrl** means Command on macOS and Control on Windows or Linux. A shortcut written with **Ctrl** alone uses Control on every platform, including macOS.
+
+## Workspace
+
+| Action | Shortcut |
+| --- | --- |
+| Command palette | Cmd/Ctrl+Shift+P |
+| Quick Open | Shift twice |
+| Settings | Ctrl+Shift+J |
+| Toggle sidebar | Cmd/Ctrl+B |
+| New conversation | Cmd/Ctrl+N |
+| Back | Cmd/Ctrl+Alt+Left |
+| Forward | Cmd/Ctrl+Alt+Right |
+
+To switch layouts, open the command palette and choose **Toggle Zen Mode**.
+
+To find a filename in Quick Open, use [Find files and search text](/workspace/search-files#find-a-file-by-name). Remove the command palette's leading `>` when switching to file lookup.
+
+## Zen tools
+
+| Action | Shortcut |
+| --- | --- |
+| Toggle terminal | Cmd/Ctrl+backtick |
+| Toggle right panel | Cmd/Ctrl+backslash |
+| Run workspace script | Cmd/Ctrl+R |
+| New browser tab | Cmd/Ctrl+T |
+
+The [project script](/projects/scripts) shortcut opens the Run surface. Its behavior depends on whether a run script is configured and whether it is already running.
+
+## Composer
+
+| Action | Shortcut |
+| --- | --- |
+| Model selector | Cmd/Ctrl+/ |
+| Attach file | Cmd/Ctrl+Shift+A |
+| Cycle agent mode | Shift+Tab |
+| Interrupt streaming | Ctrl+Shift+Backspace |
+| [Start or stop voice input](/conversations/attachments#dictate-a-prompt) | Cmd/Ctrl+Shift+Space |
+
+**Shift+Tab** changes agent mode while a composer is available. When working with [Side Chat](/conversations/side-chat#open-a-side-chat-in-zen), use the permission menu beneath the intended composer to choose its mode, and check both selections before sending.
+
+**Settings → General → Send messages with** lets you choose Enter or the platform's Cmd/Ctrl+Enter combination. Read the hint beside the selected option for newline and alternate follow-up behavior.
+
+Inside model search, use the arrow keys to move between results, Enter to choose an available model, and Escape to close the picker.
+
+In a structured question panel, the keyboard follows [question-specific controls](/conversations/answer-questions#use-the-keyboard-on-desktop). **Cmd/Ctrl+Enter** submits all valid answers, so review every question's preselected option before using it.
+
+In an [approval request](/conversations/permissions#use-the-approval-keyboard-controls), **Cmd/Ctrl+Enter** approves the pending action. Plain **Enter** can also approve it, including from the approval feedback field.
+
+See [Stop a response and continue](/conversations/stop-and-continue) for interruption behavior, queued messages, and recovery when Stop is not confirmed.
+
+When the file tree has focus, **Cmd/Ctrl+C**, **Cmd/Ctrl+X**, and **Cmd/Ctrl+V** copy, cut, and paste project entries. See [Organize files](/workspace/organize-files#use-the-keyboard-in-the-tree) for destination selection and the difference from editing text.

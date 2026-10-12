@@ -1,0 +1,54 @@
+---
+title: "Open a project"
+description: "Choose a device and folder, then open your project in the Zen workspace."
+---
+
+A project starts with a folder on a device. Choose both so Kisuke can open the right files and terminal environment. The same folder name on two devices does not mean the same files.
+
+These steps describe the desktop and web folder browser. You need an available device containing the folder you want to use. For another computer or a phone client, start with [Connect devices and pair your phone](/workspace/devices).
+
+## Open an existing folder
+
+1. On the project landing screen, choose **Open project**. From an existing workspace, use **Open folder** in the sidebar.
+2. In **Browse Folders**, select the device containing your project.
+3. Navigate to the project folder. You can also enter its path in the path field and press Enter. The path is on the selected device.
+4. Select the folder, or navigate inside it, then choose **Open**.
+5. Check the project and device shown above the composer before starting work.
+
+The folder browser offers parent-directory, back, and forward controls. **Home** opens the selected device's home directory when available. On Windows, the browser can show available drives.
+
+An offline device cannot be selected for browsing. If **Connecting…** or **Loading location…** remains visible, the folder listing is not ready yet.
+
+## Create a folder while browsing
+
+Navigate to the parent directory on the intended device, then choose **New Folder**. Enter a name and choose **Create**. Once it appears as the selected folder, choose **Open** to use it as a project.
+
+Creating a folder and opening it are separate steps. If creation fails, correct the reported name, path, or access problem before trying again.
+
+## Inspect the workspace before your first prompt
+
+In [Zen mode](/zen-mode), you can inspect the project before sending a message:
+
+1. Open the right panel and choose **Files**.
+2. Open a README or another familiar file to confirm the folder contents.
+3. Open a **Terminal** from the panel's new-tab menu if you want to inspect the working directory yourself.
+4. Choose your [harness and model](/models/overview) and [permissions](/conversations/permissions), then write your request.
+
+<Frame caption="A project README open beside a new Zen conversation. The composer contains a draft; no agent response is shown.">
+  <img src="/images/screenshots/zen-files-preview.jpg" width="1920" height="971" alt="Trail Notes project open in Kisuke, with its README preview and file tree beside the Zen composer." />
+</Frame>
+
+Opening a folder does not prove a model is ready to run. Provider access and model selection are separate prerequisites. If the first message is rejected, use the specific [start-error guidance](/help/starting-a-chat).
+
+## If the folder will not open
+
+| What you see | What to check |
+| --- | --- |
+| **Offline** beside a device | Make that device available before browsing its folders. |
+| **Location unavailable** | Check that you are selecting the intended available device. |
+| **Failed to list folder** | Read the error details and verify the path exists and is readable on that device. |
+| **Couldn't open folder** | Keep the dialog open and use the accompanying error to correct the path or connection problem. |
+
+After an error, confirm the project shown in the workspace before acting. Choosing a folder in the browser is not the same as successfully opening it.
+
+Continue with [Files and the editor](/workspace/files) or [Terminal](/workspace/terminal). To work on another branch in a separate folder, [create a worktree from Zen](/projects/worktrees).

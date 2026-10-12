@@ -1,0 +1,102 @@
+---
+title: "Continue from an earlier response"
+description: "Start a separate conversation from a completed response, using the same checkout or a new worktree."
+---
+
+Use **Continue from this response** to explore another approach with the conversation history up to a chosen response. The original conversation stays available, including its later messages.
+
+For example, branch from a storage proposal to compare another design before implementing it. You can keep using the current project folder or prepare a separate worktree for the experiment.
+
+For a checkout based on a branch's committed files without inherited conversation history, follow [Work in a separate checkout](/projects/worktrees).
+
+<Note>
+The selected response sets the conversation history to inherit. It does not restore files to how they looked when that response was written. Check the current [Git changes](/workspace/git) before continuing.
+</Note>
+
+## Before you start
+
+The response action is available in the shared desktop and web chat interface for Claude Code, Codex, and Pi conversations with saved history. It is not currently exposed in the mobile chat interface or for ACP harnesses.
+
+Open the conversation on its connected device and wait for its history to load. Choose a completed response. For a new worktree, the project must be a Git repository with at least one commit and no unresolved merge entries.
+
+## Choose the response and destination
+
+1. [Open the source conversation](/conversations/find-conversations) in Zen.
+2. Find the completed response you want to continue from. Hover over an older response, or focus its action controls, to reveal **Continue from this response**.
+3. Select **Continue from this response**.
+4. In **Continue from this response?**, choose **New task** or **New worktree**.
+
+<Frame caption="The continuation dialog offers a new chat in the same checkout or a new worktree. The response you selected determines the inherited history.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '460 / 276', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-continue-choice.jpg" width="1920" height="971" alt="Continue from this response dialog with New task for the same checkout and New worktree for a separate checkout." style={{ position: 'absolute', width: '417.391304%', maxWidth: 'none', left: '-158.695652%', top: '-126.086957%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full Zen workspace">
+  <img src="/images/screenshots/zen-continue-choice.jpg" width="1920" height="971" alt="Full Zen workspace with the continuation dialog over the completed Trail Notes conversation and Review." />
+</Accordion>
+
+| Choice | When to use it |
+| --- | --- |
+| **New task** | Explore a different conversation using the same checkout. Both conversations can access and change the same project files. |
+| **New worktree** | Explore an implementation in a separate checkout and branch, starting with the current project's file state. |
+
+**New task** creates a separate chat; the label does not schedule recurring work. If both chats use the same checkout, coordinate edits between them to avoid conflicting changes.
+
+## What carries over
+
+### Conversation history
+
+The new conversation inherits the history through the selected response. Messages after that response are excluded. Continuing from the latest completed response keeps the history available at that point.
+
+The new chat has its own identity. Renaming it does not rename the source conversation, and subsequent messages belong to the chat where you send them.
+
+For example, suppose you discuss a storage plan, then later name it “Moss.” Continuing from the response before that name was introduced inherits the plan but excludes the later naming message.
+
+### Files in the same checkout
+
+**New task** keeps the current working folder. It does not make a file copy, change branches, or undo changes made after the selected response.
+
+If you want the new conversation to understand changes that happened since that response, ask it to inspect the current files before acting.
+
+### Files in a new worktree
+
+**New worktree** creates a separate checkout from the source checkout's current commit. It carries over staged changes, unstaged changes, and eligible untracked files while preserving their staging distinction.
+
+The source checkout's files and index are not reset or stashed by this preparation. File copying uses the current Git state, so an older response can lead to a new worktree containing newer file changes.
+
+Ignored files are not copied automatically. The project's configured files-to-copy rules can include additional files. Dependencies, local configuration, or generated output may therefore need setup in the destination.
+
+Kisuke uses the configured project workspaces directory when one is set; otherwise it uses its managed worktrees directory. It runs the project's configured setup script before opening the new conversation. That script can change the destination files or perform other actions, so review the project's setup before using it.
+
+Avoid changing branches, staging files, or editing the source while preparation runs. Kisuke rejects a changed commit or index during capture, but this is not a freeze of every external editor or process.
+
+## Wait for the destination to open
+
+During preparation, Kisuke shows an inherited-history preview with a disabled **Continuation message** field. Its placeholder is **Message after setup completes**. You may see **Preparing worktree and running setup…**, **Preparing conversation…**, or **Opening conversation…**.
+
+The preview is not an editable destination conversation. Wait until the new chat opens and its normal composer is available. Then check its project, checkout, model, and permissions before sending your first request.
+
+A useful first request is:
+
+> Summarize the approach we discussed. Inspect the current files and explain anything that has changed since that discussion. Do not edit files yet.
+
+You can choose **Back to conversation** or navigate elsewhere while preparation is pending. This leaves the preview; it does not cancel worktree creation or a setup script already running.
+
+## Recover from a failed continuation
+
+Use **Retry** on the pending continuation to check or reopen the same result. Repeatedly selecting **New worktree** from the source starts separate continuation requests and can leave multiple checkouts.
+
+| What you see | Next step |
+| --- | --- |
+| **Worktrees need a Git repository** | Use New task in the current folder, or open a Git project. A new worktree also needs an existing commit. |
+| **This conversation has no saved history to continue from yet** | Wait for the response to finish and its history to become available, then reopen the conversation. |
+| **That response cannot be used as a branch point yet** or **That response is no longer part of this conversation** | Reopen the source and select a completed response that is present in its loaded history. |
+| **Reconnect to this device, then retry the continuation.** | Restore the connection to the device that owns the project, then use Retry on the existing pending entry. |
+| **Setup is taking longer than expected. Retry to check the same continuation.** | Check the project setup and device. Retry checks the original request; the wait message alone does not mean that its work stopped. |
+| **Setup was interrupted** or a setup-command error | Inspect the reported allocated checkout and setup result. Kisuke retains it; Retry does not automatically rerun a failed setup script. |
+| **Initial transcript hydration is closed** or a model-reading error while opening | Return to the source conversation and retain the error details. A copied history or checkout may already exist even though the destination chat did not open. Avoid creating replacements repeatedly; report the opening failure if it persists. |
+
+A recorded preparation failure remains the result of that request. After resolving its cause, inspect any retained checkout before deliberately starting another continuation.
+
+Creating the destination history, preparing files, and opening a usable chat are separate steps. Treat the operation as ready for your next prompt only when the destination conversation has actually opened.

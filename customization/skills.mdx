@@ -1,0 +1,149 @@
+---
+title: "Skills"
+description: "Package reusable instructions, choose a skill in the composer, and keep project guidance with your repository."
+---
+
+A skill is a folder containing a `SKILL.md` file with reusable instructions. Use one for a repeatable task such as reviewing accessibility, investigating a bug, or following a release checklist. When you invoke a skill in Kisuke, its contents become context for the request.
+
+For conventions that apply throughout a project, start with [project instructions](/customization/project-instructions).
+
+To connect an external tool or data source, configure an [MCP server](/customization/mcp). A skill's instructions alone do not establish that connection.
+
+Skills are discovered from several harnesses' directories. You do not need a separate copy just to select the same skill in another Kisuke harness. The model, tools, and [permissions](/conversations/permissions) available to the request still depend on the conversation.
+
+## Choose a scope
+
+| Scope | Purpose and location |
+| --- | --- |
+| Project | Guidance for one repository or working folder. Keep it in a skills directory inside that project. |
+| User | Personal workflows across projects. Keep it in a skills directory in the host user's home folder. |
+
+Put project skills on the device that owns the project. User paths refer to the home folder of the user running Kisuke's daemon on that host; they do not mean the home folder of every device viewing the conversation.
+
+## Add a project skill as a file
+
+Create this structure in your project's working folder:
+
+```text
+.agents/
+  skills/
+    review-trails/
+      SKILL.md
+```
+
+Use a short folder name such as `review-trails` for invocation. Add a one-line name and description between the opening `---` fences, followed by the instructions:
+
+```markdown
+---
+name: review-trails
+description: Review a trail checklist for accessibility and saved progress.
+---
+
+Read only the files named in the user's task.
+Review checkbox labels and native keyboard controls.
+Trace how progress is saved, restored, and reset.
+Report findings with file references. Separate source findings
+from browser checks that have not been run.
+Do not edit files, run commands or tests, access the network, or delegate.
+```
+
+Adapt the instructions to a concrete task and describe the result you expect. Keep the description on one line so Kisuke can display it in the catalog. The folder must contain a file named `SKILL.md`; a Markdown file placed directly in the `skills` directory is not the same structure.
+
+Project skill files can be versioned with your repository. Check the project's ignore rules before expecting them to appear in Git.
+
+## Create a skill in Settings
+
+The desktop **Settings → Skills** page includes **All**, **Project**, and **User** filters, a **Refresh** control, and separate buttons for creating a skill or command.
+
+1. Choose **+ Skill**.
+2. Enter a **Name** and a short **Description**.
+3. Choose the **Scope**. **User** is the initial selection. **Project** is available only when the form has a project context.
+4. Enter the instruction body under **Skill Instructions**.
+5. Choose **Create Skill** and check the result in the list.
+
+If **Project** is disabled, use the project-file method above. An open project elsewhere in the app does not necessarily give the global settings form a project context.
+
+Skills created through this form are saved under `.claude/skills/<folder-name>/SKILL.md`, either in the host user's home folder or in the project. Kisuke normalizes the name into a folder name; using lowercase letters and hyphens makes the invocation predictable.
+
+## Invoke a skill
+
+1. Open a conversation for the intended project.
+2. Type `/` followed by the skill's folder name. Check the scope and description, then choose the matching skill from the composer menu.
+3. Add the task-specific instructions after the skill chip.
+4. Send the message.
+
+For the example skill, your additional instructions could be:
+
+```text
+Review index.html. Give three concise findings on keyboard use,
+reload persistence, and Reset. Use file names without guessing line numbers.
+```
+
+Selecting a skill adds it to the draft; sending the draft submits the request. If more than one skill has the same name, use the scope and path shown in the menu to select the intended one.
+
+<Frame caption="The review-trails skill appears under Project in Zen's slash menu.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '116 / 67', width: '100%', maxWidth: '232px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-skill-menu.jpg" width="1686" height="720" alt="The Project section of the slash menu shows the review-trails skill." style={{ position: 'absolute', width: '1453.448276%', maxWidth: 'none', left: '-412.068966%', top: '-458.208955%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the skill and task in a Zen draft">
+  <img src="/images/screenshots/zen-skill-draft.jpg" width="1686" height="720" alt="An unsent Zen draft combines the review-trails skill chip with a request to review index.html for keyboard use, reload persistence, and Reset. Pi and DeepSeek V4 Flash are selected with Ask first permissions." />
+</Accordion>
+
+If you added the skill while a chat was already open and it is missing from the menu, open a new conversation in the same project and search again. A file saved on another device does not become a project skill on this host automatically; see [Device Sync](/workspace/device-sync) for its supported scope.
+
+You can also invoke a skill explicitly by folder name:
+
+```text
+/skills review-trails Review index.html without editing it.
+```
+
+Name-based lookup checks project locations before user locations. When names collide, selecting the exact menu entry gives Kisuke the specific skill path. If that selection has been moved or removed, Kisuke asks you to select it again rather than substituting another skill with the same name.
+
+## Check the result
+
+Read the response alongside the task you sent. Confirm that it addresses the requested files and follows the skill's review procedure. Inspect file references and tool results before treating a finding as verified.
+
+In the example above, Pi with DeepSeek V4 Flash received both the saved `SKILL.md` contents and the separate review request. It read `index.html`, returned three findings, and marked browser checks as not run. The review did not edit the project or run tests.
+
+A source review can explain how persistence or keyboard controls are implemented. Use [Browser](/workspace/browser) to check the actual interaction, or request a separate test run when you want execution. Keep unperformed checks separate from observed results.
+
+## Existing skill locations
+
+Kisuke scans these locations for skill folders:
+
+- **Shared agent skills:** project `.agents/skills`; user `~/.agents/skills`.
+- **Claude:** project `.claude/skills`; user `~/.claude/skills`.
+- **Codex:** project `.codex/skills`; user `~/.codex/skills`.
+- **OpenCode:** project `.opencode/skills`; user `~/.config/opencode/skills`.
+- **Gemini:** project `.gemini/skills`; user `~/.gemini/skills`.
+
+Each skill is an immediate child folder containing `SKILL.md`. Hidden child folders are skipped. Links to the same underlying skill are deduplicated in the catalog.
+
+Kisuke also has a user-skill synchronization mechanism that can create directory links into `~/.claude/skills`, `~/.codex/skills`, and `~/.agents/skills`. Existing files, directories, and links not managed by Kisuke are left in place. This mechanism does not create those links inside your project. Native command-line tools have their own loading behavior; discovery in Kisuke does not prove that every external tool has loaded the skill.
+
+For synchronization between computers, enable **Skills** in [Device Sync](/workspace/device-sync). That category is off by default and covers supported user skill folders, separately from the local directory links described above.
+
+## Edit a skill or use a command instead
+
+Use a skill's edit control in Settings to change its instructions, then choose **Save Changes**. You can also edit `SKILL.md` directly. Changing the displayed name of an existing skill in Settings does not rename its folder; use the folder name shown in the composer for invocation.
+
+Skills and commands share the settings list, but serve different purposes:
+
+- A **skill** adds reusable instructions as context alongside your request.
+- A **command** uses a saved prompt template as the message, replacing `$ARGUMENTS` with the arguments you provide.
+
+Choose a skill for a reusable procedure. Choose a [custom command](/customization/commands) for a prompt you want to fill in repeatedly. A command without an argument placeholder can send when you select it, so read its template before invoking it.
+
+## Troubleshoot discovery and invocation
+
+| Symptom | What to check |
+| --- | --- |
+| Skill is missing | Check the project and host device, the directory structure, and the exact `SKILL.md` filename. Use **Refresh** in Settings to reload that list. |
+| **Failed to load skills** | Check the project connection. A failed catalog load is different from an empty skill folder. |
+| **The selected skill is no longer available. Select it again.** | Remove the stale selection and choose the current entry from the menu. Check whether its folder moved or the project changed. |
+| Creation reports that the skill already exists | Edit the existing skill or choose a different folder name. |
+| The wrong same-named skill is used | Select the menu entry with the intended scope and path instead of relying on name-based lookup. |
+
+Keep a copy before using the delete control: deleting a skill removes its folder and supporting files, not just its entry from the list.

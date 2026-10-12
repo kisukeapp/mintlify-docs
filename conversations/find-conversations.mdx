@@ -1,0 +1,124 @@
+---
+title: "Find a conversation"
+description: "Return to an existing chat from Zen on desktop or the phone's project list and title search."
+---
+
+Use the [Zen sidebar](/zen-mode) to return to a conversation. Expand its project and select the conversation's title. If more entries are available, choose **Show more**.
+
+On desktop, **Cmd+B** on macOS or **Ctrl+B** on Windows and Linux shows or hides the sidebar. The browsing and filter controls below describe the desktop **Organize & sort** menu. On mobile, follow [Find and resume on your phone](#find-and-resume-on-your-phone).
+
+## Choose how to browse
+
+Open **Organize & sort** beside the sidebar's project controls.
+
+- **By project** groups conversations under their projects.
+- **In one list** gives you a combined conversation list.
+
+For project ordering, **Sort by** offers **Priority**, **Last updated**, and **Manually ordered**. Priority brings projects needing attention ahead of unread, running, and idle projects. Pinned projects remain a separate leading group.
+
+Collapsing a project hides its conversation rows. Expand the project before assuming its conversations are missing. When several projects are shown, **Expand all projects** or **Collapse all projects** lets you change their visibility together.
+
+## Check status filters
+
+Under **Organize & sort → Status**, turn categories on or off:
+
+| Category | Sidebar states included |
+| --- | --- |
+| **Draft** | Draft conversations. |
+| **Running** | Conversations reported as streaming. |
+| **Needs Attention** | Conversations requesting action or reporting an error. |
+| **Done** | Other states, including idle and unread conversations. |
+
+These are display categories. **Done** is not a claim that every requested task succeeded, and filtering a running conversation out of the list does not stop it.
+
+Turn all four categories on when looking for a conversation whose current state you do not know.
+
+## Find archived or unread conversations
+
+Open **Organize & sort → Unread, Archived** and choose:
+
+| Option | What appears |
+| --- | --- |
+| **Off** | Unarchived conversations, whether read or unread. |
+| **Only Unread** | Unarchived conversations currently classified as unread. |
+| **Only Archived** | Archived conversations. |
+| **Include Archived** | Both archived and unarchived conversations. |
+
+**Off** turns off the special unread/archive view; it does not turn off status or device filtering. Likewise, **Include Archived** does not reset your other filters. The currently open conversation can remain visible in that mode even if a status filter would otherwise hide it.
+
+If you do not know whether a conversation was archived, choose **Include Archived** and enable all status categories. Opening a title still depends on the conversation's device and working folder being available.
+
+For older entries beyond the sidebar's recent window, [search the archive in Settings](/conversations/organize-and-archive#search-older-archives-in-settings). That guide also covers renaming, pinning, archiving, and restoring chats.
+
+## Check device scope
+
+When the sidebar has catalogs from more than one device, **Organize & sort → Devices** offers **All devices** and individual device names.
+
+Choose **All devices** when you are unsure where the conversation lives. A single-device view narrows the list to conversations on that device. An **offline** label describes the device's availability; a retained sidebar entry does not make its conversation available to open.
+
+Device scope changes what you browse. It does not move a conversation or its project to the device you are currently using.
+
+## Find and resume on your phone
+
+Keep the project computer awake with Connect running. If this is your first visit from the phone, [pair it and open the computer's workspace](/workspace/devices#on-your-phone) first.
+
+1. In **Chat**, tap the list icon in the header, labeled **Show chat list** for accessibility.
+2. At the top of the list, open the device selector and choose **All devices**, or an available computer whose projects you want to browse.
+3. In **Overview**, tap a title under **Recents**, or tap a project to see its conversations. **Show more** reveals additional projects; **Load more** reveals more conversations where available.
+4. After selecting a chat, wait for its transcript. Check the title, project, and latest exchange before sending a follow-up. The title can appear while the transcript is still loading.
+
+Tapping a project in Overview opens its list. Selecting a conversation opens that conversation's workspace. The device selector narrows the projects shown; when a project exists on several computers, its list can still include conversations belonging to those different computers. Each chat keeps its own computer and folder.
+
+### Change the phone's list layout
+
+From the main chat list, tap the filter-lines icon labeled **Organize sidebar**. If you are inside a project's list, use its back arrow first.
+
+| Layout | How to browse |
+| --- | --- |
+| **Overview** | Browse **Projects** and **Recents**, then open a project for its conversation list. |
+| **By project** | Tap a project to expand or collapse its conversations in place. |
+| **In one list** | Browse conversations in date groups such as **Today** and **Yesterday**. Tap a group to expand it. |
+
+The same menu offers **Sort projects by → Priority** or **Last updated**. The desktop status and archive filter controls described above are not in this phone menu.
+
+### Search for a title
+
+Use **Search chats** at the bottom of the list. Enter part of a conversation title; matching ignores capitalization. From inside a project, **Search this project** limits title matches to that project. In **Overview** and **By project**, the search also matches project names.
+
+This filters entries already loaded into the sidebar, not message text or the entire saved history. While a search is active, **Load more** is hidden. To find an older chat:
+
+1. Clear the search.
+2. Use **Load more** where available. In **By project**, expand the relevant project first.
+3. Search again after the additional entries appear.
+
+Archived conversations are excluded from the phone list. If you archived the chat, use the desktop [archive view or Settings → Archived](/conversations/organize-and-archive#unarchive-from-the-sidebar) to restore it, then return to the phone's list.
+
+### If the phone cannot find or open it
+
+- **No matches:** clear the query, explicitly choose **All devices**, and check the project's list. Load older entries before searching again.
+- **No chats yet:** check that you chose the intended project and that the computer has finished loading its projects. This message alone does not establish that saved history was deleted.
+- **A dimmed row does not open:** check the owning computer in [Devices](/workspace/devices#on-your-phone). Offline or recovering locations can leave a visible row unavailable.
+- **Folder unavailable:** check whether the chat's working folder was moved or removed. The phone cannot restore access merely by selecting a different device.
+- **The title changes but loading continues:** wait for the transcript, then inspect the reported error and device connection if it cannot finish. Avoid repeatedly selecting the row or submitting a duplicate request while it is opening.
+
+## Reopen and continue
+
+Select the conversation and wait for its transcript to appear. Check the conversation title and project context before writing your next request. A selected row or loading spinner alone does not mean the transcript is ready.
+
+If you just used **Restore** in Settings, [return to the sidebar and reopen the restored chat](/conversations/organize-and-archive#reopen-a-restored-chat). Restore refreshes the archive results; it does not open the conversation for you.
+
+If work is still running, use the conversation's current state to decide whether to wait, answer a pending question, or [queue or steer a follow-up](/conversations/follow-ups). If a new message is rejected, address the reported [model or permission problem](/help/starting-a-chat) before submitting it again.
+
+To explore a different direction without adding it to the original conversation, [continue from an earlier response](/conversations/continue-from-response). Choose a new chat in the same checkout or a new worktree; the selected response limits the inherited history, not the current files.
+
+## When a conversation is missing or cannot open
+
+| What you see | Next step |
+| --- | --- |
+| **No conversations match filters** | Enable all Status categories, choose Include Archived, and check Devices. Expand projects and use Show more where available. |
+| **Couldn't load conversations** with **Retry** | Check the device connection, then choose Retry. A failed catalog load is different from an empty history. |
+| **This chat is on a device that's offline.** or **That device is offline** | Reconnect the device that owns the conversation. A visible title alone does not provide access to its files or runtime. |
+| **This chat's folder is no longer available.** | Check whether the project's working folder was moved or removed. Restore the intended folder at its original location before attempting to reopen it. |
+| **This device is taking longer to reconnect** | Check the owning device's connection before selecting the conversation again. Avoid repeatedly opening the same row while recovery is pending. |
+
+Changing sidebar filters does not erase a conversation. Check visibility and connection state before treating a missing row as lost history.

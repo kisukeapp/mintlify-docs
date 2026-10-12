@@ -1,0 +1,130 @@
+---
+title: "Attach files and paste context"
+description: "Add files or reference text, dictate a prompt, and review the material in your Zen composer before sending."
+---
+
+Attach a file when you want the agent to work with a specific document or image. Add a short instruction explaining what to inspect and what result you want, such as a summary, a comparison, or a proposed edit.
+
+The steps below use the desktop Zen composer. Attachments work in a new conversation draft as well as an existing conversation. You can also [dictate your instruction](#dictate-a-prompt) into the composer and review the text before sending it.
+
+## Attach a file
+
+1. Check the selected project and device. The project device must be reachable for the attachment upload.
+2. Choose the composer's **+** button, **Attach files**. You can also press **Cmd+Shift+A** on macOS or **Ctrl+Shift+A** on Windows and Linux.
+3. Select one or more supported files in the file picker and open them.
+4. Check the attachment chips above your prompt. Wait for processing and uploading to finish, and resolve any error indicator before sending.
+5. Write what you want the agent to do with the attachments, then send your request.
+
+You can also drag supported files into the composer or paste an image from the clipboard. Check the resulting chips before sending, especially when copying from an application that puts both text and images on the clipboard.
+
+<Frame caption="The attachment chip shows the filename and size. Check it before sending your request.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '180 / 54', width: '100%', maxWidth: '20rem', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-file-attachment.jpg" width="1920" height="971" alt="README.md attachment chip showing a file size of 496 bytes." style={{ position: 'absolute', width: '1066.666667%', maxWidth: 'none', left: '-80%', top: '-894.444444%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full Zen workspace">
+  <img src="/images/screenshots/zen-file-attachment.jpg" width="1920" height="971" alt="Full Zen workspace with README.md attached to the Trail Notes draft and Review in the right panel." />
+</Accordion>
+
+For example:
+
+```text
+Read the attached README. Summarize the setup steps, identify anything
+ambiguous, and propose clearer wording. Do not edit files yet.
+```
+
+Files chosen through the picker come from the computer where you are using the app. Kisuke uploads an attachment copy to the selected project device; attaching a file does not add it to the project's file tree or Git repository. Use [Import files](/workspace/import-files) to add a project file, or [Files](/workspace/files) to browse files already there.
+
+## Choose the right format
+
+The desktop composer accepts common text and code files, PDFs, and images. Examples of text and code formats include Markdown, JSON, YAML, CSV, JavaScript, TypeScript, Python, HTML, and CSS.
+
+| Attachment | What to expect |
+| --- | --- |
+| JPEG, PNG, GIF, WebP | Treated as image input. Choose a model and harness that support images. |
+| SVG and other image formats | Retained as file attachments rather than converted into model image input. |
+| Text and code | Passed through the selected harness as file content or a file reference. |
+| PDF | Accepted as a file. How it is read depends on the harness and available tools. |
+
+The desktop composer holds up to **5 image attachments** and **10 file attachments** at once. A long text paste uses a file slot. If you select more than the remaining capacity, check which chips were actually added.
+
+Upload success means the attachment copy reached the project device. It does not establish that a model can read every format, that the whole file fits in context, or that the agent has already inspected it.
+
+For example, Codex and Pi receive ordinary file attachments as references to files on the project device. Claude Code can include text or PDF content directly, while larger documents may be supplied as file references. Ask for the specific section or comparison you need rather than assuming every attachment is inserted in full.
+
+If your goal is visual inspection of an SVG or another non-raster image, attach a PNG or JPEG rendering as well. Keep the original file attached when you also want the agent to inspect or edit its source.
+
+## Paste a long document
+
+Long plain-text pastes can become a **Pasted text** attachment instead of filling the composer. You can keep your instruction short while supplying the longer reference separately.
+
+1. Paste the text into the composer.
+2. If it becomes a **Pasted text** chip, choose **Click to expand** to inspect it.
+3. In Zen, the text opens in the right editor panel as a read-only document.
+4. Return to the composer and write your instruction. Closing the preview leaves the attachment in the draft.
+
+<Frame caption="A long paste opened beside the draft. The reference text and the instruction remain separate.">
+  <img src="/images/screenshots/zen-pasted-text.jpg" width="1920" height="971" alt="Kisuke Zen showing a Pasted text attachment and its Trail Notes review notes in the right panel." />
+</Frame>
+
+Configure this behavior in **Settings → General → Composer → Auto-convert long paste threshold**. The default is **5,000 characters**. A paste at or above the configured length becomes an attachment; **0** disables automatic conversion.
+
+To change an attached paste, remove its chip and paste the revised text. The preview is for inspection; editing your prompt does not rewrite the attachment's contents.
+
+## Dictate a prompt
+
+Voice input turns speech into editable text in your composer. Use it to describe an outcome while keeping the relevant files open beside your conversation in Zen.
+
+You need to be signed in to Kisuke, have an internet connection, and allow microphone access on the device where you are speaking. Audio is streamed to **ElevenLabs Scribe** for transcription. This connection is separate from the OpenAI, Anthropic, Google, or other model you select for the conversation. The dictated text becomes part of your request when you send it.
+
+### Record and review on desktop or web
+
+1. Place the cursor where you want the text to appear.
+2. Select the microphone button, **Voice input**, or press **Cmd+Shift+Space** on macOS or **Ctrl+Shift+Space** on Windows and Linux.
+3. Allow microphone access if prompted. Wait for the control to become **Stop recording**, then speak. Text appears in the composer and can change as transcription updates arrive.
+4. Select **Stop recording**, or use the shortcut again. If setup is still connecting, the same button is labeled **Cancel voice input**.
+5. Review the complete draft, correct names and file paths, then send it using your normal [composer controls](/reference/keyboard-shortcuts#composer).
+
+Stopping recording leaves the text already inserted in the draft. It does not wait for later transcript updates, so check the last sentence. Stop before editing the dictated passage; incoming transcription updates can replace that passage while recording continues. The desktop Send button is hidden during recording, but a send shortcut can stop capture and submit the text currently present.
+
+For example, dictate “Read the README and identify the missing setup steps,” then type an exact filename or attach the document before sending.
+
+### Record on iOS or Android
+
+Tap the composer's microphone, allow recording permission, and speak when the recording control appears. The phone shows a waveform and a square stop icon. Tap that control to stop, then inspect and edit the text before sending. A second tap while connecting cancels setup.
+
+Wait for an active agent response to finish before starting phone dictation; the microphone is disabled while that response is streaming. On a permission denial, **Microphone blocked** can open the app's system settings. Enable microphone access there and return to Kisuke.
+
+### Limits and recovery
+
+Dictation currently requests English transcription. Each recording ends after about **two minutes**, or after **ten seconds without a new transcript update**. Start another recording to add more text. These limits concern the recording, not the agent's response.
+
+| What happens | What to check |
+| --- | --- |
+| Microphone access is blocked | Enable the app or site's microphone permission. On macOS, use **System Settings → Privacy & Security → Microphone**. |
+| No microphone is found, or it cannot be opened | Check your input device, its connection, and other recording apps. Then start again. |
+| **Voice input could not authenticate** | Check Kisuke sign-in and your internet connection. Changing the chat's model or agent permissions does not repair voice authentication. |
+| Recording disconnects or text stops arriving | Stop if the control is still active, preserve the draft text, and check your connection before starting another recording. |
+| Words or punctuation are wrong | Stop, then edit the draft. Type code, paths, and other exact text directly. Review the entire request before sending. |
+
+In a web browser, microphone capture requires a [secure context](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#privacy_and_security), such as HTTPS or localhost. An ordinary HTTP address on your local network can load the app while microphone capture remains unavailable.
+
+## Remove or replace an attachment
+
+Move the pointer over a chip and select its **×** button to remove it from the draft. The file chip's remove control is hidden during an active upload. Removing a chip does not delete your original file.
+
+To replace a file, remove the old chip and attach the updated file. Treat a picked attachment as a copy of the file at upload time, rather than a live link to later edits of the original.
+
+## Troubleshoot an attachment
+
+| What happens | What to do |
+| --- | --- |
+| A selected file has no chip | Check its format and the remaining image/file slots. Choose a supported representation if needed. |
+| Upload is still in progress | Keep the project device connected and wait for the progress indicator to finish. |
+| A chip shows an error | Resolve the device or connection problem, remove the failed chip, and attach the file again. Confirm it finishes uploading before sending. |
+| The selected model does not support images | Choose an image-capable model in the [model picker](/models/overview), or remove the image. |
+| An attached image could not be loaded | Remove it and attach it again before sending. |
+| Text stayed in the composer | Check the long-paste threshold. Automatic conversion is disabled at 0, and a full set of file attachments can leave a paste inline. |
+
+If the agent reports that it could not inspect the file, resolve that before relying on its analysis. Ask it to identify the file or section it used; a completed upload and a completed model response are different steps.

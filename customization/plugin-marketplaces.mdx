@@ -1,0 +1,83 @@
+---
+title: "Plugin marketplaces"
+description: "Register a Claude Code plugin catalog, choose its source type, and check that Kisuke can load it."
+---
+
+A marketplace is a catalog of plugins. Registering one makes its entries discoverable; enabling an individual plugin is a separate step in the [Plugins guide](/customization/plugins).
+
+These desktop controls manage Claude Code marketplace settings. They do not register a marketplace with Codex's plugin manager.
+
+## Add a source
+
+Have the marketplace's JSON URL, repository, package name, or local path ready. Use the source information supplied by its maintainer.
+
+1. Open **Settings → Plugins**.
+2. Choose the toolbar gear, **Marketplaces & policy**.
+3. Under **Marketplaces**, choose **Add**.
+4. Enter a distinctive **Name** and choose an available **Scope**. Project and Local need a project context; they may be disabled in global Settings.
+5. Choose **Source type** and enter the source using the formats below.
+6. Choose **Add Marketplace**.
+7. Expand the new marketplace and check that its plugin list loads. Use its **Refresh** control to request a fresh copy.
+
+The form closes when you submit it. That alone does not prove the source loaded: registration is saved before the catalog is fetched and validated. Check the resulting list and any reported error before enabling a plugin.
+
+Use a new name unless you intend to replace a registration at that scope. Saving the same name at the same scope replaces that source's settings.
+
+## Choose the source type
+
+### URL
+
+Enter a URL that returns the marketplace JSON document, rather than an HTML repository page. The **Source** field's example is `https://example.com/marketplace.json`; replace it with the maintainer's actual URL.
+
+The form has no custom-header or sign-in fields. Do not assume a private endpoint will inherit your browser's login.
+
+### GitHub
+
+Enter **Repository** as `owner/repo`. Kisuke reads the marketplace document through GitHub's contents API.
+
+- **Branch / tag (optional)** selects the ref. Leaving it blank uses the repository's default.
+- **Marketplace path (optional)** selects the document within that repository. The default is `.claude-plugin/marketplace.json`.
+
+This loader does not supply a GitHub account token. A GitHub sign-in elsewhere in Kisuke does not establish access to a private marketplace through this source type.
+
+### Git
+
+Enter the repository's clone URL in **Source**. Kisuke uses Git on the host to read a temporary shallow checkout. The host needs Git and access to that repository.
+
+You can set **Branch / tag (optional)** and **Marketplace path (optional)**. The default document path is `.claude-plugin/marketplace.json`. Repository access depends on the host's Git setup; this form does not configure it.
+
+### NPM
+
+Enter **Package** using the marketplace maintainer's package name. Kisuke uses `npm pack` and extracts `.claude-plugin/marketplace.json` from the package. The host needs `npm`, `tar`, and access to the package registry.
+
+### File
+
+Enter the absolute path of an existing marketplace JSON file on the host handling the request. Kisuke reads that file directly. Use a full path rather than `~`, which this loader does not expand.
+
+### Directory
+
+Enter the absolute path of the directory containing `.claude-plugin/marketplace.json`. Do not include that filename in the Directory field. As with File, the directory must exist on the host handling the request.
+
+## Optional settings
+
+**Auto-update** and **Install location (optional)** are saved with the marketplace registration and included in Claude plugin settings. Leave the install location empty unless your plugin setup requires one.
+
+Auto-update is not an offline switch. Kisuke's catalog browser can still fetch marketplace metadata while the option is disabled. An install location does not change where the browser looks for the source document: use **Source** or **Marketplace path** for that.
+
+## Edit or remove a marketplace
+
+Choose **Edit marketplace**, adjust the fields, then select **Update Marketplace**. Changing the name or scope writes the new registration and removes the previous one. It does not rename saved plugin IDs such as `plugin-name@marketplace-name`; review existing plugin enablement and configuration after renaming a source.
+
+**Remove marketplace** removes the registration at its displayed scope. It does not clear every plugin's settings, delete cached plugin files, or remove the same source from other scopes. Use the plugin's own controls when you intend to disable it or remove its saved configuration.
+
+The default official marketplace and entries managed by settings can lack edit or remove controls. Read the explanation shown when expanding the entry.
+
+## When a catalog does not load
+
+- For URL or GitHub errors, verify the document address, repository, ref, and access. An HTTP error is different from a valid empty catalog.
+- For Git or NPM, verify the required host tools and repository or registry access.
+- For File or Directory, verify the absolute path on the host and the document's filename.
+- For an invalid marketplace error, check that the source returns JSON with a marketplace `name` and a `plugins` array in the supported format.
+- If a plugin is blocked by marketplace policy, review the policy with whoever manages that configuration before changing the source.
+
+A valid catalog can contain zero plugins. The current expanded card can still display **Loading plugin list…** for an empty list; that text alone does not prove a request is still running. Check the plugin count and refresh result as well.

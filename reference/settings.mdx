@@ -1,0 +1,197 @@
+---
+title: "Settings and defaults"
+description: "Make Zen your launch layout, adjust the composer, and find preferences for appearance, agents, projects, and devices."
+---
+
+Use Settings to choose how you want to work in Kisuke. Start with **General** for the Zen launch default and composer behavior, or **Appearance** for theme, typography, editor, and terminal controls.
+
+The main instructions below cover desktop and web. [Mobile settings](#find-settings-on-mobile) use a different arrangement.
+
+## Open and search Settings
+
+Open **Settings** from the workspace, or press **Ctrl+Shift+J**. This shortcut uses Control on macOS too.
+
+Type in **Search settings** to narrow the sections in the sidebar. For example:
+
+| Search | Section |
+| --- | --- |
+| `font`, `theme`, or `editor` | **Appearance** |
+| `composer`, `paste`, or `follow-up` | **General** |
+| `shortcuts` | **Keybindings** |
+| `scripts` | **Project** |
+
+Select a matching section to open it. Clear the search to show all sections again. When finished, choose **Back to app** to return to your workspace.
+
+<Note>
+Settings search matches section names and a set of keywords. It does not search every word in every panel. Searching for `Zen` currently returns no matches; open **General** directly to find the launch default.
+</Note>
+
+## Make Zen your launch layout
+
+<Steps>
+  <Step title="Open General">
+    In Settings, select **General** and find **Default workspace mode**.
+  </Step>
+  <Step title="Choose Zen">
+    Select **Zen** to use the conversation-centered layout when Kisuke opens. Select **Classic** if you prefer the traditional editor and terminal layout.
+  </Step>
+  <Step title="Return to the workspace">
+    Choose **Back to app**. The launch preference does not switch the layout you are currently using.
+
+    To enter Zen now, choose **Switch layout → Zen** in the workspace's top bar. Press **Escape** if the menu stays open.
+  </Step>
+</Steps>
+
+A temporary switch between Zen and Classic leaves the saved launch preference unchanged. Use [Zen mode](/zen-mode) to learn the sidebar, right panel, and environment controls.
+
+For a keyboard route, open the command palette with **Cmd+Shift+P** on macOS or **Ctrl+Shift+P** on Windows and Linux, search for **Toggle Zen Mode**, and press **Enter**. This toggles the current layout: if you are already in Zen, it takes you to Classic.
+
+### Keep Worktree style separate
+
+**General → Work mode** offers **Classic** and **Worktree style**. This is a separate preference from **Default workspace mode**.
+
+Choosing **Classic** in the Work mode group turns off Worktree style. It does not select Classic as the launch layout. Read the group title to distinguish the two Classic cards.
+
+Worktree style gives worktree conversations more room by hiding the sidebar and right panel when enabled inside a worktree. You can reopen the panels you need. It does not create a worktree; follow [Work in a separate checkout](/projects/worktrees) when you want another working folder and branch.
+
+## Adjust the composer
+
+In **General**, start with these controls:
+
+- **Send messages with:** choose **Enter** or **Cmd/Ctrl+Enter**. With Enter selected, Shift+Enter inserts a newline. With Cmd/Ctrl+Enter selected, Enter also inserts a newline.
+- **Follow-up behavior:** choose **Queue** for another instruction after the current turn, or **Steer** to request a change of direction while the agent works. Delivery depends on the harness and the conversation's state.
+- **Composer → Auto-convert long paste threshold:** set the character count at which a paste becomes a text attachment. A value of **0** disables automatic conversion.
+
+Read [Queue and steer follow-ups](/conversations/follow-ups) for the alternate send shortcut and delivery limits. See [Attach files and paste long text](/conversations/attachments) for reviewing attachments before sending.
+
+General also contains [completion sounds](#choose-a-desktop-completion-sound), **Always show context usage**, and **Show MCP status in chat**. Enable **Always show context usage** to keep the desktop/web composer indicator visible below its usual 70% threshold; see [context usage and its estimates](/conversations/track-progress#read-context-usage). The separate task prompt template applies when [starting task work](/workspace/run-a-task).
+
+These layout and composer choices have no page-wide Save button. Controls that edit a larger configuration, such as a task template or hidden-file patterns, have their own save or apply action.
+
+## Notifications and sounds
+
+Attention notifications tell you that a conversation needs a decision. The desktop completion sound tells you that a response stopped streaming. Keep these separate when deciding whether to return to a chat: neither verifies the agent's work or replaces reading its result.
+
+### Enable desktop attention notifications
+
+1. Open **Settings → Notifications**.
+2. Turn on **Enable desktop notifications**.
+3. Allow Kisuke notifications in your operating system if prompted. Also check the operating system's notification settings if the switch is on but banners do not appear.
+4. Return to the workspace. These alerts are intended for when the Kisuke window is not focused; while you are using it, read the request in the conversation.
+
+Notifications can identify a [permission request](/conversations/permissions#respond-to-an-approval-request), a [structured question](/conversations/answer-questions), or a [plan awaiting review](/conversations/planning). An ordinary question written in the agent's response does not create a structured question alert.
+
+Click an alert to return to its conversation, then inspect the full request before responding. A banner can contain a filename, part of a command, or question text; use your operating system's notification-preview controls if you do not want that information visible on screen.
+
+The desktop switch and the operating system's permission are separate. The switch can remain on even when the operating system blocks delivery. The current browser client's Settings sidebar does not expose the same **Notifications** entry, so the steps above apply to the desktop app.
+
+### Enable phone notifications
+
+On iOS or Android, sign in and open **Settings → Notifications → Enable Notifications**. Allow notifications in the system prompt. If a previous denial sends you to system settings instead, enable Kisuke notifications there, return to the app, and check the switch again. If it remains off, turn it on after granting system permission.
+
+The phone can notify you about permission requests, questions, and plan reviews. On Android, an alert can also appear while you are looking at a different conversation; the app suppresses the local alert for the selected conversation. On iOS, do not rely on a system banner while Kisuke is in the foreground: open the conversation and check its pending request.
+
+Tap the notification body to open the conversation. Buttons such as **Allow** or **Approve** are decisions, not just navigation. Open the conversation first when you need to inspect the full request. If its computer is offline, [restore the device connection](/workspace/devices#diagnose-missing-or-unavailable-devices) and check the current request before responding.
+
+An enabled switch does not verify remote push delivery. The phone also needs system permission and a working signed-in connection to register for pushes. To mute alerts at the phone level, turn off Kisuke notifications in the phone's system settings.
+
+### Choose a desktop completion sound
+
+1. Open **Settings → General → Sound & power**.
+2. Enable **Sound effects**. This reveals **Completion sound**.
+3. Choose **Test** to hear the selected sound. The initial choice is **Built-in tone**.
+4. To use your own clip, choose **Choose file…** and select a `.wav`, `.mp3`, or `.mp4` file up to **2 MB**. After a successful save, the control shows **Custom —** and the filename. Use **Test** to check playback.
+5. Choose **Remove** to return to the built-in tone, or turn off **Sound effects** to stop automatic completion sounds.
+
+The custom clip is stored in the current client's local storage. Choose it separately on another client; [Device Sync](/workspace/device-sync) is not a way to distribute this audio file.
+
+Automatic completion sounds are currently available in the desktop app. A tone can play when a chat stops streaming, including after an interruption or an error, even if you are viewing another chat. Read the response and [check its actual result](/conversations/track-progress#check-files-separately-from-steps); a tone does not mean tests passed, changes were committed, or a goal finished. The web client's **Test** control can preview a sound, but automatic playback after a response is not currently available there.
+
+### If an alert or sound is missing
+
+| What you see | What to check |
+| --- | --- |
+| No desktop alert while working in Kisuke | The desktop alert is suppressed while the window has focus. Look for the request in the conversation. |
+| Notifications enabled, but no banner | Check operating-system permission and notification settings. On a phone, also check sign-in and connectivity. |
+| An old alert remains after you answered elsewhere | Open the conversation and check whether it still needs a decision. A retained system alert can be stale; do not approve it just to clear it. |
+| A sound file is rejected | Use `.wav`, `.mp3`, or `.mp4`, keep it within 2 MB, and read the displayed format, read, or storage error. Try a shorter clip if storage is full. |
+| **Test** is silent | Check the output device and volume. Remove a custom clip and test the built-in tone to distinguish the clip from an audio-output problem. |
+| **Test** works in a browser, but completed replies are silent | Automatic completion playback is currently a desktop feature. |
+
+## Find appearance, editor, and terminal controls
+
+On desktop and web, open **Appearance**. The panel includes:
+
+| Group | Controls to look for |
+| --- | --- |
+| Theme | **Light**, **Dark**, **System**, and theme cards |
+| Typography | **Editor & diff font**, **Terminal font**, and separate UI, code, and terminal font sizes |
+| Editor | **Tab size**, **Show minimap**, and **Format on save** |
+| File Explorer | Hidden and ignored files, and hidden-file patterns |
+| Language Intelligence | Language support controls |
+| Terminal | **Scrollback lines** and **Cursor blink** |
+| Markdown | **Compact**, **Normal**, or **Spacious** |
+| Question tool | **HTML**, **Markdown**, or **None** for Claude question previews |
+| Accessibility | **Colored sidebar diffs** and **Accessible colors** |
+
+Choose the font-size control for the surface you want to adjust. UI, code, and terminal sizes are separate preferences.
+
+For file visibility and language support, use [Files and editor](/workspace/files). For the scope and timing of question previews, use [Answer questions](/conversations/answer-questions).
+
+**Keybindings** is a searchable shortcut reference. Its rows show commands, key combinations, and any focus conditions; it does not provide a shortcut-remapping editor. The [keyboard reference](/reference/keyboard-shortcuts) covers common workspace and composer actions.
+
+## Find agent, project, and device settings
+
+Use the section that owns the choice you want to make:
+
+| What you want to do | Where to start |
+| --- | --- |
+| Connect OpenAI, Anthropic, Google, or another provider | [Providers](/models/providers) |
+| Inspect, install, or choose a default agent runtime | **Harnesses**; see [Manage harnesses on a computer](/models/overview#manage-harnesses-on-a-computer) |
+| Choose a model for your next prompt | The **composer model picker** |
+| Review saved Allow, Ask, and Deny rules | **Permissions**; see [Manage saved rules](/conversations/permissions#manage-saved-rules) |
+| Manage reusable instructions and extensions | [Skills](/customization/skills), [Plugins](/customization/plugins), or [MCPs](/customization/mcp) |
+| Configure setup and run commands | **Project**; see [Project scripts](/projects/scripts) |
+| Check GitHub access on the executing device | **Git**; see [Git recovery](/workspace/git-recovery) |
+| Connect to another computer or pair a phone | [Devices](/workspace/devices) |
+| Stop or restart the local Connect service | **Connect**; see [Stop and restart Connect](/workspace/devices#stop-and-restart-connect) |
+| Configure which agent setup is copied between computers | [Device Sync](/workspace/device-sync) |
+| Add or close a forwarded port on desktop or mobile | **Tunnels**; see [Manage a forwarded port](/workspace/browser#manage-a-forwarded-port) |
+| Find and restore an archived conversation | [Archived](/conversations/organize-and-archive) |
+
+Before changing project, provider, or Git configuration, check the selected project and device. A preference on your current client and configuration on the computer running the agent can have different scopes.
+
+Use the model picker for the current conversation's model and reasoning selection. A picker choice is submitted for validation with the next prompt; it does not reconfigure a turn that is already running. A new provider connection also does not make every model available through every harness.
+
+## Find settings on mobile
+
+The iOS and Android settings screen has separate **Appearance**, **Chat**, **Editor**, and **Terminal** destinations:
+
+- **Chat** includes question-preview format and **Allow new worktree creation from chat**.
+- **Editor** includes file visibility, language intelligence, word wrap, font size, and tab size.
+- **Terminal** includes font size, cursor blink, and the command bar.
+
+Use the mobile destination labels instead of looking for the desktop Appearance panel's full set of groups. The Zen/Classic launch picker described above belongs to desktop and web.
+
+In the [tablet Zen workspace](/zen-mode#use-zen-on-a-tablet), tap **Show chat list**, then **Settings** beside the search field. Tablet layout selection follows the available window size automatically.
+
+To sign out on a phone or tablet, open **Devices → Account options → Sign out**. See [Sign out of your phone or tablet](/workspace/devices#sign-out-of-your-phone-or-tablet) for its scope and recovery.
+
+## If a setting is hard to find or does not stick
+
+<AccordionGroup>
+  <Accordion title="Search reports no matches">
+    Clear the query and open the section directly. Try a broad term such as `font` or `composer`. In particular, use **General** for the Zen launch default.
+  </Accordion>
+  <Accordion title="Choosing the default did not change my current layout">
+    **Default workspace mode** affects how Kisuke opens. Choose **Switch layout → Zen** to enter Zen now. The command palette's **Toggle Zen Mode** changes the current layout in either direction, so it can take you out of Zen if you are already there.
+  </Accordion>
+  <Accordion title="A preference returns to its old value">
+    Check whether that control has a separate **Save** or **Apply** action. Reopen the same section in the same client and confirm the selected value. For project or device settings, confirm that you are still looking at the same destination.
+
+    If a local preference is lost after restarting, report the setting name, client, and whether it changed before or after restart. Avoid clearing app data as a first recovery step.
+  </Accordion>
+  <Accordion title="Another device has different settings">
+    Check the corresponding setting on that device. Do not assume every workspace or display preference is copied by **Device Sync**; that feature has specific categories for agent configuration. Follow its guide to inspect the source computer, destination, and sync status.
+  </Accordion>
+</AccordionGroup>

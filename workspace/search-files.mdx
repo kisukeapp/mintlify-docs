@@ -1,0 +1,128 @@
+---
+title: "Find files and search text"
+sidebarTitle: "Search files"
+description: "Find a project file, search saved text in a folder, narrow the results, and review replacements in Zen."
+---
+
+Use **Quick Open** when you know a filename. Use **Search Files** in Zen's file panel when you want to find text inside files.
+
+These steps use desktop and web. Start by [opening the project](/projects/open-a-project) on the device containing its files, and confirm the checkout you want to search. A worktree has its own files and changes.
+
+## Find a file by name
+
+1. Press **Shift twice** to open Quick Open. You can also press **Cmd+Shift+P** on macOS or **Ctrl+Shift+P** on Windows and Linux, then remove the leading `>` from the input.
+2. Type part of the filename, such as `README`.
+3. Check the path beside each result, especially when several folders contain the same name.
+4. Use the arrow keys and Enter, or select the result, to open it. If another panel remains in view, select the new file tab.
+
+With an empty input, Quick Open can show recently viewed files. Those entries are history, so a file may have moved or been deleted since you viewed it. Typing a name searches for files in the current project.
+
+Quick Open also includes projects and commands. A leading `>` searches commands; a leading `@` searches projects. Remove those prefixes when looking for a file.
+
+<Note>
+Quick Open and text search do not use the same filters as the file tree. A file hidden from the explorer can still appear in search. Explorer visibility is not an access restriction.
+</Note>
+
+If a partial path does not find the file, try its filename alone. Check the project and connection before treating an empty result list as proof that the file does not exist.
+
+## Choose the folder to search
+
+Text search follows the selection in **Browse Files**:
+
+| Selection | Search scope |
+| --- | --- |
+| A folder | That folder and its descendants |
+| A file | That file's parent folder and its descendants |
+| No selected entry | The project root and its descendants |
+
+For example, select `walks` to search route notes inside that folder. To search from the project root, select a file directly under the root, such as the project's `README.md`, before switching to Search Files. Merely opening the search panel does not reset a previous folder selection.
+
+Search reads saved files on the project's device. Save edits you want included, using **Cmd+S** or **Ctrl+S**, and resolve any save error first. Unsaved editor text is not added to the search results.
+
+## Search inside files
+
+<Steps>
+  <Step title="Open search">
+    Open **Files** in Zen's right panel. Use **Browse Files** to select the search folder, then choose the magnifying-glass control labeled **Search Files**.
+  </Step>
+  <Step title="Enter the text">
+    Type into **Search** and wait for the result list to update. For a first search, use a simple word such as `Moss` and leave regular expressions off.
+  </Step>
+  <Step title="Narrow the matches">
+    Choose the text options and file filters below. Review the displayed file paths after changing them.
+  </Step>
+  <Step title="Read a result">
+    Expand a file's result group if needed, then select a matching line. Check that the document has loaded before editing. See the recovery advice below if it remains on **Loading**.
+  </Step>
+</Steps>
+
+### Text options
+
+| Option | Example |
+| --- | --- |
+| **Match Case** | Searching `Moss` excludes lowercase `moss`. |
+| **Match Whole Word** | Searching `Moss` excludes `Mossy`. |
+| **Use Regular Expression** | Interprets the query as a pattern, rather than ordinary text. |
+
+Case and whole-word matching can be enabled together. Turn regular expressions off when you want an ordinary word search. An invalid expression can produce no results without a useful error, so simplify the query when troubleshooting.
+
+### File filters
+
+Expand **files to include** or **files to exclude** to enter a pattern.
+
+- In **files to include**, use one pattern, such as `*.txt`, or a filename such as `routes.txt`. Do not enter `*.txt, *.md` expecting two file types to be combined.
+- In **files to exclude**, use a pattern such as `**/archive/**` to exclude nested archive folders. Multiple exclusions can be separated with commas.
+
+Ordinary text search skips hidden and ignored files, but an explicit include pattern can bring them into the results. For example, `*.txt` can also match a hidden `.txt` file or one listed in `.gitignore`. Check the actual paths before replacing anything.
+
+### Understand the count
+
+Results are grouped by file and show line numbers. The result count normally counts matching lines, not every occurrence: a line containing `Moss Moss` can contribute one result even though it contains two matches.
+
+Treat the list as a navigation aid rather than a complete occurrence inventory. Search can return a reduced set of lines when it falls back to another search method or reaches a limit. Narrow a large search and inspect the files when completeness matters.
+
+## Replace text in the returned files
+
+**Replace All** changes saved files directly. It does not open a proposed-change review or create a backup first. Preserve the version you need before using it; in a Git project, a commit can provide a reference for tracked files.
+
+<Steps>
+  <Step title="Save and review the targets">
+    Save open edits, run the search again, and wait for it to finish. Check the folder scope, text options, filters, and every returned file path. Start with one filename in **files to include** when testing a replacement.
+  </Step>
+  <Step title="Enter the replacement">
+    Choose **Show Replace**, then type the new text into **Replace**. The desktop and web control requires a nonempty replacement; it cannot remove matches by leaving this field blank.
+  </Step>
+  <Step title="Apply and inspect">
+    Choose **Replace All**. It applies the search pattern throughout each file represented in the results, including multiple occurrences on a displayed line. Open the changed files and, for a Git project, inspect [Review](/workspace/git).
+  </Step>
+</Steps>
+
+For example, searching `Moss` with Match Case and Match Whole Word enabled, then replacing with `Fern`, changes `Moss Moss` to `Fern Fern`. It leaves `moss` and `Mossy` unchanged.
+
+Replacement is performed file by file. If it stops, files processed earlier may already have changed. Some read or write failures can skip a file, so an updated result list is not confirmation that every target was written. Inspect the actual contents before trying again.
+
+## Recover from a search or replacement problem
+
+<AccordionGroup>
+  <Accordion title="A search result stays on Loading">
+    If this is an untouched tab with no edits to preserve, close that file tab, choose **Browse Files**, and open the same file from the tree. Selecting the tree row while the loading tab is still open may only focus it again.
+
+    Keep any editor containing unsaved work open until you have preserved its text. If a fresh open also fails, check the project device and connection. A loading document is not an empty file.
+  </Accordion>
+  <Accordion title="A known word or file is missing">
+    Check the project, checkout, and selected folder. Clear file filters, turn off case and whole-word restrictions, and try a simple word with regular expressions off. Save any unsaved text you expected to find.
+
+    For a missing filename, try Quick Open with just the name. Explorer visibility and search filtering differ. Use **Browse Files** and **Reload** to inspect the current listing.
+  </Accordion>
+  <Accordion title="Save or discard open edits before replacing text">
+    A target file has unsaved changes. Preserve and save the edits you want, then rerun the search and review its targets. Replacement may have changed earlier files before reaching this one; inspect those files too.
+  </Accordion>
+  <Accordion title="The file changed during replacement">
+    Stop editing the targets while you review them. Inspect the saved contents and any open buffers, then run a fresh search before choosing Replace All again. Do not assume the earlier attempt was rolled back.
+  </Accordion>
+  <Accordion title="The connection failed or the result looks incomplete">
+    Reconnect to the same project and device, inspect the files, and search again. A request may have written a file before the connection failed. Verify the returned paths as well as the count: fallback search can return fewer matching lines and handle filters differently.
+  </Accordion>
+</AccordionGroup>
+
+For editing, saving, Markdown preview, and external-change notices, see [Files and the editor](/workspace/files). To change filenames or folder structure, see [Organize files](/workspace/organize-files).

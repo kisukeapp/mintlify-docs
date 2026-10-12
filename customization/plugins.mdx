@@ -1,0 +1,97 @@
+---
+title: "Plugins"
+description: "Browse plugins in Zen, inspect their scope and contributions, and understand the difference between saved settings and runtime availability."
+---
+
+Use **Plugins** in Zen to explore extensions from registered marketplaces. Open **Settings → Plugins** to inspect individual entries, enable or disable them, and manage marketplace sources.
+
+A plugin can declare skills, commands, agents, MCP servers, hooks, or language-server integrations. Its contents and the harness running your conversation determine what you can use. A [model provider](/models/overview) and a plugin marketplace are separate choices.
+
+This guide describes the desktop interface. The editable marketplace catalog is for Claude Code plugins. Codex entries appear separately in Settings as read-only inventory; enabling a Claude Code plugin does not install its Codex equivalent.
+
+## Browse in Zen
+
+1. Open **Plugins** in the [Zen sidebar](/zen-mode).
+2. Use **Search plugins...** to search names, descriptions, or marketplace names.
+3. Choose a source from **All marketplaces** to narrow the results.
+4. Read the plugin's description and marketplace before selecting it.
+
+The plus control on an available card is **Add plugin**. It opens an **Enable scope** menu. Choose **For me (User)**, **This project**, or **Local only (this machine)** from the options available for that project and plugin.
+
+The selection saves an enablement setting. A checkmark indicates a saved User setting; an already-enabled Project or Local entry uses a lock icon and directs you to Settings. These icons do not establish that the active conversation has loaded the plugin.
+
+If the browser shows **No plugins match your filters**, use **Clear filters**. If it remains empty or loading, open the gear control, **Manage plugins, marketplaces, and policy in Settings**, to inspect the inventory and marketplace status.
+
+## Inspect a plugin in Settings
+
+Open **Settings → Plugins**. The default list includes enabled Claude Code entries, entries reported by a runtime, and discovered Codex entries. To find an available Claude Code plugin that is not enabled yet, use **Search all plugins...** or **Add plugin**.
+
+Use **All** or **Claude Code** to filter the list. **Codex** appears when Codex entries have been discovered.
+
+For a Claude Code entry, choose its **Plugin details** gear. The detail view includes its status, available scopes, management actions, and **Contributions**. Contributions can come from marketplace metadata before the plugin is loaded.
+
+| Label | What it tells you |
+| --- | --- |
+| **Available** | The entry is known, without a reported loaded state or saved enabled scope. |
+| **Enabled** | At least one settings scope enables the entry. This is not confirmation that an active conversation applied it. |
+| **Loaded** | Runtime information reports the plugin. This does not establish that every contributed server is connected or every tool call will succeed. |
+| **Installed in Codex** | Kisuke discovered the entry in Codex's local plugin cache. The label does not verify enablement or readiness in the Codex runtime serving your conversation. |
+
+The **config** and **auth** badges describe configuration fields declared by the plugin. An **auth** badge is not proof that you have signed in. If the detail view says **No configuration schema available from the marketplace or active runtime**, Kisuke has no settings form to render for that entry.
+
+## Choose the scope deliberately
+
+For editable Claude Code plugin settings, the scopes correspond to these files:
+
+- **User:** `~/.claude/settings.json` on the host handling the settings request.
+- **Project:** `.claude/settings.json` in the project's working folder.
+- **Local:** `.claude/settings.local.json` in that same working folder.
+
+Local is still project-specific. It is not a setting for every project on the machine. Keep local settings out of version control if you intend them to remain personal to that checkout.
+
+Project and Local require a project context. They can be disabled in global Settings even while a project is open elsewhere in the app. A visible project elsewhere is not confirmation that this settings view is operating on it.
+
+For an explicit scope, open the plugin's details, select **Scope**, then choose **Enable at User**, **Enable at Project**, or **Enable at Local**, as available. Review the scope badges after the list refreshes.
+
+## Configure plugin options
+
+Open a plugin's details and choose the intended **Scope** before editing. When the plugin declares a configuration schema, the detail view can show **Plugin options** and separate server configuration sections.
+
+1. Read each field's description and fill in the values required by that plugin.
+2. For a field accepting several values, put one value on each line. Boolean fields use **True** or **False**.
+3. Choose **Save to User**, **Save to Project**, or **Save to Local** in the section you edited, as available.
+
+Each Save applies that section's fields to the selected scope. Other server sections are saved separately. Review all fields in the section before saving: an empty text or number field clears its saved value at that scope. A default or a value from another scope can still apply.
+
+Fields marked sensitive by the plugin's schema are stored separately from ordinary plugin settings. This classification comes from the plugin; a field's label alone does not make it sensitive. Saving configuration does not validate credentials or prove that an active conversation applied the values. Check any contributed server through [MCP settings](/customization/mcp).
+
+## Disable, remove, or update
+
+In the detail view, select the scope and choose **Disable at …**. This removes that scope's enablement entry. If the plugin is enabled in another scope, it can remain enabled there; inspect the remaining badges before assuming it is off everywhere.
+
+**Remove** clears the plugin's saved enablement, configuration, and stored secrets from User scope and, when a project context is available, that project's Project and Local scopes. It does not remove copies in other projects or uninstall cached plugin files. This action has no confirmation dialog in the detail view, so preserve configuration you will need before selecting it.
+
+**Update** refreshes the associated marketplace metadata. Do not use the button as evidence that an active conversation has upgraded or reloaded plugin code.
+
+Built-in, policy-managed, and runtime-provided entries can have different available actions. Read the explanation in the detail view when a control is disabled or absent.
+
+## Marketplace and runtime checks
+
+The Settings toolbar gear, **Marketplaces & policy**, opens marketplace sources and policy rules. Follow [Plugin marketplaces](/customization/plugin-marketplaces) to add, edit, or troubleshoot a source. Inspect this view when a source fails to load or a plugin says it is blocked by marketplace policy. A missing result in the main list alone does not tell you which of those conditions occurred.
+
+For a plugin that contributes an MCP server, inspect [MCP settings and connection status](/customization/mcp). For a skill or command, check its availability in the conversation's composer before relying on it. Saved settings, catalog metadata, and an active runtime are separate stages.
+
+Kisuke's generic plugin controls do not manage the read-only **Installed in Codex** rows. Use the plugin management supplied by your Codex installation. **Refresh** reloads Kisuke's inventory; it does not prove that the next Codex turn has accepted those plugins.
+
+## Troubleshoot plugins
+
+| Symptom | What to check |
+| --- | --- |
+| A plugin appears in Settings but not in Zen | Zen's browser uses the Claude Code marketplace catalog. Read-only Codex inventory is shown in Settings. |
+| A plugin is missing from the default Settings list | Search for it or open **Add plugin**. The default Claude Code list is filtered to enabled or runtime-reported entries. |
+| Project or Local is unavailable | Check whether this view has a project context. Review the plugin's management explanation as well. |
+| A disabled plugin remains enabled | Inspect other scope badges. Disabling one scope does not clear all scopes. |
+| The plugin is listed, but a tool is unavailable | Check the conversation's harness, its actual available tools, and any contributed MCP server's connection or sign-in requirements. A catalog entry alone is insufficient. |
+| The catalog is empty or stuck loading | Open Settings, inspect marketplace status and the device connection, then use **Refresh**. Do not infer that all plugins were removed. |
+
+For a reusable procedure without a plugin bundle, create a [skill](/customization/skills). For a saved prompt with arguments, create a [custom command](/customization/commands).

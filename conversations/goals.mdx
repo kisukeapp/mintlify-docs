@@ -1,0 +1,210 @@
+---
+title: "Keep working toward a goal"
+sidebarTitle: "Goals"
+description: "Set an objective that persists across turns, follow its progress, and control when automatic work continues."
+---
+
+A goal lets the agent keep working toward an objective over multiple turns. Use one when the result needs investigation, implementation, and verification that may take more than a single response.
+
+The goal belongs to the conversation. Keep it in view in [Zen mode](/zen-mode) while you inspect files, review changes, or answer the agent's questions.
+
+## Start a goal
+
+1. Open the project conversation and verify a [complete response from your model and provider](/models/providers#verify-a-complete-response).
+2. Choose the [permission mode](/conversations/permissions) you want the agent to use. A goal keeps that conversation's permission rules; it does not grant extra access.
+3. Submit `/goal` followed by a concrete objective.
+4. Check the goal banner and the first response before leaving it to continue.
+
+For an investigation in **Plan** mode:
+
+> /goal Review Trail Notes for browser-only progress saving. Read only README.md and index.html. Propose a plan that preserves checkboxes after refresh and resets only trail progress. Ask me in ordinary chat whether Reset should require confirmation; do not decide for me. After I answer, provide the final implementation checklist and mark this goal complete. Do not edit files, run tests, access the network, or delegate.
+
+This example asks for a plan and a checklist. It does not authorize implementing or testing the proposed behavior. For implementation, select an appropriate permission mode and describe the changes and checks you want performed:
+
+> /goal Add saved trail progress to this app. Completed trails must remain checked after a refresh. Include a reset action, test both behaviors, and explain the changes. Do not commit or push.
+
+Describe the outcome and how to verify it. Include constraints such as files to preserve, supported environments, and whether committing or publishing is part of the request.
+
+After the goal is accepted, the conversation shows **Pursuing goal** with the objective. The agent can continue after a response ends without another prompt from you. Wait for the goal state to appear; text in the composer or a **Sent as goal** label alone does not establish that execution succeeded.
+
+`/goal` requires an objective. Use the goal controls to pause or resume: `/goal pause` and `/goal resume` are not pause and resume commands. They would set objectives named “pause” and “resume.”
+
+## Make the result verifiable
+
+Give the agent a finish line it can check:
+
+- **Outcome:** what should work or what answer you need.
+- **Scope:** the project, files, platforms, and behavior to preserve.
+- **Decisions:** what it should ask you before proceeding.
+- **Evidence:** the checks, observations, or deliverables needed before completion.
+
+For the planning example, a useful proposal names the storage behavior, Reset behavior, affected files, and future checks. Reading the files establishes the current implementation; listing browser checks does not mean those checks have been run.
+
+## Follow the work
+
+Read the agent's responses and inspect the resulting files or changes as it works. Automatic continuation does not create a new visible user message for each turn.
+
+The goal remains subject to the conversation's permissions. Resolve an approval, [question](/conversations/answer-questions), or [plan review](/conversations/planning) when the agent needs your decision. A goal does not answer those interactions for you. A question written in ordinary chat may not stop automatic continuation; use **Pause goal** while you consider your answer.
+
+You can submit [queued or steered follow-ups](/conversations/follow-ups) to add information. Pending user work takes precedence over a new automatic goal turn. To change the objective the goal keeps pursuing, use **Edit goal**.
+
+On desktop and web, use **Show full goal** when the banner truncates the objective; **Hide full goal** collapses it again. The metric shows elapsed time when no token budget is attached, or tokens used against a budget when one is present. Neither is a percentage-complete estimate or proof that a response is currently running.
+
+## Pause and continue deliberately
+
+1. Select **Pause goal** and wait for **Paused goal**.
+2. Inspect the response and any project changes. If a response is still running and you want it stopped, use the conversation's **Stop** control as well.
+3. Resolve a pending question or approval when you are ready. That can let the current response finish while automatic continuation stays paused. If the agent instead asked in ordinary chat, send your answer as an ordinary message.
+4. Select **Resume goal**, then check for **Pursuing goal** and a new response. You do not need to send the objective again.
+5. Read that response against your objective and latest decisions. If completion needs approval, [verify the result before allowing the completion report](#verify-a-completed-goal).
+
+In the Pi example below, the goal asked which manual check to propose. The goal was paused before the answer was submitted. Choosing **Keyboard Reset** and submitting the answer let the first response finish; the banner remained **Paused goal** and the composer became idle.
+
+<Frame caption="Controls for the paused goal: Edit, Resume (play), Clear, and Show full goal. Select Resume when you want automatic work to continue.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '115 / 36', width: '100%', maxWidth: '230px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-goal-resume.jpg" width="1686" height="720" alt="Edit, Resume goal, Clear goal, and Show full goal controls at the right of the paused goal banner." style={{ position: 'absolute', width: '1466.086957%', maxWidth: 'none', left: '-814.782609%', top: '-1530.555556%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the paused goal before Resume">
+  <img src="/images/screenshots/zen-goal-resume.jpg" width="1686" height="720" alt="Pi and DeepSeek V4 Flash in Zen acknowledge the Keyboard Reset choice. The goal banner remains Paused goal with a Resume control, and the composer is idle." />
+</Accordion>
+
+Selecting **Resume goal** then produced the requested three-step proposal without another message. After the one-time completion approval, **Goal achieved** appeared. The steps were labeled proposed, not executed: completing this goal did not run the browser checks.
+
+The first response said the goal was still active, but the banner showed **Paused goal**. Use the goal controls and their status to manage continuation; generated response text does not change that state.
+
+## Control the goal
+
+The actions available depend on the goal's current state. Controls can be temporarily disabled while an update is pending.
+
+| Action | What it does |
+| --- | --- |
+| **Edit goal** | Opens the objective for editing. Save a changed, nonempty objective to apply it. Editing can reactivate a paused or blocked goal and schedule more work. |
+| **Pause goal** | Pauses future automatic goal turns. It does not undo actions already performed or necessarily interrupt the current turn. |
+| **Resume goal** | Reactivates a paused, blocked, or usage-limited goal. Resolve the reason it stopped before resuming. |
+| **Clear goal** | Removes the current goal and cancels pending automatic continuation. It does not delete the conversation or undo project changes. |
+
+To stop the current turn, use the conversation's Stop control. Stopping also attempts to pause the active goal. Check the turn and goal state afterward: an unconfirmed Stop or a failed goal update is not proof that all work has stopped.
+
+You can also submit this command to clear the goal:
+
+```text
+/goal clear
+```
+
+Use the banner's **Clear goal** action when you want to issue the control directly; a typed command goes through message delivery and can wait behind other work.
+
+## Revise the objective
+
+1. If you need time to review, select **Pause goal** and confirm **Paused goal**. Let the current response finish, or stop it and confirm the interruption before continuing.
+2. Select **Edit goal**. Replace the objective with the remaining outcome, acceptance criteria, and constraints. **Save** stays disabled for an unchanged or empty objective.
+3. Choose **Cancel** if you want to discard the draft. Reopening the editor shows the saved objective.
+4. When you are ready for work to continue, choose **Save**, or use Cmd+Enter on macOS, Ctrl+Enter on Windows or Linux.
+5. Check the objective in the goal banner and read the next response. Confirm that it follows the revised scope.
+
+<Note>
+  Saving is an execution decision: it can reactivate a paused goal and start another response. If the banner already shows **Pursuing goal**, a separate **Resume goal** action is unnecessary. Use **Cancel** when you only want to inspect or draft a possible revision.
+</Note>
+
+<Frame caption="Editing a paused Pi goal using DeepSeek V4 Flash. The revised objective asks for three proposed keyboard checks and keeps the work read-only.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '544 / 235', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-goal-edit.jpg" width="1686" height="720" alt="Edit goal contains a revised Trail Notes objective for Tab, Space, and keyboard Reset checks, with Cancel and Save controls." style={{ position: 'absolute', width: '309.926471%', maxWidth: 'none', left: '-104.963235%', top: '-103.404255%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View goal editing in Zen">
+  <img src="/images/screenshots/zen-goal-edit.jpg" width="1686" height="720" alt="The Edit goal dialog is open over a paused Trail Notes conversation in Zen. The environment identifies Pi and the composer shows DeepSeek V4 Flash with Ask first permissions." />
+</Accordion>
+
+In this example, saving reactivated the goal without another message or Resume click. The next response proposed the three requested checks, then reported completion through the normal approval flow. **Goal achieved** confirmed completion of the proposal; the keyboard checks themselves were not executed.
+
+If the update is rejected, the edit dialog keeps your draft so you can correct it or retry after reconnecting. A closed dialog alone does not prove that the next response has started; inspect the goal banner, any pending interaction, and the response.
+
+## Use the controls on mobile
+
+On iOS and Android, the active goal banner appears above the composer. Use its pencil, pause or play, and trash controls for **Edit goal**, **Pause goal** or **Resume goal**, and **Clear goal**, according to the current state.
+
+To edit, open **Edit goal**, change the objective, and select **Save**. Wait for the update to be accepted; the editor stays open when saving fails. **Cancel** discards the unsaved draft. Saving an edited objective can reactivate the goal, so use Cancel when you only want to inspect it.
+
+The mobile banner keeps the objective to one line. When a reason is available, tap the header to expand the objective and reason. Otherwise, open **Edit goal** to read the full active objective, then Cancel if you do not intend to change it. Mobile does not have the desktop's separate **Show full goal** control for every truncated objective.
+
+## Understand a stopped goal
+
+| State | What to check |
+| --- | --- |
+| **Paused goal** | Select **Resume goal** when you want automatic work to continue. |
+| **Goal blocked** | Read the agent's explanation. Supply the missing access, information, or external change before resuming. |
+| **Goal usage limited** | Resolve the harness's usage restriction before resuming. Clicking Resume does not remove that restriction. |
+| **Goal limited** | The goal has reached its token budget. The banner does not offer Resume for this state. |
+| **Goal achieved** | The goal has been marked complete. Review the result and its verification; completed goals are no longer editable active goals. |
+
+When a goal completes, its active controls are removed and the completion remains associated with the conversation's history. An ordinary final response does not by itself mean the goal is complete; it may continue into another turn.
+
+If a token budget is present, treat it as a continuation limit, not a precise cap on an in-progress response. Kisuke's portable goal accounting applies reported usage at turn boundaries. Editing the objective does not reset that used budget.
+
+### Verify a completed goal
+
+1. Read the result against the objective you set. Separate actions performed from checks merely proposed.
+2. Resolve any pending completion-tool approval. In Pi with **Ask first**, `mcp__kisuke__update_goal` can request permission to report `status: complete`. Check that the result satisfies your objective before choosing **Allow once**.
+3. Look for **Goal achieved** with the completed response. The active **Pursuing goal** banner and its controls should no longer be present for that goal.
+
+For the example below, Pi with DeepSeek V4 Flash read the two permitted files in its first response, then continued automatically to produce five proposed acceptance checks. The completion report required approval; after it was accepted, Zen showed **Goal achieved in 41s**. The project files were unchanged. This completed a review-and-checklist objective; it did not establish that the proposed browser checks passed.
+
+<Frame caption="Goal achieved after a two-response review in Pi. The full workspace shows the delivered checklist and distinguishes proposed checks from executed tests.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '160 / 26', width: '100%', maxWidth: '320px', margin: '0 auto' }}>
+    <img noZoom src="/images/screenshots/zen-goal-achieved.jpg" width="1686" height="720" alt="The completed response footer shows Goal achieved in 41s." style={{ position: 'absolute', width: '1053.75%', maxWidth: 'none', left: '-246.25%', top: '-1846.153846%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the achieved goal in Zen">
+  <img src="/images/screenshots/zen-goal-achieved.jpg" width="1686" height="720" alt="Pi finishes a Trail Notes source review and proposed acceptance checklist in Zen, with Goal achieved in 41s below the response and an idle Ask first composer." />
+</Accordion>
+
+<Accordion title="Try a bounded review goal">
+  Adapt the filenames and review criteria to your project. This example deliberately separates the source findings from the proposed checks so you can observe an automatic continuation.
+
+  > /goal Review the current Trail Notes implementation and produce a concise acceptance checklist. Work in two responses: in the first, read only README.md and index.html, report the existing storage and Reset behavior in at most 100 words, and finish that response with this goal still active. On the next automatic continuation, use those findings to give five acceptance checks covering reload persistence, Reset scope, save/reset failure, and keyboard operation; clearly label them proposed, not executed. Once both parts are delivered, use mcp__kisuke__update_goal with status complete and finish. Do not edit or create files, run commands or tests, access the network, or delegate. Use no tools other than reading those two files and updating this goal.
+
+  This prompt names Pi's goal-reporting tool. For a different harness, use its supported goal workflow; copying the tool name does not make that tool available.
+</Accordion>
+
+## Reconnect and return to the goal
+
+Goal state and current execution are different. A stored objective can survive reconnecting without proving that a response is currently running. Reopen the same conversation, check its current status and any pending interaction, and resume when that action is available.
+
+Kisuke integrates with the harness for goal execution: Codex uses native goal controls, while other harnesses use Kisuke's goal lifecycle and need access to its goal-reporting tools. Provider choice alone does not establish that every harness can complete the same workflow.
+
+Goals inside [Side Chat](/conversations/side-chat) share that discussion's temporary lifetime. Use an ordinary conversation for work you need to return to later.
+
+[Tasks](/workspace/run-a-task) also starts issue work as a goal. Its Linear issue launcher currently supports Codex and Claude Code; use an ordinary Zen conversation for the Pi example above. Follow the task guide for issue status transitions and worktree cleanup behavior.
+
+## If a control fails
+
+### The result is ready, but the goal is still active
+
+Check for a pending permission request before resuming or replacing the goal. In the Pi example, the checklist was already visible while `mcp__kisuke__update_goal` waited for **Allow once**. The goal remained active until that report was accepted. Read the tool's requested status and the delivered result; prose saying the work is finished does not resolve a pending request.
+
+### A goal control reports an error
+
+- **Reconnect before updating the goal:** restore the conversation connection, then check the current goal state before trying again.
+- **Goal update timed out:** the app did not confirm the update. After reconnecting, inspect whether the requested change already took effect before repeating it.
+- An unsupported or rejected action: check the current goal status and harness. Do not repeatedly send a new `/goal` as a retry; that can replace the objective rather than resume it.
+
+### The agent says it is paused, but the banner says Pursuing goal
+
+Treat the response text and the goal control as different information. In a Codex test, Resume reactivated the goal, but subsequent responses kept repeating an earlier instruction to leave it paused. The goal continued producing responses without advancing the work.
+
+Use **Pause goal** to stop further automatic turns, or **Stop** when a response also needs interruption. Before resuming, clearly state which earlier instruction no longer applies and what should happen next. Check that the next response makes progress; a new response alone is not evidence of recovery.
+
+### A cleared goal still appears in the banner
+
+In a reopened Codex conversation, Clear removed the stored native goal while the banner continued showing the older objective as active. Clearing does not mean the objective was achieved, and a stale banner does not establish that a new response is running.
+
+Reopen the conversation and inspect its latest activity and control state. If the mismatch remains, preserve the conversation and report it rather than creating a replacement goal as a retry. The banner alone cannot confirm whether an unacknowledged control took effect.
+
+### A resumed goal reaches a usage limit
+
+Read the latest harness error and wait until that access restriction is resolved before resuming. **Resume goal** does not replenish provider access. The goal can retain its objective while being unable to produce another response; do not treat that state as completion.
+
+If the first goal request never reaches the agent, use [Troubleshoot a first message](/help/starting-a-chat) to check the project connection and model selection.

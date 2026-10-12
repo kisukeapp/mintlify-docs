@@ -1,0 +1,8 @@
+node_modules/
+.mint/
+.agents/
+.codex/
+.DS_Store
+
+# Local research, runtime logs, and disposable verification projects.
+maintenance/

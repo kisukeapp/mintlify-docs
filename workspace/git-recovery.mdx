@@ -1,0 +1,143 @@
+---
+title: "Recover Git and GitHub operations"
+description: "Identify conflicts, restore access on the correct device, and check what completed before retrying."
+---
+
+A failed Git operation can leave useful work behind: a local commit may exist even when its push failed, or a PR may exist even when its result did not reach Kisuke. Check the repository and the remote before repeating the action.
+
+Use this guide with [Git changes](/workspace/git), [Commit and push](/workspace/commit-and-push), and [Pull requests from Zen](/workspace/pull-requests). The terminal examples run on the device and in the folder that own the affected repository.
+
+## Start with the right repository
+
+Check the selected project, device, and worktree. Pause other work that could edit these files while you investigate. In the project's [terminal](/workspace/terminal), run:
+
+```bash
+git rev-parse --show-toplevel
+git status
+git log -1 --oneline
+git branch -vv
+git remote -v
+```
+
+The root path should match the intended checkout. `git status` identifies staged files, unmerged paths, and an unfinished merge or rebase. The log shows the latest local commit; branch and remote output help you check tracking and destination.
+
+These commands do not fetch new remote history. Ahead/behind information is based on locally known remote references. Keep the exact error and any PR URL so you can compare them with the actual state.
+
+## Choose the matching recovery
+
+| What happened | What to check first |
+| --- | --- |
+| Commit failed | Read the hook or Git error. Inspect the index and working files before another commit. |
+| Commit succeeded, then fetch or push failed | Verify the new local commit. Once the cause is resolved, you may need only Push. |
+| Both local and remote histories have new commits | Compare the histories and choose the project's merge or rebase workflow. |
+| Git lists unmerged paths | Resolve the existing local operation before starting another commit/push workflow. |
+| GitHub reports a PR conflict, but local status is clean | Check the PR's head and base on GitHub; a clean checkout can still conflict with its base. |
+| Another operation is running or repository state changed | Let active work settle, refresh, and review the scope again. |
+| Progress timed out or the device disconnected | Reconnect, inspect local history and GitHub, and establish which effects completed. |
+
+## Resolve a local conflict
+
+First run `git status` and identify which operation is in progress. Do not start another pull, merge, or rebase on top of an unfinished one.
+
+1. List unresolved paths:
+
+   ```bash
+   git diff --name-only --diff-filter=U
+   ```
+
+2. Open each affected file in [Files](/workspace/files) or your editor. For a text conflict, read both versions, write the intended combined result, and remove the conflict markers. A deleted or binary file may require a different resolution; follow the reported conflict instead of looking only for text markers.
+3. Save and review the result. Stage only the paths you resolved. For example, if the affected file is `index.html`:
+
+   ```bash
+   git add -- index.html
+   git diff --cached -- index.html
+   git status
+   ```
+
+4. Finish the operation that `git status` reports. For an ordinary merge stopped by conflicts:
+
+   ```bash
+   git merge --continue
+   ```
+
+   For a rebase stopped by conflicts:
+
+   ```bash
+   git rebase --continue
+   ```
+
+   Use the matching command, not both. A rebase can stop again at a later commit; resolve that step and continue until it finishes. Other operations, such as cherry-pick, have their own continuation instructions.
+
+5. Run `git status` again, inspect the resulting files, and run the project's checks. In Zen Review, choose **More → Refresh** and confirm that the unresolved entries are gone.
+
+Staging a resolution tells Git which content to use; it does not prove that the combined behavior is correct. Git documents the continuation steps for [merges](https://git-scm.com/docs/git-merge#_how_to_resolve_conflicts) and [rebases](https://git-scm.com/docs/git-rebase).
+
+<Accordion title="Abandoning an unfinished merge or rebase">
+  If you decide to abandon the operation, first preserve any edits or conflict-resolution work you still need. Use the abort command for the operation Git reports: `git merge --abort` or `git rebase --abort`.
+
+  Abort is not a general undo button. In particular, a merge that began with uncommitted changes may be unable to reconstruct those edits exactly. Read Git's [merge abort guidance](https://git-scm.com/docs/git-merge) before relying on it to restore work.
+</Accordion>
+
+## GitHub reports a conflict
+
+**Merge conflicts** in Zen's PR row describes the relationship between the PR branches. It does not necessarily mean your working folder currently contains unmerged files.
+
+Open **View PR** and verify the head and base. Preserve any uncommitted work, obtain current remote history, and integrate the intended base into the head using your project's Git policy. Resolve any local conflicts, check the result, and push the resulting head branch. Then refresh the PR and verify GitHub's state.
+
+Kisuke's Checks row does not resolve the conflict for you. A [worktree](/projects/worktrees) gives you a separate working folder, but it does not remove conflicts between branches.
+
+## Handle diverged history
+
+When your branch and its upstream both contain commits the other lacks, repeating Push does not reconcile them. Inspect the commits on each side before choosing merge or rebase.
+
+If an upstream is configured, this read-only command helps compare the locally known histories:
+
+```bash
+git log --oneline --graph --left-right 'HEAD...@{upstream}'
+```
+
+Fetch through your normal Git workflow when you need current remote information. Then follow the repository's integration policy and check the result before pushing. Kisuke may stop a workflow when it detects divergence; do not treat repeated Pull or Push attempts as a conflict-resolution strategy.
+
+Rewriting shared history or force-pushing requires a deliberate decision about other contributors' work. It is not a routine recovery step for a rejected push.
+
+## Restore GitHub access
+
+GitHub CLI access is separate from your Kisuke account, AI-provider authentication, branch-name prefix, and Git commit identity. Check it on the computer that executes the repository's operations, including when you are using that computer from a phone or browser.
+
+In desktop Kisuke:
+
+1. Open **Settings → Git**.
+2. Under **GitHub**, choose the repository's **Device**. If it is offline, reconnect that device; checking another online computer does not repair this one's access.
+3. Check **GitHub host**. Use the device default or the hostname you intend to diagnose.
+4. Read the result and use **Recheck** after addressing the reported problem. An unavailable probe offers **Try again**.
+
+| Result | Next step |
+| --- | --- |
+| **Install GitHub CLI** | Follow the installation instructions for the executing device's operating system, then recheck. |
+| **Restore GitHub CLI access** | Follow the displayed recovery command on that device and sign in to the repository's GitHub host. |
+| **GitHub CLI is connected** | Check the displayed account. This confirms the authentication check, not permission to mutate every repository. |
+| **Couldn’t check GitHub CLI** | Inspect the device connection, network, and reported error. An unavailable check does not by itself establish expired credentials. |
+
+To inspect the active account for github.com from that device's terminal:
+
+```bash
+gh auth status --active --hostname github.com
+```
+
+Replace the hostname when diagnosing a different GitHub host. The [GitHub CLI account-status reference](https://cli.github.com/manual/gh_auth_status) explains active accounts and host selection. The Settings host field selects what to check; it does not change your repository's remote or switch accounts.
+
+For missing or invalid stored credentials, the recovery flow directs you to `gh auth login` on that device. Finish the login yourself, then **Recheck**. If the message identifies environment credentials such as `GH_TOKEN`, update the relevant credential in the executing service's environment and restart that service as directed; a browser login does not override that environment credential. Do not paste tokens into a conversation or PR.
+
+Recheck only checks access. It does not repeat a PR creation, merge, comment, or repository publication. Verify the previous result before explicitly trying the write again.
+
+### Git push still fails after GitHub CLI connects
+
+Read the push error and check the repository's remote URL. Ordinary Git fetch/push may use SSH or an HTTPS credential helper, while PR operations use GitHub CLI. A successful CLI account check does not repair a missing SSH key, an incorrect remote, insufficient repository permission, or diverged history.
+
+Use the authentication method required by that remote on the executing device. Do not change your AI model or sign out of Kisuke to solve a Git credential problem.
+
+## Recover after a connection interruption
+
+If Git, Files, the editor, or the terminal become unavailable together, check the [project device and connection](/workspace/devices) first. Reopen the intended project scope after reconnecting and refresh Review.
+
+For an interrupted commit/push sequence, inspect the local commit and the remote branch. For an interrupted PR action, inspect the PR on GitHub. Keep work that already completed and retry only what is still needed. Refresh, a dismissed dialog, or an elapsed progress indicator is not proof of rollback.

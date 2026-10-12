@@ -1,0 +1,99 @@
+---
+title: "Follow delegated work"
+sidebarTitle: "Subagents"
+description: "Ask for focused subagent work and inspect its status, instructions, and recorded transcript in Zen."
+---
+
+A subagent works on an assignment delegated by the agent in your main conversation. Use delegation for separable work, such as inspecting two parts of a project or comparing approaches before the main agent combines the findings.
+
+The main conversation remains the place to give instructions and review the combined result. A subagent is different from the agent's [response checklist](/conversations/track-progress), a queued follow-up, or a background shell command.
+
+## Request focused delegation
+
+Start with an existing conversation in the intended project. Check its [harness and model](/models/overview), working folder, and [permissions](/conversations/permissions).
+
+Describe the assignments, their boundaries, and how the results should come back together. For a read-only review of a small app, for example:
+
+> Use two subagents to review Trail Notes. Have one inspect the completion-storage design and the other inspect keyboard accessibility. Neither should edit files or install software. Combine their findings into a short implementation plan, identifying any disagreements and untested assumptions.
+
+The active harness must expose delegation tools, and the agent must actually use them. A response saying that it plans to delegate is not evidence that a child has started. Look for subagent activity in the conversation.
+
+### Model choice and delegation are separate
+
+Selecting an OpenAI, Anthropic, Google, or other provider's model does not by itself determine the available delegation tools. Those tools come through the selected harness and its runtime configuration.
+
+Kisuke has child-lifecycle and transcript support for Codex and Claude Code. Pi can run child tasks and report nested activity, but its inspection support differs. ACP harnesses vary in the child information they expose. Do not expect every harness to provide the same child controls or a separately recorded transcript.
+
+If the agent reports that delegation is unavailable, let it perform the work in the main conversation or start another ordinary conversation with the context it needs. Rewording the same request cannot add a missing runtime tool.
+
+## Inspect a subagent in Zen
+
+When a response delegates work, Zen can show named subagent chips among its activity. Running names can shimmer. The inline row shows up to three children and a count when there are more.
+
+1. Select a subagent's name in the conversation to open its detail in Zen's right panel.
+2. Alternatively, open **Show summary**, find **Subagents** in the environment summary, and select the child there. This section appears when the conversation has subagent activity and gives access to children beyond the inline row.
+3. Read **Delegated task** to check what the child was actually asked to do.
+4. Inspect **Status** and the recorded transcript. **Model**, **Agent**, and work duration appear when that information is available.
+5. Return to the main conversation's composer when you want to refine the assignment or ask for a combined conclusion.
+
+The detail panel is a read-only inspector. Opening it does not create another conversation or send the child a message. Closing its tab only closes that view; it does not stop the child's work.
+
+## Interpret the status
+
+| Label | Meaning |
+| --- | --- |
+| **Waiting** | The harness has reported a child that has not started yet. Not every harness exposes this state. |
+| **Working** | The child is reported as running. This does not identify its current tool or prove that new output is arriving. |
+| **Done** | The child has ended. This label also covers stopped or interrupted children; read the result before treating the assignment as successful. |
+| **Failed** | The reported child execution failed. Check the available transcript and the main agent's explanation. |
+
+Where the panel groups children into **Active** and **Done**, the Done group also contains failed and stopped children. It is a list of ended executions, not a list of verified successes.
+
+A completed launch tool can mean only that a background child was started. The child's status and the main response can finish at different times. Inspect remaining children even after the parent has posted an answer.
+
+### Read the child's own work
+
+A Codex child can include inherited context. When the inspector shows **Inherited from parent**, expand it to read that context separately from the child's own execution.
+
+The **Worked for** value, when present, is calculated from recorded child turns and excludes inherited parent turns. It is not a measure of the quality or completeness of the result, and the panel does not show a continuously updated last-activity age.
+
+The transcript is loaded when you open the child and refreshed when its status changes. It is not a continuous live stream of every child token. While a child remains **Working**, the visible transcript can lag behind its current work.
+
+## Coordinate changes to project files
+
+Do not use the number of subagents as evidence that each has an isolated checkout. The inspector itself creates no worktree or file copy. In particular, Pi child tasks use the parent's working directory.
+
+For parallel implementation, make file ownership explicit in the request and ask the main agent to reconcile the results. Use [worktrees](/projects/worktrees) when you need separate working folders, and verify the actual folder before work begins.
+
+After delegated edits, inspect [Git Review](/workspace/git) and the reported checks. A **Done** status does not establish that tests passed, changes were committed, or another child's edits were preserved.
+
+## Use the phone summary
+
+The phone's chat summary can list subagent names and the same status vocabulary. That list is informational; it does not provide the desktop Zen child-transcript inspector described above.
+
+For detailed child history, open the parent conversation in desktop Zen when the harness has recorded a supported transcript. Keep the computer that owns the conversation connected. See [connected devices](/workspace/devices) if other project tools are also unavailable.
+
+## Recover from missing or stale details
+
+<AccordionGroup>
+  <Accordion title="No transcript recorded for this subagent yet">
+    The child can be known before a supported transcript is available. Wait for its status to change, or close the child tab and open it again to request another snapshot.
+
+    If it remains unavailable, inspect the main conversation's activity and ask for the child's result there. Some harnesses do not expose a separately loadable child transcript. A missing transcript does not prove the child never ran.
+  </Accordion>
+  <Accordion title="This subagent produced no transcript">
+    Kisuke received an empty transcript result. Check the delegated task, status, and parent response for a result or error. Do not infer successful completion from the empty panel.
+  </Accordion>
+  <Accordion title="Timed out loading subagent transcript, or the chat route is unavailable">
+    Check the connection to the computer that owns the parent conversation. After it is available, close and reopen the child tab to request its transcript again.
+
+    Reopening the inspector does not relaunch the assignment. Avoid repeating the delegation request until you have checked whether the original child is still active or has already changed files.
+  </Accordion>
+  <Accordion title="Working stays visible without new output">
+    The inspector does not provide a stalled-child recovery control. Check the main conversation for an approval, question, error, or a child still in progress. Ask the main agent to report the assignment's status when you can continue the conversation.
+
+    If you want to interrupt the current response, use [Stop](/conversations/stop-and-continue). Do not assume that closing the inspector, or stopping one foreground response, has confirmed the end of every background child or command.
+  </Accordion>
+</AccordionGroup>
+
+For a separate discussion that you control directly, use [Side Chat](/conversations/side-chat). For an objective that continues across responses, use a [goal](/conversations/goals). Neither is the same as inspecting delegated child work.

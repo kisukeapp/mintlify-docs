@@ -1,0 +1,71 @@
+---
+title: "Stop a response and continue"
+description: "Interrupt current work, review what remains, and decide how to continue the conversation."
+---
+
+Use Stop when the current response should end. Use [Steer](/conversations/follow-ups) when you want to redirect the agent, or [Pause goal](/conversations/goals) when you want to prevent future automatic goal turns.
+
+Stopping does not undo edits or commands that have already completed. Review the project's state before asking the agent to continue.
+
+## Request a stop on desktop
+
+While a response is streaming, choose **Stop response** in the composer. The control uses a square icon.
+
+The composer shows Stop when it is streaming and has no draft message or attachment to send. If you have a follow-up prepared, the button can show **Send message** instead. Keep your draft and use **Ctrl+Shift+Backspace** to interrupt the streaming response. This shortcut uses Ctrl on macOS too.
+
+Wait for the conversation to stop responding or report an error. The request may have to reach an agent that is still starting its turn. A response can also finish naturally while Stop is being processed; that does not reverse the work it just completed.
+
+An interrupted desktop response can show **You stopped after…** and **Response interrupted**. Check the response's outcome and the retained queue separately.
+
+<Frame caption="Two follow-ups remain above the empty composer after Stop. Use a row's Steer control to request delivery, or its delete control to remove the pending instruction.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '750 / 215', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-stopped-queue.jpg" width="1920" height="971" alt="Two retained follow-ups with Steer and delete controls above the empty Zen composer." style={{ position: 'absolute', width: '256%', maxWidth: 'none', left: '-18.666667%', top: '-346.511628%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full stopped conversation">
+  <img src="/images/screenshots/zen-stopped-queue.jpg" width="1920" height="971" alt="Full Zen workspace displaying You stopped after 11s and Response interrupted, with two retained follow-ups above the empty composer and Review on the right." />
+</Accordion>
+
+## Check what remains
+
+After stopping, inspect the conversation and project:
+
+- Read the last response and tool results to see what completed.
+- Open [Git Review](/workspace/git) to inspect file changes.
+- Check any [terminal](/workspace/terminal) or background work separately. Do not use the absence of chat output as proof that an independently started process has exited.
+- Review [queued messages](/conversations/follow-ups). Stop preserves retained queued work; it is not a command to delete the queue.
+- Check the [goal](/conversations/goals), if there is one. Stop attempts to pause it as part of interrupting the turn.
+
+Remove queued instructions you no longer want with **Delete queued message**. A message already accepted for execution may no longer be removable as a pending queue entry.
+
+## Continue deliberately
+
+When the conversation is ready, send a new instruction describing what should happen next. For example:
+
+> Check which changes were completed before I stopped the response. Keep the existing storage implementation. Continue with tests only, and report any incomplete behavior before making further edits.
+
+With no retained queue, this starts another turn using the conversation's context; it does not rewind the interrupted turn or roll back its effects. Check retained queued instructions before sending so they still match your intended next steps.
+
+If pending rows remain, another send can join that queue. To run an existing retained instruction on desktop, use its **Steer** control. After that response completes successfully, later retained instructions can continue in order. Delete or edit unwanted rows before resuming; [cancelling a queue edit](/conversations/follow-ups#cancelling-an-edit-can-make-its-message-eligible-to-run) restores the original instruction.
+
+If the goal shows **Paused goal**, use **Resume goal** when you want automatic goal work to continue. Sending an ordinary message and resuming a goal are separate actions.
+
+For a separate discussion based on an earlier completed response, use [Continue from this response](/conversations/continue-from-response). That workflow creates another conversation; it does not undo the stopped turn's file changes.
+
+## If Stop is not confirmed
+
+Kisuke can show **Could not stop this turn** with a message beginning **Stop was not confirmed.** The turn may still be running.
+
+1. Restore the connection if it dropped.
+2. Check the conversation's current activity and any pending interaction.
+3. Retry Stop if the turn is still active.
+4. Check the goal state separately; a failed interruption and a goal pause are not the same outcome.
+
+Harnesses differ in how they cancel work and report completion. In particular, a stopped conversation is not a general guarantee that every external command or background resource has terminated. Inspect the resource whose execution matters before starting conflicting work.
+
+## Stop, clear, and archive are different
+
+**Stop response** targets the current turn. **Clear goal** removes the ongoing goal objective and pending automatic continuation. [Archiving a conversation](/conversations/organize-and-archive) changes its visibility in your history.
+
+Choose the action for the outcome you want. None of these is a substitute for reviewing or reverting project changes.

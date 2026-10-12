@@ -1,138 +1,32 @@
-/* Berkeley Mono Font */
-@font-face {
-  font-family: 'Berkeley Mono';
-  src: url('/font/BerkeleyMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+#kisuke-skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10000;
+  max-width: calc(100vw - 2rem);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #41349d;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  transform: translateY(calc(-100% - 2rem));
 }
 
-@font-face {
-  font-family: 'Berkeley Mono';
-  src: url('/font/BerkeleyMono-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+#kisuke-skip-link:focus {
+  transform: none;
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px #41349d;
 }
 
-@font-face {
-  font-family: 'Berkeley Mono';
-  src: url('/font/BerkeleyMono-Oblique.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
+#page-title:focus {
+  scroll-margin-top: 9rem;
 }
 
-@font-face {
-  font-family: 'Berkeley Mono';
-  src: url('/font/BerkeleyMono-Bold-Oblique.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Lock background on html to prevent flash during SPA page transitions */
-html {
-  background-color: #F2EFDF;
-}
-
-html.dark {
-  background-color: #2d353b;
-}
-
-/* Disable zoom/pan on Mermaid diagrams */
-.mermaid svg,
-[class*="mermaid"] svg {
-  pointer-events: none;
-  cursor: default;
-}
-
-/* Code blocks */
-code, pre code {
-  font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-/* Buttons — less rounded corners globally */
-.rounded-xl {
-  border-radius: 4px !important;
-}
-
-.rounded-full {
-  border-radius: 4px !important;
-}
-
-/* Navbar CTA button — same style in both modes */
-.bg-primary-dark {
-  background-color: #35A77C !important;
-}
-
-.bg-primary-light\/10 {
-  background-color: transparent !important;
-  border-color: #35A77C !important;
-}
-
-header a.group span[class*="relative"],
-header a.group span:not([class*="absolute"]) {
-  color: #F2EFDF !important;
-  font-weight: 600 !important;
-}
-
-header a.group:hover .bg-primary-dark {
-  background-color: #8DA101 !important;
-}
-
-
-/* Light mode: boost primary color contrast across the board */
-:root:not(.dark) .text-primary {
-  color: #2d7a5a !important;
-}
-
-:root:not(.dark) .bg-primary {
-  background-color: #35A77C !important;
-}
-
-:root:not(.dark) .bg-primary\/10 {
-  background-color: rgba(53, 167, 124, 0.15) !important;
-}
-
-:root:not(.dark) .bg-primary\/30 {
-  background-color: rgba(53, 167, 124, 0.3) !important;
-}
-
-:root:not(.dark) .border-primary {
-  border-color: #35A77C !important;
-}
-
-/* Bigger Kisuke logo */
-#navbar a[href="/"] img.nav-logo,
-.advanced-footer a[href="/"] img.nav-logo {
-  height: 31px !important;
-}
-
-/* ASCII art next to Kisuke logo — navbar + footer */
-#navbar a[href="/"],
-.advanced-footer a[href="/"] {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-
-#navbar a[href="/"]::after,
-.advanced-footer a[href="/"]::after {
-  content:
-    "██╗  ██╗██╗███████╗██╗   ██╗██╗  ██╗███████╗\A"
-    "██║ ██╔╝██║██╔════╝██║   ██║██║ ██╔╝██╔════╝\A"
-    "█████╔╝ ██║███████╗██║   ██║█████╔╝ █████╗  \A"
-    "██╔═██╗ ██║╚════██║██║   ██║██╔═██╗ ██╔══╝  \A"
-    "██║  ██╗██║███████║╚██████╔╝██║  ██╗███████╗\A"
-    "╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝";
-  white-space: pre;
-  font-family: 'Berkeley Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 4.5px;
-  line-height: 1.15;
-  height: 31px;
-  display: flex;
-  align-items: center;
-  color: #a7c080;
-  opacity: 0.8;
+/* Anchor keyboard image controls to the current frame width after resizing. */
+figure[data-name="frame"] > div > button[data-ramka-trigger] {
+  left: auto !important;
+  right: 0.625rem;
 }

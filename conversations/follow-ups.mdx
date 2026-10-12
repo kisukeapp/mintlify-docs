@@ -1,0 +1,100 @@
+---
+title: "Queue and steer follow-ups"
+description: "Send another instruction while the agent works, choose when it should take effect, and manage queued messages."
+---
+
+You can write your next instruction while an agent is working. Choose **Queue** for a next step that can wait, or **Steer** for a correction that matters to the work in progress. The harness and current runtime state determine when the message is delivered.
+
+The controls below describe the desktop composer. Delivery also depends on the selected harness and the conversation's current state.
+
+## Choose when a follow-up takes effect
+
+Open **Settings → General → Follow-up behavior** and choose:
+
+| Choice | When to use it |
+| --- | --- |
+| **Queue** | A next step that can wait behind current work. For example: “After the implementation, add tests for empty input.” |
+| **Steer** | A correction or constraint that matters to the work in progress. For example: “Keep the existing public API; change only the internal implementation.” |
+
+Steering is a request to redirect work. With a supporting harness, Kisuke delivers it to the active run; other cases require interrupting and starting a new turn. It does not undo edits or commands that have already completed.
+
+Not every submitted follow-up can take effect immediately. Existing queued work, a pending start, or settings that cannot yet be applied to the running harness can keep a message queued. If the agent is waiting for a permission decision or an answer, resolve that interaction first.
+
+## Use the send shortcut
+
+**Settings → General → Send messages with** controls which key submits the composer.
+
+With **Enter** selected:
+
+- **Enter** submits normally.
+- **Shift+Enter** inserts a new line.
+- **Cmd+Enter** on macOS, or **Ctrl+Enter** on Windows and Linux, uses the opposite follow-up behavior for that message.
+
+With **Cmd+Enter** or **Ctrl+Enter** selected:
+
+- The configured modifier plus **Enter** submits normally.
+- **Enter** or **Shift+Enter** inserts a new line.
+- There is no separate opposite-behavior shortcut with this setting.
+
+For example, with **Enter** as your send key and **Queue** as your follow-up behavior, Enter queues a follow-up while Cmd+Enter or Ctrl+Enter requests steering for that message.
+
+## Manage a queued message
+
+Pending rows appear above the composer. Check their text and order before requesting delivery. For messages still retained in the visible queue, use these controls:
+
+- **Steer**, or **Interrupt & steer** where shown, requests delivery of that selected message now. The runtime determines how it can be delivered.
+- **Delete queued message** removes a pending instruction from the queue.
+- **Queued message actions → Edit** brings the instruction back into the composer for changes.
+- Drag the reorder handle to change the order. With the handle focused, use the Up and Down arrow keys to move an entry.
+
+These actions apply to messages that are still pending. An entry that has already been accepted for execution may no longer be available to edit, reorder, or delete from the queue.
+
+To end the current response, see [Stop a response and continue](/conversations/stop-and-continue). Stopping the turn does not delete retained queued messages.
+
+## Edit a pending instruction
+
+1. Open **Queued message actions → Edit** on the intended row.
+2. Wait for **Editing queued message** above the composer. The claimed row leaves the visible queue while its text and attachments move into the editor.
+3. Make your changes, then submit once. Wait for the edit notice to clear and inspect the revised queue row or the message in the conversation.
+
+Finish or cancel the current edit before opening another queued message. If composer attachments are still being prepared, let them finish before starting an edit.
+
+Kisuke keeps a snapshot of the draft and sendable attachments that were in the composer before Edit. **Cancel queued message edit** restores that previous draft and returns the original instruction to the queue. Submitting an accepted replacement clears the edited composer instead; it does not restore the displaced draft. Copy any draft you want to keep beyond a successful replacement before editing.
+
+The replacement uses the original message's remaining queue neighbors to keep its position. If those neighbors have already left the queue, inspect the resulting order rather than relying on the old row number.
+
+<Frame caption="The reset instruction is open for editing. Two other instructions remain in the queue; the × beside Editing queued message cancels this edit.">
+  <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '750 / 262', width: '100%' }}>
+    <img noZoom src="/images/screenshots/zen-queued-edit.jpg" width="1920" height="971" alt="Two pending rows above Editing queued message, its cancel control, and the reset instruction in the composer." style={{ position: 'absolute', width: '256%', maxWidth: 'none', left: '-18.666667%', top: '-267.175573%', margin: 0 }} />
+  </div>
+</Frame>
+
+<Accordion title="View the full Zen workspace">
+  <img src="/images/screenshots/zen-queued-edit.jpg" width="1920" height="971" alt="Full Zen workspace showing an interrupted Trail Notes response, two retained follow-ups and a reset instruction open for editing, with Review on the right." />
+</Accordion>
+
+### Cancelling an edit can make its message eligible to run
+
+Cancel abandons your changes to the queued instruction; it does not delete that instruction. If the previous turn finished successfully while you were editing, restoring the original message can let the queue continue immediately. After Stop or a failed turn, the restored message remains retained until work is deliberately resumed.
+
+If you no longer want an instruction to run, use **Delete queued message** while it is pending. Stop active work first when you need time to review retained instructions. Check for a started response before assuming a removal can still prevent execution.
+
+## Understand harness differences
+
+Harnesses do not all receive follow-ups in the same way:
+
+- **Codex and Pi** can accept steering within an active turn. A queue request waits for a turn boundary.
+- **Claude Code** can accept prioritized input in its active stream. Steer requests immediate redirection; Queue lets the current tool finish before the next model round. An accepted native input is no longer a pending row you can reorder or delete.
+- **Other harnesses and runtime states** can require an interruption followed by a new turn. A rejected native steer can remain queued for later delivery.
+
+Choose Queue or Steer based on when your instruction matters. Do not rely on a button label as a guarantee that a process will or will not restart, or that already completed work will be reversed.
+
+## If a follow-up does not run
+
+Check the conversation for an outstanding approval, question, or [plan review](/conversations/planning). These interactions can own the composer and hide the queue while the agent waits for your decision; they do not delete pending messages.
+
+Then check whether the instruction is still in the queue or has appeared in the conversation. Avoid repeatedly submitting the same instruction simply because it has not produced a response yet. If the app reports a rejected selection, address the [model or permission error](/help/starting-a-chat) before trying again.
+
+After Stop, use the row's **Steer** control on desktop when you want that retained instruction to run. Once it completes successfully, later retained instructions can continue in order. Review or remove unwanted rows first.
+
+If **Queued message changed** appears when opening an edit, inspect the conversation and queue: the message may already have been sent, removed, or opened for editing elsewhere. If **Could not open queued message** appears, check for its restored row before trying again. After a disconnect, confirm the current queue and edit notice before submitting a replacement; do not assume the old visible position or edit is still available.
